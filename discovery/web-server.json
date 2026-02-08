@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-02-08T20:16:17.268017",
+  "timestamp": "2026-02-08T20:25:36.452541",
   "system": {
     "hostname": "is-vmv3-medium",
     "kernel": "6.8.0-90-generic",
     "os": "Ubuntu 24.04.1 LTS",
     "arch": "x86_64",
-    "uptime": "20:16:17 up 32 days,  1:58,  5 users,  load average: 0.00, 0.01, 0.00",
-    "load_average": "0.00, 0.01, 0.00"
+    "uptime": "20:25:36 up 32 days,  2:08,  5 users,  load average: 0.06, 0.05, 0.00",
+    "load_average": "0.06, 0.05, 0.00"
   },
   "memory": {
     "total_bytes": 16722616320,
-    "used_bytes": 1264926720,
-    "free_bytes": 8745680896,
-    "available_bytes": 15457689600
+    "used_bytes": 1291091968,
+    "free_bytes": 8718385152,
+    "available_bytes": 15431524352
   },
   "disk": [
     {
       "source": "/dev/mapper/hk-root",
       "fstype": "ext4",
       "size_bytes": 167933390848,
-      "used_bytes": 15398760448,
-      "available_bytes": 145561927680,
+      "used_bytes": 15399063552,
+      "available_bytes": 145561624576,
       "percent_used": 10,
       "mount_point": "/"
     },
@@ -119,7 +119,7 @@
       "name": "niteride-backend",
       "pid": 1889185,
       "status": "online",
-      "memory": 86626304,
+      "memory": 86867968,
       "cpu": 0,
       "restarts": 1,
       "port": 3000
@@ -128,7 +128,7 @@
       "name": "guide-service",
       "pid": 1889186,
       "status": "online",
-      "memory": 83980288,
+      "memory": 84058112,
       "cpu": 0,
       "restarts": 1,
       "port": 3105
@@ -137,8 +137,8 @@
       "name": "identity-service",
       "pid": 1889199,
       "status": "online",
-      "memory": 99196928,
-      "cpu": 0,
+      "memory": 99573760,
+      "cpu": 5.4,
       "restarts": 3,
       "port": 3001
     },
@@ -146,8 +146,8 @@
       "name": "chat-service",
       "pid": 1889205,
       "status": "online",
-      "memory": 94908416,
-      "cpu": 0,
+      "memory": 95424512,
+      "cpu": 2.7,
       "restarts": 0,
       "port": 4000
     }
@@ -634,20 +634,20 @@
       }
     ],
     "proxy_destinations": [
+      "http://localhost:9050/",
       "http://82.22.53.68:1236/",
-      "http://127.0.0.1:3105",
-      "http://82.22.53.68:1236/socket.io/",
-      "http://194.247.182.249:3002",
-      "http://194.247.182.159:3000",
-      "http://127.0.0.1:3105/$1",
-      "http://127.0.0.1:4000/socket.io/",
       "http://127.0.0.1:4000",
+      "http://194.247.182.159:3000",
+      "http://localhost:3000/socket.io/",
+      "http://82.22.53.68:1236/socket.io/",
+      "http://127.0.0.1:3001",
       "https://194.247.182.249",
       "http://127.0.0.1:3000",
+      "http://127.0.0.1:3105/$1",
+      "http://194.247.182.249:3002",
+      "http://127.0.0.1:4000/socket.io/",
       "http://82.22.53.68:8536",
-      "http://localhost:3000/socket.io/",
-      "http://localhost:9050/",
-      "http://127.0.0.1:3001"
+      "http://127.0.0.1:3105"
     ],
     "config_preview": "# configuration file /etc/nginx/nginx.conf:\nuser www-data;\nworker_processes auto;\npid /run/nginx.pid;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n    worker_connections 768;\n}\n\nhttp {\n    client_body_buffer_size 10M;\n    # Global large upload settings\n    client_body_timeout 1800s;\n    # HTTP/2 settings for large uploads\n    http2_body_preread_size 256k;\n    http2_recv_buffer_size 4m;\n    http2_chunk_size 16k;\n    \n    client_header_timeout 1800s;\n    lingering_timeout 1800s;\n    lingering_time 1800s;\n    send_timeout 1800s;\n    client_max_body_size 10G;\n    sendfile on;\n    tcp_nopush on;\n    tcp_nodelay on;\n    keepalive_timeout 1800s;\n    types_hash_max_size 2048;\n\n    include /etc/nginx/mime.types;\n    default_type application/octet-stream;\n\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_prefer_server_ciphers on;\n\n    access_log /var/log/nginx/access.log;\n    error_log /var/log/nginx/error.log;\n\n    gzip on;\n\n    include /etc/nginx/conf.d/*.conf;\n    include /etc/nginx/sites-enabled/*;\n}\n\n# configuration file /etc/nginx/mime.types:\n\ntypes {\n    text/html                                        html htm shtml;\n    text/css                                         css;\n    text/xml                                         xml;\n    image/gif                                        gif;\n    image/jpeg                                       jpeg jpg;\n    application/javascript                           js;\n    application/atom+xml                             atom;\n    application/rss+xml                              rss;\n\n    text/mathml                                      mml;\n    text/plain                                       txt;\n    text/vnd.sun.j2me.app-descriptor                 jad;\n    text/vnd.wap.wml                                 wml;\n    text/x-component                                 htc;\n\n    image/avif                                       avif;\n    image/png                                        png;\n    image/svg+xml                                    svg svgz;\n    image/tiff                                       tif tiff;\n    image/vnd.wap.wbmp                               wbmp;\n    image/webp                                       webp;\n    image/x-icon                                     ico;\n    image/x-jng                                      jng;\n    image/x-ms-bmp                                   bmp;\n\n    font/woff                                        woff;\n    font/woff2                                       woff2;\n\n    application/java-archive                         jar war ear;\n    application/json                                 json;\n    application/mac-binhex40                         hqx;\n    application/msword                               doc;\n    application/pdf                                  pdf;\n    application/postscript                           ps eps ai;\n    application/rtf                                  rtf;\n    application/vnd.apple.mpegurl                    m3u8;\n    application/vnd.google"
   },
@@ -761,26 +761,20 @@
     },
     {
       "from": "nginx",
+      "to": "http://localhost:9050/",
+      "port": 9050,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
       "to": "http://82.22.53.68:1236/",
       "port": 1236,
       "type": "proxy"
     },
     {
       "from": "nginx",
-      "to": "http://127.0.0.1:3105",
-      "port": 3105,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "http://82.22.53.68:1236/socket.io/",
-      "port": 1236,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "http://194.247.182.249:3002",
-      "port": 3002,
+      "to": "http://127.0.0.1:4000",
+      "port": 4000,
       "type": "proxy"
     },
     {
@@ -791,20 +785,20 @@
     },
     {
       "from": "nginx",
-      "to": "http://127.0.0.1:3105/$1",
-      "port": 3105,
+      "to": "http://localhost:3000/socket.io/",
+      "port": 3000,
       "type": "proxy"
     },
     {
       "from": "nginx",
-      "to": "http://127.0.0.1:4000/socket.io/",
-      "port": 4000,
+      "to": "http://82.22.53.68:1236/socket.io/",
+      "port": 1236,
       "type": "proxy"
     },
     {
       "from": "nginx",
-      "to": "http://127.0.0.1:4000",
-      "port": 4000,
+      "to": "http://127.0.0.1:3001",
+      "port": 3001,
       "type": "proxy"
     },
     {
@@ -821,26 +815,32 @@
     },
     {
       "from": "nginx",
+      "to": "http://127.0.0.1:3105/$1",
+      "port": 3105,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://194.247.182.249:3002",
+      "port": 3002,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://127.0.0.1:4000/socket.io/",
+      "port": 4000,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
       "to": "http://82.22.53.68:8536",
       "port": 8536,
       "type": "proxy"
     },
     {
       "from": "nginx",
-      "to": "http://localhost:3000/socket.io/",
-      "port": 3000,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "http://localhost:9050/",
-      "port": 9050,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "http://127.0.0.1:3001",
-      "port": 3001,
+      "to": "http://127.0.0.1:3105",
+      "port": 3105,
       "type": "proxy"
     }
   ],
