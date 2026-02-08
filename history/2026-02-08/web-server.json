@@ -1,0 +1,1060 @@
+{
+  "timestamp": "2026-02-08T19:55:37.326827",
+  "system": {
+    "hostname": "is-vmv3-medium",
+    "kernel": "6.8.0-90-generic",
+    "os": "Ubuntu 24.04.1 LTS",
+    "arch": "x86_64",
+    "uptime": "19:55:37 up 32 days,  1:38,  3 users,  load average: 0.01, 0.02, 0.00",
+    "load_average": "0.01, 0.02, 0.00"
+  },
+  "memory": {
+    "total_bytes": 16722616320,
+    "used_bytes": 1233735680,
+    "free_bytes": 8817897472,
+    "available_bytes": 15488880640
+  },
+  "disk": [
+    {
+      "source": "/dev/mapper/hk-root",
+      "fstype": "ext4",
+      "size_bytes": 167933390848,
+      "used_bytes": 15359807488,
+      "available_bytes": 145600880640,
+      "percent_used": 10,
+      "mount_point": "/"
+    },
+    {
+      "source": "/dev/sda1",
+      "fstype": "ext4",
+      "size_bytes": 1036431360,
+      "used_bytes": 245501952,
+      "available_bytes": 720519168,
+      "percent_used": 26,
+      "mount_point": "/boot"
+    }
+  ],
+  "ports": [
+    {
+      "port": 53,
+      "address": "127.0.0.54",
+      "process": "systemd-resolve",
+      "pid": 1398224
+    },
+    {
+      "port": 5432,
+      "address": "0.0.0.0",
+      "process": "postgres",
+      "pid": 1398247
+    },
+    {
+      "port": 53,
+      "address": "127.0.0.53%lo",
+      "process": "systemd-resolve",
+      "pid": 1398224
+    },
+    {
+      "port": 80,
+      "address": "0.0.0.0",
+      "process": "nginx",
+      "pid": 1888866
+    },
+    {
+      "port": 443,
+      "address": "0.0.0.0",
+      "process": "nginx",
+      "pid": 1888866
+    },
+    {
+      "port": 3000,
+      "address": "0.0.0.0",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 3001,
+      "address": "0.0.0.0",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 5432,
+      "address": "[::]",
+      "process": "postgres",
+      "pid": 1398247
+    },
+    {
+      "port": 22,
+      "address": "*",
+      "process": "sshd",
+      "pid": 1398209
+    },
+    {
+      "port": 80,
+      "address": "[::]",
+      "process": "nginx",
+      "pid": 1888866
+    },
+    {
+      "port": 443,
+      "address": "[::]",
+      "process": "nginx",
+      "pid": 1888866
+    },
+    {
+      "port": 4000,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 3105,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    }
+  ],
+  "pm2": [
+    {
+      "pid": 1889185,
+      "name": "niteride-backend",
+      "pm2_env": {
+        "instances": 1,
+        "prev_restart_delay": 0,
+        "pm_id": 0,
+        "watch": false,
+        "LC_TERMINAL": "iTerm2",
+        "LC_TERMINAL_VERSION": "3.6.4",
+        "filter_env": [],
+        "merge_logs": true,
+        "script": "./server.js",
+        "namespace": "default",
+        "kill_retry_time": 100,
+        "windowsHide": true,
+        "username": "root",
+        "treekill": true,
+        "automation": true,
+        "pmx": true,
+        "instance_var": "NODE_APP_INSTANCE",
+        "autorestart": true,
+        "autostart": true,
+        "vizion": true,
+        "env": {
+          "NODE_ENV": "production",
+          "PORT": 3000
+        },
+        "cwd": "/opt/niteride/services/web/backend/services/public-api",
+        "name": "niteride-backend",
+        "node_args": [],
+        "pm_exec_path": "/opt/niteride/services/web/backend/services/public-api/server.js",
+        "pm_cwd": "/opt/niteride/services/web/backend/services/public-api",
+        "exec_interpreter": "node",
+        "exec_mode": "cluster_mode",
+        "pm_out_log_path": "/root/.pm2/logs/niteride-backend-out-23.log",
+        "pm_err_log_path": "/root/.pm2/logs/niteride-backend-error-23.log",
+        "pm_pid_path": "/root/.pm2/pids/niteride-backend-0.pid",
+        "km_link": false,
+        "vizion_running": false,
+        "NODE_APP_INSTANCE": 0,
+        "niteride-backend": "{}",
+        "PM2_HOME": "/root/.pm2",
+        "NODE_ENV": "production",
+        "PORT": 3000,
+        "PM2_JSON_PROCESSING": "true",
+        "PM2_USAGE": "CLI",
+        "OLDPWD": "/opt/niteride/services/web/backend",
+        "_": "/usr/bin/pm2",
+        "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/0/bus",
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "SSH_CLIENT": "50.46.45.28 53636 22",
+        "XDG_RUNTIME_DIR": "/run/user/0",
+        "XDG_SESSION_ID": "6455",
+        "SHLVL": "1",
+        "USER": "root",
+        "XDG_SESSION_CLASS": "user",
+        "SSH_CONNECTION": "50.46.45.28 53636 194.247.183.37 22",
+        "LANG": "C.UTF-8",
+        "HOME": "/root",
+        "XDG_SESSION_TYPE": "tty",
+        "LOGNAME": "root",
+        "PWD": "/root",
+        "SHELL": "/bin/bash",
+        "unique_id": "d10d1b75-f789-437d-9534-1291ddb106b7",
+        "status": "online",
+        "pm_uptime": 1770573457043,
+        "axm_actions": [
+          {
+            "action_name": "km:heapdump",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:stop",
+            "action_type": "internal",
+            "arity": 1
+          },
+          {
+            "action_name": "km:heap:sampling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:heap:sampling:stop",
+            "action_type": "internal",
+            "arity": 1
+          }
+        ],
+        "axm_monitor": {
+          "Used Heap Size": {
+            "value": "27.11",
+            "type": "internal/v8/heap/used",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Heap Usage": {
+            "value": 94.87,
+            "type": "internal/v8/heap/usage",
+            "unit": "%",
+            "historic": true
+          },
+          "Heap Size": {
+            "value": "28.57",
+            "type": "internal/v8/heap/total",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Event Loop Latency p95": {
+            "value": "1.71",
+            "type": "internal/libuv/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "Event Loop Latency": {
+            "value": "0.74",
+            "type": "internal/libuv/latency/p50",
+            "unit": "ms",
+            "historic": true
+          },
+          "Active handles": {
+            "value": 2,
+            "type": "internal/libuv/handles",
+            "historic": true
+          },
+          "Active requests": {
+            "value": 0,
+            "type": "internal/libuv/requests",
+            "historic": true
+          },
+          "HTTP": {
+            "value": 0,
+            "type": "internal/http/builtin/reqs",
+            "unit": "req/min",
+            "historic": true
+          },
+          "HTTP P95 Latency": {
+            "value": 18,
+            "type": "internal/http/builtin/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "HTTP Mean Latency": {
+            "value": 18,
+            "type": "internal/http/builtin/latency/p50",
+            "unit": "ms",
+            "historic": true
+          }
+        },
+        "axm_options": {
+          "error": true,
+          "heapdump": true,
+          "feature.profiler.heapsnapshot": false,
+          "feature.profiler.heapsampling": true,
+          "feature.profiler.cpu_js": true,
+          "latency": true,
+          "catchExceptions": true,
+          "profiling": true,
+          "metrics": {
+            "http": true,
+            "runtime": true,
+            "eventLoop": true,
+            "network": false,
+            "v8": true
+          },
+          "standalone": false,
+          "module_conf": {},
+          "apm": {
+            "version": "6.1.0",
+            "type": "node"
+          },
+          "module_name": "niteride-backend",
+          "module_version": "6.0.14"
+        },
+        "axm_dynamic": {},
+        "created_at": 1770573457043,
+        "restart_time": 1,
+        "unstable_restarts": 0,
+        "_pm2_version": "6.0.14",
+        "version": "1.0.0",
+        "node_version": "20.19.6",
+        "exit_code": 0
+      },
+      "pm_id": 0,
+      "monit": {
+        "memory": 85602304,
+        "cpu": 0.3
+      }
+    },
+    {
+      "pid": 1889186,
+      "name": "guide-service",
+      "pm2_env": {
+        "instances": 1,
+        "prev_restart_delay": 0,
+        "pm_id": 1,
+        "kill_retry_time": 100,
+        "windowsHide": true,
+        "username": "root",
+        "treekill": true,
+        "automation": true,
+        "pmx": true,
+        "instance_var": "NODE_APP_INSTANCE",
+        "watch": false,
+        "autorestart": true,
+        "autostart": true,
+        "vizion": true,
+        "env": {
+          "NODE_ENV": "production",
+          "PORT": 3105
+        },
+        "namespace": "default",
+        "filter_env": [],
+        "name": "guide-service",
+        "node_args": [],
+        "pm_exec_path": "/opt/niteride/services/web/backend/guide-service.js",
+        "pm_cwd": "/opt/niteride/services/web/backend",
+        "exec_interpreter": "node",
+        "exec_mode": "cluster_mode",
+        "pm_out_log_path": "/root/.pm2/logs/guide-service-out-6.log",
+        "pm_err_log_path": "/root/.pm2/logs/guide-service-error-6.log",
+        "pm_pid_path": "/root/.pm2/pids/guide-service-1.pid",
+        "km_link": false,
+        "vizion_running": false,
+        "NODE_APP_INSTANCE": 0,
+        "SHELL": "/bin/bash",
+        "PWD": "/root",
+        "LOGNAME": "root",
+        "XDG_SESSION_TYPE": "tty",
+        "HOME": "/root",
+        "LANG": "C.UTF-8",
+        "LC_TERMINAL": "iTerm2",
+        "SSH_CONNECTION": "50.46.45.28 53636 194.247.183.37 22",
+        "XDG_SESSION_CLASS": "user",
+        "USER": "root",
+        "LC_TERMINAL_VERSION": "3.6.4",
+        "SHLVL": "1",
+        "XDG_SESSION_ID": "6455",
+        "XDG_RUNTIME_DIR": "/run/user/0",
+        "SSH_CLIENT": "50.46.45.28 53636 22",
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/0/bus",
+        "OLDPWD": "/root",
+        "_": "/usr/bin/pm2",
+        "PM2_USAGE": "CLI",
+        "PM2_HOME": "/root/.pm2",
+        "unique_id": "270de2a7-2555-493d-81a2-18d97c6d6508",
+        "status": "online",
+        "pm_uptime": 1770573457047,
+        "axm_actions": [
+          {
+            "action_name": "km:heapdump",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:stop",
+            "action_type": "internal",
+            "arity": 1
+          },
+          {
+            "action_name": "km:heap:sampling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:heap:sampling:stop",
+            "action_type": "internal",
+            "arity": 1
+          }
+        ],
+        "axm_monitor": {
+          "Used Heap Size": {
+            "value": "20.20",
+            "type": "internal/v8/heap/used",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Heap Usage": {
+            "value": 81.86,
+            "type": "internal/v8/heap/usage",
+            "unit": "%",
+            "historic": true
+          },
+          "Heap Size": {
+            "value": "24.68",
+            "type": "internal/v8/heap/total",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Event Loop Latency p95": {
+            "value": "1.52",
+            "type": "internal/libuv/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "Event Loop Latency": {
+            "value": "0.67",
+            "type": "internal/libuv/latency/p50",
+            "unit": "ms",
+            "historic": true
+          },
+          "Active handles": {
+            "value": 1,
+            "type": "internal/libuv/handles",
+            "historic": true
+          },
+          "Active requests": {
+            "value": 0,
+            "type": "internal/libuv/requests",
+            "historic": true
+          },
+          "HTTP": {
+            "value": 0.01,
+            "type": "internal/http/builtin/reqs",
+            "unit": "req/min",
+            "historic": true
+          },
+          "HTTP P95 Latency": {
+            "value": 30.849999999999994,
+            "type": "internal/http/builtin/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "HTTP Mean Latency": {
+            "value": 27,
+            "type": "internal/http/builtin/latency/p50",
+            "unit": "ms",
+            "historic": true
+          }
+        },
+        "axm_options": {
+          "error": true,
+          "heapdump": true,
+          "feature.profiler.heapsnapshot": false,
+          "feature.profiler.heapsampling": true,
+          "feature.profiler.cpu_js": true,
+          "latency": true,
+          "catchExceptions": true,
+          "profiling": true,
+          "metrics": {
+            "http": true,
+            "runtime": true,
+            "eventLoop": true,
+            "network": false,
+            "v8": true
+          },
+          "standalone": false,
+          "module_conf": {},
+          "apm": {
+            "version": "6.1.0",
+            "type": "node"
+          },
+          "module_name": "guide-service",
+          "module_version": "6.0.14"
+        },
+        "axm_dynamic": {},
+        "created_at": 1770573457047,
+        "restart_time": 1,
+        "unstable_restarts": 0,
+        "_pm2_version": "6.0.14",
+        "version": "1.0.0",
+        "node_version": "20.19.6",
+        "cwd": "/opt/niteride/services/web/backend",
+        "script": "./guide-service.js",
+        "PORT": 3105,
+        "NODE_ENV": "production",
+        "merge_logs": true,
+        "exit_code": 0
+      },
+      "pm_id": 1,
+      "monit": {
+        "memory": 84017152,
+        "cpu": 0.3
+      }
+    },
+    {
+      "pid": 1889199,
+      "name": "identity-service",
+      "pm2_env": {
+        "instances": 1,
+        "prev_restart_delay": 0,
+        "pm_id": 2,
+        "watch": false,
+        "script": "./server.js",
+        "exit_code": 1,
+        "node_version": "20.19.6",
+        "version": "1.0.0",
+        "_pm2_version": "6.0.14",
+        "unstable_restarts": 0,
+        "restart_time": 3,
+        "created_at": 1770573457083,
+        "axm_dynamic": {},
+        "axm_options": {
+          "error": true,
+          "heapdump": true,
+          "feature.profiler.heapsnapshot": false,
+          "feature.profiler.heapsampling": true,
+          "feature.profiler.cpu_js": true,
+          "latency": true,
+          "catchExceptions": true,
+          "profiling": true,
+          "metrics": {
+            "http": true,
+            "runtime": true,
+            "eventLoop": true,
+            "network": false,
+            "v8": true
+          },
+          "standalone": false,
+          "module_conf": {},
+          "apm": {
+            "version": "6.1.0",
+            "type": "node"
+          },
+          "module_name": "identity-service",
+          "module_version": "6.0.14"
+        },
+        "axm_monitor": {
+          "Used Heap Size": {
+            "value": "31.62",
+            "type": "internal/v8/heap/used",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Heap Usage": {
+            "value": 92.71,
+            "type": "internal/v8/heap/usage",
+            "unit": "%",
+            "historic": true
+          },
+          "Heap Size": {
+            "value": "34.10",
+            "type": "internal/v8/heap/total",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Event Loop Latency p95": {
+            "value": "1.49",
+            "type": "internal/libuv/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "Event Loop Latency": {
+            "value": "0.61",
+            "type": "internal/libuv/latency/p50",
+            "unit": "ms",
+            "historic": true
+          },
+          "Active handles": {
+            "value": 5,
+            "type": "internal/libuv/handles",
+            "historic": true
+          },
+          "Active requests": {
+            "value": 0,
+            "type": "internal/libuv/requests",
+            "historic": true
+          },
+          "HTTP": {
+            "value": 0.06,
+            "type": "internal/http/builtin/reqs",
+            "unit": "req/min",
+            "historic": true
+          },
+          "HTTP P95 Latency": {
+            "value": 28,
+            "type": "internal/http/builtin/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "HTTP Mean Latency": {
+            "value": 4,
+            "type": "internal/http/builtin/latency/p50",
+            "unit": "ms",
+            "historic": true
+          }
+        },
+        "axm_actions": [
+          {
+            "action_name": "km:heapdump",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:stop",
+            "action_type": "internal",
+            "arity": 1
+          },
+          {
+            "action_name": "km:heap:sampling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:heap:sampling:stop",
+            "action_type": "internal",
+            "arity": 1
+          }
+        ],
+        "pm_uptime": 1770573457083,
+        "status": "online",
+        "unique_id": "a9708cd9-55bb-4519-b8ca-5dd9e2c04c06",
+        "SHELL": "/bin/bash",
+        "PWD": "/root",
+        "LOGNAME": "root",
+        "XDG_SESSION_TYPE": "tty",
+        "HOME": "/root",
+        "LANG": "C.UTF-8",
+        "LC_TERMINAL": "iTerm2",
+        "SSH_CONNECTION": "50.46.45.28 53636 194.247.183.37 22",
+        "XDG_SESSION_CLASS": "user",
+        "USER": "root",
+        "LC_TERMINAL_VERSION": "3.6.4",
+        "SHLVL": "1",
+        "XDG_SESSION_ID": "6455",
+        "XDG_RUNTIME_DIR": "/run/user/0",
+        "SSH_CLIENT": "50.46.45.28 53636 22",
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/0/bus",
+        "_": "/usr/bin/pm2",
+        "PM2_USAGE": "CLI",
+        "PM2_JSON_PROCESSING": "true",
+        "PORT": 3001,
+        "NODE_ENV": "production",
+        "PM2_HOME": "/root/.pm2",
+        "identity-service": "{}",
+        "NODE_APP_INSTANCE": 0,
+        "vizion_running": false,
+        "km_link": false,
+        "pm_pid_path": "/root/.pm2/pids/identity-service-2.pid",
+        "pm_err_log_path": "/root/.pm2/logs/identity-service-error-5.log",
+        "pm_out_log_path": "/root/.pm2/logs/identity-service-out-5.log",
+        "exec_mode": "cluster_mode",
+        "exec_interpreter": "node",
+        "pm_cwd": "/opt/niteride/services/web/backend/services/identity-service",
+        "pm_exec_path": "/opt/niteride/services/web/backend/services/identity-service/server.js",
+        "node_args": [],
+        "name": "identity-service",
+        "cwd": "/opt/niteride/services/web/backend/services/identity-service",
+        "env": {
+          "NODE_ENV": "production",
+          "PORT": 3001
+        },
+        "vizion": true,
+        "autostart": true,
+        "autorestart": true,
+        "instance_var": "NODE_APP_INSTANCE",
+        "pmx": true,
+        "automation": true,
+        "treekill": true,
+        "username": "root",
+        "windowsHide": true,
+        "kill_retry_time": 100,
+        "namespace": "default",
+        "merge_logs": true,
+        "filter_env": []
+      },
+      "pm_id": 2,
+      "monit": {
+        "memory": 94527488,
+        "cpu": 0.5
+      }
+    },
+    {
+      "pid": 1889205,
+      "name": "chat-service",
+      "pm2_env": {
+        "script": "./dist/index.js",
+        "prev_restart_delay": 0,
+        "exit_code": 1,
+        "watch": false,
+        "node_version": "20.19.6",
+        "version": "1.0.0",
+        "_pm2_version": "6.0.14",
+        "unstable_restarts": 0,
+        "restart_time": 0,
+        "pm_id": 32,
+        "created_at": 1770573457092,
+        "axm_dynamic": {},
+        "axm_options": {
+          "error": true,
+          "heapdump": true,
+          "feature.profiler.heapsnapshot": false,
+          "feature.profiler.heapsampling": true,
+          "feature.profiler.cpu_js": true,
+          "latency": true,
+          "catchExceptions": true,
+          "profiling": true,
+          "metrics": {
+            "http": true,
+            "runtime": true,
+            "eventLoop": true,
+            "network": false,
+            "v8": true
+          },
+          "standalone": false,
+          "module_conf": {},
+          "apm": {
+            "version": "6.1.0",
+            "type": "node"
+          },
+          "module_name": "chat-service",
+          "module_version": "6.0.14"
+        },
+        "axm_monitor": {
+          "Used Heap Size": {
+            "value": "23.34",
+            "type": "internal/v8/heap/used",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Heap Usage": {
+            "value": 90.73,
+            "type": "internal/v8/heap/usage",
+            "unit": "%",
+            "historic": true
+          },
+          "Heap Size": {
+            "value": "25.72",
+            "type": "internal/v8/heap/total",
+            "unit": "MiB",
+            "historic": true
+          },
+          "Event Loop Latency p95": {
+            "value": "1.57",
+            "type": "internal/libuv/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "Event Loop Latency": {
+            "value": "0.74",
+            "type": "internal/libuv/latency/p50",
+            "unit": "ms",
+            "historic": true
+          },
+          "Active handles": {
+            "value": 2,
+            "type": "internal/libuv/handles",
+            "historic": true
+          },
+          "Active requests": {
+            "value": 0,
+            "type": "internal/libuv/requests",
+            "historic": true
+          },
+          "HTTP": {
+            "value": 0,
+            "type": "internal/http/builtin/reqs",
+            "unit": "req/min",
+            "historic": true
+          },
+          "HTTP P95 Latency": {
+            "value": 103,
+            "type": "internal/http/builtin/latency/p95",
+            "unit": "ms",
+            "historic": true
+          },
+          "HTTP Mean Latency": {
+            "value": 35,
+            "type": "internal/http/builtin/latency/p50",
+            "unit": "ms",
+            "historic": true
+          }
+        },
+        "axm_actions": [
+          {
+            "action_name": "km:heapdump",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:cpu:profiling:stop",
+            "action_type": "internal",
+            "arity": 1
+          },
+          {
+            "action_name": "km:heap:sampling:start",
+            "action_type": "internal",
+            "arity": 2
+          },
+          {
+            "action_name": "km:heap:sampling:stop",
+            "action_type": "internal",
+            "arity": 1
+          }
+        ],
+        "pm_uptime": 1770573457092,
+        "status": "online",
+        "unique_id": "c2271af1-37c7-4329-8744-f72bf162ac01",
+        "SHELL": "/bin/bash",
+        "PWD": "/opt/niteride/services/web/backend/services/chat-service",
+        "LOGNAME": "root",
+        "XDG_SESSION_TYPE": "tty",
+        "HOME": "/root",
+        "LANG": "C.UTF-8",
+        "SSH_CONNECTION": "172.184.220.153 9217 194.247.183.37 22",
+        "XDG_SESSION_CLASS": "user",
+        "USER": "root",
+        "SHLVL": "1",
+        "XDG_SESSION_ID": "6771",
+        "XDG_RUNTIME_DIR": "/run/user/0",
+        "SSH_CLIENT": "172.184.220.153 9217 22",
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/0/bus",
+        "_": "/usr/bin/pm2",
+        "OLDPWD": "/opt/niteride/services/web/backend/services/identity-service",
+        "PM2_USAGE": "CLI",
+        "PM2_JSON_PROCESSING": "true",
+        "PORT": 4000,
+        "NODE_ENV": "production",
+        "PM2_HOME": "/root/.pm2",
+        "chat-service": "{}",
+        "NODE_APP_INSTANCE": 0,
+        "vizion_running": false,
+        "km_link": false,
+        "pm_pid_path": "/root/.pm2/pids/chat-service-32.pid",
+        "pm_err_log_path": "/root/.pm2/logs/chat-service-error-32.log",
+        "pm_out_log_path": "/root/.pm2/logs/chat-service-out-32.log",
+        "exec_mode": "cluster_mode",
+        "exec_interpreter": "node",
+        "pm_cwd": "/opt/niteride/services/web/backend/services/chat-service",
+        "source_map_support": true,
+        "pm_exec_path": "/opt/niteride/services/web/backend/services/chat-service/dist/index.js",
+        "node_args": [],
+        "name": "chat-service",
+        "cwd": "/opt/niteride/services/web/backend/services/chat-service",
+        "env": {
+          "NODE_ENV": "production",
+          "PORT": 4000
+        },
+        "instances": 1,
+        "vizion": true,
+        "autostart": true,
+        "autorestart": true,
+        "instance_var": "NODE_APP_INSTANCE",
+        "pmx": true,
+        "automation": true,
+        "treekill": true,
+        "username": "root",
+        "windowsHide": true,
+        "kill_retry_time": 100,
+        "namespace": "default"
+      },
+      "pm_id": 32,
+      "monit": {
+        "memory": 90992640,
+        "cpu": 0.5
+      }
+    }
+  ],
+  "docker_containers": [],
+  "docker_compose": [],
+  "systemd": [
+    {
+      "unit": "chrony.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "containerd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "dbus.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "docker.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "getty@tty1.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "multipathd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "networkd-dispatcher.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "nginx.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "pm2-root.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "polkit.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "postgresql@16-main.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "ssh.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-journald.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-logind.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-networkd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-resolved.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-udevd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "unattended-upgrades.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "user@0.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    }
+  ],
+  "nginx": {
+    "installed": true,
+    "version": "1.24.0 (Ubuntu)",
+    "config_preview": "# configuration file /etc/nginx/nginx.conf:\nuser www-data;\nworker_processes auto;\npid /run/nginx.pid;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n    worker_connections 768;\n}\n\nhttp {\n    client_body_buffer_size 10M;\n    # Global large upload settings\n    client_body_timeout 1800s;\n    # HTTP/2 settings for large uploads\n    http2_body_preread_size 256k;\n    http2_recv_buffer_size 4m;\n    http2_chunk_size 16k;\n    \n    client_header_timeout 1800s;\n    lingering_timeout 1800s;\n    lingering_time 1800s;\n    send_timeout 1800s;\n    client_max_body_size 10G;\n    sendfile on;\n    tcp_nopush on;\n    tcp_nodelay on;\n    keepalive_timeout 1800s;\n    types_hash_max_size 2048;\n\n    include /etc/nginx/mime.types;\n    default_type application/octet-stream;\n\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_prefer_server_ciphers on;\n\n    access_log /var/log/nginx/access.log;\n    error_log /var/log/nginx/error.log;\n\n    gzip on;\n\n    include /etc/nginx/conf.d/*.conf;\n    include /etc/nginx/sites-enabled/*;\n}\n\n# configuration file /etc/nginx/mime.types:\n\ntypes {\n    text/html                                        html htm shtml;\n    text/css                                         css;\n    text/xml                                         xml;\n    image/gif                                        gif;\n    image/jpeg                                       jpeg jpg;\n    application/javascript                           js;\n    application/atom+xml                             atom;\n    application/rss+xml                              rss;\n\n    text/mathml                                      mml;\n    text/plain                                       txt;\n    text/vnd.sun.j2me.app-descriptor                 jad;\n    text/vnd.wap.wml                                 wml;\n    text/x-component                                 htc;\n\n    image/avif                                       avif;\n    image/png                                        png;\n    image/svg+xml                                    svg svgz;\n    image/tiff                                       tif tiff;\n    image/vnd.wap.wbmp                               wbmp;\n    image/webp                                       webp;\n    image/x-icon                                     ico;\n    image/x-jng                                      jng;\n    image/x-ms-bmp                                   bmp;\n\n    font/woff                                        woff;\n    font/woff2                                       woff2;\n\n    application/java-archive                         jar war ear;\n    application/json                                 json;\n    application/mac-binhex40                         hqx;\n    application/msword                               doc;\n    application/pdf                                  pdf;\n    application/postscript                           ps eps ai;\n    application/rtf                                  rtf;\n    application/vnd.apple.mpegurl                    m3u8;\n    application/vnd.google-earth.kml+xml             kml;\n    application/vnd.google-earth.kmz                 kmz;\n    application/vnd.ms-excel                         xls;\n    application/vnd.ms-fontobject                    eot;\n    application/vnd.ms-powerpoint                    ppt;\n    application/vnd.oasis.opendocument.graphics      odg;\n    application/vnd.oasis.opendocument.presentation  odp;\n    application/vnd.oasis.opendocument.spreadsheet   ods;\n    application/vnd.oasis.opendocument.text          odt;\n    application/vnd.openxmlformats-officedocument.presentationml.presentation\n                                                     pptx;\n    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\n                                                     xlsx;\n    application/vnd.openxmlformats-officedocument.wordprocessingml.document\n                                                     docx;\n    application/vnd.wap.wmlc                         wmlc;\n    application/wasm                                 wasm;\n    application/x-7z-compressed                      7z;\n    application/x-cocoa                              cco;\n    application/x-java-archive-diff                  jardiff;\n    application/x-java-jnlp-file                     jnlp;\n    application/x-makeself                           run;\n    application/x-perl                               pl pm;\n    application/x-pilot                              prc pdb;\n    application/x-rar-compressed                     rar;\n    application/x-redhat-package-manager             rpm;\n    application/x-sea                                sea;\n    application/x-shockwave-flash                    swf;\n    application/x-stuffit                            sit;\n    application/x-tcl                                tcl tk;\n    application/x-x509-ca-cert                       der pem crt;\n    application/x-xpinstall                          xpi;\n    application/xhtml+xml                            xhtml;\n    application/xspf+xml          "
+  },
+  "cron": {
+    "user_crontab": "",
+    "system_cron_files": [
+      "certbot",
+      "e2scrub_all",
+      "sysstat"
+    ]
+  },
+  "env": {
+    "env_file": "/opt/niteride/.env",
+    "variables": {
+      "DATABASE_URL": "postgresql://postgres:xK8nP2vQm7R4wL9sT6yF3jH5bN1cV0zA@localhost:5432/niteride_db",
+      "DB_HOST": "localhost",
+      "DB_PORT": "5432",
+      "DB_NAME": "niteride_db",
+      "DB_USER": "postgres",
+      "DATABASE_POOL_MIN": "2",
+      "DATABASE_POOL_MAX": "10",
+      "DATABASE_IDLE_TIMEOUT": "10000",
+      "DATABASE_CONNECTION_TIMEOUT": "5000",
+      "PORT": "3000",
+      "NODE_ENV": "production",
+      "LIBRARY_PATH": "/opt/niteride/library",
+      "JWT_EXPIRES_IN": "7d",
+      "SCHEDULE_CRON": "55 23 * * *",
+      "FFMPEG_VOD_URL": "http://localhost:9020",
+      "ENABLE_COMMERCIAL_BREAKS": "true",
+      "ENABLE_RUNTIME_COMMERCIAL_SELECTION": "true",
+      "ENABLE_FREQUENCY_CONTROLS": "true",
+      "LOG_LEVEL": "info",
+      "LOG_FILE": "/opt/niteride/logs/backend.log",
+      "FRONTEND_URL": "http://194.247.182.249",
+      "CORS_ORIGIN": "http://194.247.182.249,http://localhost:5173,https://niteride.fm,https://www.niteride.fm,https://admin.niteride.fm,https://stream.niteride.fm,https://api.niteride.fm,https://profile.niteride.fm",
+      "SUPABASE_URL": "https://wykeftshdxlkamgvytbc.supabase.co",
+      "STRIPE_PRICE_ID": "prod_TCbPRjHrVx5uNB",
+      "UPLOAD_DIR": "/opt/niteride/uploads",
+      "MAX_FILE_SIZE": "5368709120",
+      "OBS_API_URL": "http://localhost:4455",
+      "RATE_LIMIT_WINDOW_MS": "900000",
+      "RATE_LIMIT_MAX_REQUESTS": "100",
+      "STREAM_SERVER_URL": "http://194.247.182.249:3100",
+      "REDIS_URL": "redis://194.247.182.249:6379",
+      "GUIDE_DATABASE_URL": "postgresql://postgres:xK8nP2vQm7R4wL9sT6yF3jH5bN1cV0zA@194.247.182.249:5432/niteridefm_dev",
+      "GRID_DATABASE_URL": "postgresql://lemmy:hJFjld8TCfQvOSPHze1eD4vEnG370MXsfQmU94x6hA0@82.22.53.68:5433/lemmy",
+      "ENABLE_GRID_ADMIN_SYNC": "true",
+      "DISABLE_STREAMING_CORE": "true"
+    }
+  }
+}

@@ -1,74 +1,76 @@
 #!/bin/bash
 # discover.sh
 # Main orchestrator - SSHes into each server and runs discovery
-# Can run locally (with key paths) or in GitHub Actions (with secrets)
+# Compatible with bash 3.x (macOS) and 4.x (Linux)
 
 set -e
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$(dirname "$SCRIPT_DIR")"
 DATE=$(date +%Y-%m-%d)
 
-# Server configuration
-declare -A SERVERS
-SERVERS[web]="194.247.183.37"
-SERVERS[stream]="194.247.182.249"
-SERVERS[grid]="82.22.53.68"
-SERVERS[monitoring]="194.247.182.159"
+# Get server IP by name
+get_server_ip() {
+    case "$1" in
+        web) echo "194.247.183.37" ;;
+        stream) echo "194.247.182.249" ;;
+        grid) echo "82.22.53.68" ;;
+        monitoring) echo "194.247.182.159" ;;
+        *) echo "" ;;
+    esac
+}
 
-# SSH key paths (for local runs)
-# In GitHub Actions, these are set via environment variables
-declare -A SSH_KEYS_LOCAL
-SSH_KEYS_LOCAL[web]="$HOME/repos/niteridefm/myKeys/niteride_web_node"
-SSH_KEYS_LOCAL[stream]="$HOME/repos/niteridefm/myKeys/hostkey_iceland"
-SSH_KEYS_LOCAL[grid]="$HOME/repos/niteridefm/myKeys/niteride_grid_node"
-SSH_KEYS_LOCAL[monitoring]="$HOME/Documents/myKeys/hostkey_iceland_loki"
-
-# Create directories
-mkdir -p "$REPO_DIR/discovery"
-mkdir -p "$REPO_DIR/history/$DATE"
-
-# Function to get SSH key path
+# Get SSH key path by server name
 get_ssh_key() {
     local server=$1
 
     # Check for GitHub Actions environment variables first
-    case $server in
+    case "$server" in
         web)
             if [ -n "$WEB_SERVER_SSH_KEY_PATH" ]; then
                 echo "$WEB_SERVER_SSH_KEY_PATH"
                 return
             fi
+            echo "$HOME/repos/niteridefm/myKeys/niteride_web_node"
             ;;
         stream)
             if [ -n "$STREAM_SERVER_SSH_KEY_PATH" ]; then
                 echo "$STREAM_SERVER_SSH_KEY_PATH"
                 return
             fi
+            echo "$HOME/repos/niteridefm/myKeys/hostkey_iceland"
             ;;
         grid)
             if [ -n "$GRID_SERVER_SSH_KEY_PATH" ]; then
                 echo "$GRID_SERVER_SSH_KEY_PATH"
                 return
             fi
+            echo "$HOME/repos/niteridefm/myKeys/niteride_grid_node"
             ;;
         monitoring)
             if [ -n "$MONITORING_SERVER_SSH_KEY_PATH" ]; then
                 echo "$MONITORING_SERVER_SSH_KEY_PATH"
                 return
             fi
+            echo "$HOME/Documents/myKeys/hostkey_iceland_loki"
             ;;
     esac
-
-    # Fall back to local key paths
-    echo "${SSH_KEYS_LOCAL[$server]}"
 }
+
+# Create directories
+mkdir -p "$REPO_DIR/discovery"
+mkdir -p "$REPO_DIR/history/$DATE"
 
 # Function to discover a single server
 discover_server() {
     local server=$1
-    local host=${SERVERS[$server]}
+    local host=$(get_server_ip "$server")
     local key_path=$(get_ssh_key "$server")
+
+    if [ -z "$host" ]; then
+        echo "Unknown server: $server"
+        return 1
+    fi
 
     echo "Discovering $server ($host)..."
 
@@ -110,18 +112,12 @@ main() {
     echo ""
 
     if [ "$target" = "all" ]; then
-        for server in "${!SERVERS[@]}"; do
+        for server in web stream grid monitoring; do
             discover_server "$server" || echo "  Failed to discover $server"
             echo ""
         done
     else
-        if [ -n "${SERVERS[$target]}" ]; then
-            discover_server "$target"
-        else
-            echo "Unknown server: $target"
-            echo "Available servers: ${!SERVERS[*]}"
-            exit 1
-        fi
+        discover_server "$target"
     fi
 
     echo "=== Discovery Complete ==="
