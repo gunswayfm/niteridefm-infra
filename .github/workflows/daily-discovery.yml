@@ -1,0 +1,87 @@
+name: Daily Infrastructure Discovery
+
+on:
+  schedule:
+    # Run at 6 AM UTC daily
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    # Allow manual trigger
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install diagrams
+          sudo apt-get update
+          sudo apt-get install -y graphviz
+
+      - name: Setup SSH keys
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          # Web Server key
+          echo "${{ secrets.WEB_SERVER_SSH_KEY }}" > ~/.ssh/web_key
+          chmod 600 ~/.ssh/web_key
+
+          # Stream Server key
+          echo "${{ secrets.STREAM_SERVER_SSH_KEY }}" > ~/.ssh/stream_key
+          chmod 600 ~/.ssh/stream_key
+
+          # Grid Server key
+          echo "${{ secrets.GRID_SERVER_SSH_KEY }}" > ~/.ssh/grid_key
+          chmod 600 ~/.ssh/grid_key
+
+          # Monitoring Server key
+          echo "${{ secrets.MONITORING_SERVER_SSH_KEY }}" > ~/.ssh/monitoring_key
+          chmod 600 ~/.ssh/monitoring_key
+
+          # Add known hosts to avoid prompts
+          ssh-keyscan -H 194.247.183.37 >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H 194.247.182.249 >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H 82.22.53.68 >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H 194.247.182.159 >> ~/.ssh/known_hosts 2>/dev/null || true
+
+      - name: Run discovery
+        env:
+          WEB_SERVER_SSH_KEY_PATH: ~/.ssh/web_key
+          STREAM_SERVER_SSH_KEY_PATH: ~/.ssh/stream_key
+          GRID_SERVER_SSH_KEY_PATH: ~/.ssh/grid_key
+          MONITORING_SERVER_SSH_KEY_PATH: ~/.ssh/monitoring_key
+        run: |
+          chmod +x scripts/discover.sh
+          chmod +x scripts/discover-server.sh
+          ./scripts/discover.sh
+
+      - name: Generate diagrams
+        run: python scripts/generate-diagram.py
+        continue-on-error: true
+
+      - name: Generate documentation
+        run: python scripts/generate-docs.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "Infrastructure Bot"
+          git config user.email "infra@niteride.fm"
+
+          git add -A
+
+          if git diff --staged --quiet; then
+            echo "No changes detected"
+          else
+            DATE=$(date +%Y-%m-%d)
+            git commit -m "chore: daily infrastructure discovery $DATE"
+            git push
+          fi

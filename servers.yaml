@@ -1,0 +1,40 @@
+servers:
+  web:
+    name: "Web Server"
+    host: "194.247.183.37"
+    user: "root"
+    ssh_key_secret: "WEB_SERVER_SSH_KEY"
+    purpose: "Orchestration, Auth, V9 Microservices (Identity, Public, Guide), Nginx proxy"
+    repo: "https://github.com/gunswayfm/niteridefm-fe"
+    env_file: "/opt/niteride/.env"
+
+  stream:
+    name: "Stream Server"
+    host: "194.247.182.249"
+    user: "root"
+    ssh_key_secret: "STREAM_SERVER_SSH_KEY"
+    purpose: "HLS streaming, Redis state, Admin backend (Library, Scheduling, Commercials)"
+    repo: "https://github.com/gunswayfm/niteridefm-be"
+    env_file: "/opt/niteride/.env"
+
+  grid:
+    name: "Grid Server"
+    host: "82.22.53.68"
+    user: "root"
+    ssh_key_secret: "GRID_SERVER_SSH_KEY"
+    purpose: "Lemmy fork with Supabase auth, PostgreSQL 16, Pictrs"
+    repo: "https://github.com/gunswayfm/niteridefm_grid"
+    directories:
+      - "/opt/niteridefm-grid/"
+      - "/opt/niteridefm-grid/docker/"
+      - "/opt/niteridefm-grid/crates/"
+
+  monitoring:
+    name: "Monitoring Server"
+    host: "194.247.182.159"
+    user: "root"
+    ssh_key_secret: "MONITORING_SERVER_SSH_KEY"
+    purpose: "Grafana dashboards, Loki log aggregation"
+    services:
+      grafana: "http://localhost:3000"
+      loki: "http://localhost:3100"
