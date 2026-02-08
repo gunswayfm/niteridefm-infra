@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-08 19:12 UTC*
+*Auto-generated on 2026-02-08 19:16 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -18,9 +18,9 @@
 | Hostname | `is-vmv3-medium` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.00, 0.00, 0.00 |
+| Load Average | 0.00, 0.01, 0.00 |
 
-**Memory:** 1.2 GB / 15.6 GB (7.5% used)
+**Memory:** 1.2 GB / 15.6 GB (7.6% used)
 
 ### Disk Usage
 
@@ -32,10 +32,10 @@
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| niteride-backend | 3000 | online | 82 MB | 0% | 1 |
+| niteride-backend | 3000 | online | 83 MB | 0% | 1 |
 | guide-service | 3105 | online | 80 MB | 0% | 1 |
-| identity-service | 3001 | online | 94 MB | 0% | 3 |
-| chat-service | 4000 | online | 90 MB | 2.9% | 0 |
+| identity-service | 3001 | online | 95 MB | 0% | 3 |
+| chat-service | 4000 | online | 91 MB | 0% | 0 |
 
 ### Listening Ports
 
@@ -69,16 +69,16 @@
 **Version:** 1.24.0 (Ubuntu)
 
 **Proxy Routes:**
+- `http://82.22.53.68:1236/`
+- `http://127.0.0.1:3105`
+- `http://82.22.53.68:1236/socket.io/`
+- `http://194.247.182.249:3002`
+- `http://194.247.182.159:3000`
+- `http://127.0.0.1:3105/$1`
+- `http://127.0.0.1:4000/socket.io/`
+- `http://127.0.0.1:4000`
 - `https://194.247.182.249`
 - `http://127.0.0.1:3000`
-- `http://82.22.53.68:1236/`
-- `http://82.22.53.68:1236/socket.io/`
-- `http://localhost:9050/`
-- `http://194.247.182.249:3002`
-- `http://127.0.0.1:4000`
-- `http://127.0.0.1:3105/$1`
-- `http://127.0.0.1:3001`
-- `http://localhost:3000/socket.io/`
 - *...and 4 more*
 
 ### Service Connections
@@ -93,20 +93,20 @@
 | guide-service | postgres | 5432 | data |
 | identity-service | postgres | 5432 | data |
 | chat-service | postgres | 5432 | data |
+| nginx | http://82.22.53.68:1236/ | 1236 | proxy |
+| nginx | http://127.0.0.1:3105 | 3105 | proxy |
+| nginx | http://82.22.53.68:1236/socket.io/ | 1236 | proxy |
+| nginx | http://194.247.182.249:3002 | 3002 | proxy |
+| nginx | http://194.247.182.159:3000 | 3000 | proxy |
+| nginx | http://127.0.0.1:3105/$1 | 3105 | proxy |
+| nginx | http://127.0.0.1:4000/socket.io/ | 4000 | proxy |
+| nginx | http://127.0.0.1:4000 | 4000 | proxy |
 | nginx | https://194.247.182.249 | 80 | proxy |
 | nginx | http://127.0.0.1:3000 | 3000 | proxy |
-| nginx | http://82.22.53.68:1236/ | 1236 | proxy |
-| nginx | http://82.22.53.68:1236/socket.io/ | 1236 | proxy |
-| nginx | http://localhost:9050/ | 9050 | proxy |
-| nginx | http://194.247.182.249:3002 | 3002 | proxy |
-| nginx | http://127.0.0.1:4000 | 4000 | proxy |
-| nginx | http://127.0.0.1:3105/$1 | 3105 | proxy |
-| nginx | http://127.0.0.1:3001 | 3001 | proxy |
-| nginx | http://localhost:3000/socket.io/ | 3000 | proxy |
-| nginx | http://194.247.182.159:3000 | 3000 | proxy |
-| nginx | http://127.0.0.1:3105 | 3105 | proxy |
 | nginx | http://82.22.53.68:8536 | 8536 | proxy |
-| nginx | http://127.0.0.1:4000/socket.io/ | 4000 | proxy |
+| nginx | http://localhost:3000/socket.io/ | 3000 | proxy |
+| nginx | http://localhost:9050/ | 9050 | proxy |
+| nginx | http://127.0.0.1:3001 | 3001 | proxy |
 
 ### External Services
 
@@ -136,9 +136,9 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.03, 0.08, 0.03 |
+| Load Average | 0.24, 0.11, 0.03 |
 
-**Memory:** 1.1 GB / 3.8 GB (27.6% used)
+**Memory:** 1.1 GB / 3.8 GB (27.7% used)
 
 ### Disk Usage
 
@@ -209,7 +209,7 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.00, 0.02, 0.00 |
+| Load Average | 0.05, 0.01, 0.00 |
 
 **Memory:** 3.0 GB / 5.8 GB (51.5% used)
 
@@ -223,7 +223,7 @@
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| stream-probe | 9100 | online | 62 MB | 3.3% | 39 |
+| stream-probe | 9100 | online | 62 MB | 2.9% | 39 |
 
 ### Listening Ports
 

@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-02-08T20:12:49.164969",
+  "timestamp": "2026-02-08T20:16:24.141702",
   "system": {
     "hostname": "is-vmmini",
     "kernel": "6.8.0-39-generic",
     "os": "Ubuntu 24.04.1 LTS",
     "arch": "x86_64",
-    "uptime": "20:12:49 up 87 days, 11:33,  2 users,  load average: 0.00, 0.02, 0.00",
-    "load_average": "0.00, 0.02, 0.00"
+    "uptime": "20:16:24 up 87 days, 11:37,  2 users,  load average: 0.05, 0.01, 0.00",
+    "load_average": "0.05, 0.01, 0.00"
   },
   "memory": {
     "total_bytes": 6189207552,
-    "used_bytes": 3187417088,
-    "free_bytes": 201584640,
-    "available_bytes": 3001790464
+    "used_bytes": 3185475584,
+    "free_bytes": 202375168,
+    "available_bytes": 3003731968
   },
   "disk": [
     {
       "source": "/dev/mapper/hk-root",
       "fstype": "ext4",
       "size_bytes": 125652185088,
-      "used_bytes": 14501621760,
-      "available_bytes": 105895804928,
+      "used_bytes": 14501720064,
+      "available_bytes": 105895706624,
       "percent_used": 13,
       "mount_point": "/"
     },
@@ -102,8 +102,8 @@
       "name": "stream-probe",
       "pid": 479454,
       "status": "online",
-      "memory": 64540672,
-      "cpu": 3.3,
+      "memory": 64860160,
+      "cpu": 2.9,
       "restarts": 39,
       "port": 9100
     }
