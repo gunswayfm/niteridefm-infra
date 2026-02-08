@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-08 19:02 UTC*
+*Auto-generated on 2026-02-08 19:10 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -30,30 +30,30 @@
 
 ### PM2 Services
 
-| Name | Status | Memory | CPU | Restarts |
-|------|--------|--------|-----|----------|
-| niteride-backend | online | 82 MB | 0.3% | 1 |
-| guide-service | online | 80 MB | 0.3% | 1 |
-| identity-service | online | 90 MB | 0.5% | 3 |
-| chat-service | online | 87 MB | 0.5% | 0 |
+| Name | Port | Status | Memory | CPU | Restarts |
+|------|------|--------|--------|-----|----------|
+| niteride-backend | - | unknown | 0 MB | 0% | 0 |
+| guide-service | - | unknown | 0 MB | 0% | 0 |
+| identity-service | - | unknown | 0 MB | 0% | 0 |
+| chat-service | - | unknown | 0 MB | 0% | 0 |
 
 ### Listening Ports
 
-| Port | Process | Address |
-|------|---------|----------|
-| 22 | sshd | all interfaces |
-| 53 | systemd-resolve | 127.0.0.54 |
-| 53 | systemd-resolve | 127.0.0.53%lo |
-| 80 | nginx | all interfaces |
-| 80 | nginx | [::] |
-| 443 | nginx | all interfaces |
-| 443 | nginx | [::] |
-| 3000 | unknown | all interfaces |
-| 3001 | unknown | all interfaces |
-| 3105 | unknown | all interfaces |
-| 4000 | unknown | all interfaces |
-| 5432 | postgres | all interfaces |
-| 5432 | postgres | [::] |
+| Port | Process | PM2 App | Address |
+|------|---------|---------|----------|
+| 22 | sshd | - | all interfaces |
+| 53 | systemd-resolve | - | 127.0.0.54 |
+| 53 | systemd-resolve | - | 127.0.0.53%lo |
+| 80 | nginx | - | all interfaces |
+| 80 | nginx | - | [::] |
+| 443 | nginx | - | all interfaces |
+| 443 | nginx | - | [::] |
+| 3000 | unknown | - | all interfaces |
+| 3001 | unknown | - | all interfaces |
+| 3105 | unknown | - | all interfaces |
+| 4000 | unknown | - | all interfaces |
+| 5432 | postgres | - | all interfaces |
+| 5432 | postgres | - | [::] |
 
 ### Key Systemd Services
 
@@ -94,55 +94,55 @@
 
 ### PM2 Services
 
-| Name | Status | Memory | CPU | Restarts |
-|------|--------|--------|-----|----------|
-| playlist-generator-ch1 | online | 78 MB | 1.3% | 4 |
-| stream-guard | online | 79 MB | 0% | 3 |
-| cdn-prewarmer | online | 86 MB | 1.3% | 3 |
-| content-segmenter | online | 81 MB | 0% | 3 |
-| streaming-core | online | 105 MB | 1.3% | 8 |
-| admin-service | online | 112 MB | 0% | 7 |
-| storage-service | online | 115 MB | 0% | 6 |
-| stream-monitor | online | 77 MB | 0% | 4 |
-| rtmp-receiver | online | 80 MB | 1.3% | 2 |
-| live-controller | online | 68 MB | 0% | 2 |
+| Name | Port | Status | Memory | CPU | Restarts |
+|------|------|--------|--------|-----|----------|
+| playlist-generator-ch1 | - | unknown | 0 MB | 0% | 0 |
+| stream-guard | - | unknown | 0 MB | 0% | 0 |
+| cdn-prewarmer | - | unknown | 0 MB | 0% | 0 |
+| content-segmenter | - | unknown | 0 MB | 0% | 0 |
+| streaming-core | - | unknown | 0 MB | 0% | 0 |
+| admin-service | - | unknown | 0 MB | 0% | 0 |
+| storage-service | - | unknown | 0 MB | 0% | 0 |
+| stream-monitor | - | unknown | 0 MB | 0% | 0 |
+| rtmp-receiver | - | unknown | 0 MB | 0% | 0 |
+| live-controller | - | unknown | 0 MB | 0% | 0 |
 
 ### Docker Containers
 
-| Name | Image | Status |
-|------|-------|--------|
-| niteride-redis | `redis:alpine` | Up 38 hours |
-| niteridefm-postgres | `postgres:15-alpine` | Up 8 days (healthy) |
-| niteridefm-pgadmin | `dpage/pgadmin4:latest` | Up 4 weeks |
+| Name | Image | Ports | Status |
+|------|-------|-------|--------|
+| niteride-redis | `redis:alpine` | - | Up 38 hours |
+| niteridefm-postgres | `postgres:15-alpine` | - | Up 8 days (healthy) |
+| niteridefm-pgadmin | `dpage/pgadmin4:latest` | - | Up 4 weeks |
 
 ### Listening Ports
 
-| Port | Process | Address |
-|------|---------|----------|
-| 22 | sshd | all interfaces |
-| 22 | sshd | [::] |
-| 53 | systemd-resolve | 127.0.0.53%lo |
-| 53 | systemd-resolve | 127.0.0.54 |
-| 80 | nginx | all interfaces |
-| 443 | nginx | all interfaces |
-| 1935 | nginx | all interfaces |
-| 1936 | unknown | all interfaces |
-| 3002 | unknown | all interfaces |
-| 3005 | unknown | all interfaces |
-| 5050 | docker-proxy | 127.0.0.1 |
-| 5432 | docker-proxy | all interfaces |
-| 6379 | docker-proxy | all interfaces |
-| 8443 | nginx | all interfaces |
-| 8444 | tusd | 127.0.0.1 |
-| 9003 | unknown | all interfaces |
-| 9004 | unknown | all interfaces |
-| 9050 | unknown | all interfaces |
-| 9065 | unknown | all interfaces |
-| 9070 | unknown | all interfaces |
-| 9080 | promtail | all interfaces |
-| 9100 | unknown | all interfaces |
-| 33101 | promtail | all interfaces |
-| 44519 | chrome | 127.0.0.1 |
+| Port | Process | PM2 App | Address |
+|------|---------|---------|----------|
+| 22 | sshd | - | all interfaces |
+| 22 | sshd | - | [::] |
+| 53 | systemd-resolve | - | 127.0.0.53%lo |
+| 53 | systemd-resolve | - | 127.0.0.54 |
+| 80 | nginx | - | all interfaces |
+| 443 | nginx | - | all interfaces |
+| 1935 | nginx | - | all interfaces |
+| 1936 | unknown | - | all interfaces |
+| 3002 | unknown | - | all interfaces |
+| 3005 | unknown | - | all interfaces |
+| 5050 | docker-proxy | - | 127.0.0.1 |
+| 5432 | docker-proxy | - | all interfaces |
+| 6379 | docker-proxy | - | all interfaces |
+| 8443 | nginx | - | all interfaces |
+| 8444 | tusd | - | 127.0.0.1 |
+| 9003 | unknown | - | all interfaces |
+| 9004 | unknown | - | all interfaces |
+| 9050 | unknown | - | all interfaces |
+| 9065 | unknown | - | all interfaces |
+| 9070 | unknown | - | all interfaces |
+| 9080 | promtail | - | all interfaces |
+| 9100 | unknown | - | all interfaces |
+| 33101 | promtail | - | all interfaces |
+| 44519 | chrome | - | 127.0.0.1 |
 
 ### Key Systemd Services
 
@@ -181,32 +181,32 @@
 
 ### Docker Containers
 
-| Name | Image | Status |
-|------|-------|--------|
-| docker-proxy-1 | `nginx:1-alpine` | Up 4 weeks |
-| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | Up 4 weeks (healthy) |
-| docker-lemmy-1 | `docker-lemmy` | Up 4 weeks |
-| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | Up 4 weeks (healthy) |
-| docker-pictrs-1 | `asonix/pictrs:0.5.16` | Up 4 weeks |
+| Name | Image | Ports | Status |
+|------|-------|-------|--------|
+| docker-proxy-1 | `nginx:1-alpine` | - | Up 4 weeks |
+| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | - | Up 4 weeks (healthy) |
+| docker-lemmy-1 | `docker-lemmy` | - | Up 4 weeks |
+| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | - | Up 4 weeks (healthy) |
+| docker-pictrs-1 | `asonix/pictrs:0.5.16` | - | Up 4 weeks |
 
 ### Listening Ports
 
-| Port | Process | Address |
-|------|---------|----------|
-| 22 | sshd | all interfaces |
-| 22 | sshd | [::] |
-| 53 | systemd-resolve | 127.0.0.54 |
-| 53 | systemd-resolve | 127.0.0.53%lo |
-| 80 | nginx | all interfaces |
-| 443 | nginx | all interfaces |
-| 1236 | docker-proxy | all interfaces |
-| 1236 | docker-proxy | [::] |
-| 5433 | docker-proxy | all interfaces |
-| 5433 | docker-proxy | [::] |
-| 8536 | docker-proxy | all interfaces |
-| 8536 | docker-proxy | [::] |
-| 10002 | docker-proxy | all interfaces |
-| 10002 | docker-proxy | [::] |
+| Port | Process | PM2 App | Address |
+|------|---------|---------|----------|
+| 22 | sshd | - | all interfaces |
+| 22 | sshd | - | [::] |
+| 53 | systemd-resolve | - | 127.0.0.54 |
+| 53 | systemd-resolve | - | 127.0.0.53%lo |
+| 80 | nginx | - | all interfaces |
+| 443 | nginx | - | all interfaces |
+| 1236 | docker-proxy | - | all interfaces |
+| 1236 | docker-proxy | - | [::] |
+| 5433 | docker-proxy | - | all interfaces |
+| 5433 | docker-proxy | - | [::] |
+| 8536 | docker-proxy | - | all interfaces |
+| 8536 | docker-proxy | - | [::] |
+| 10002 | docker-proxy | - | all interfaces |
+| 10002 | docker-proxy | - | [::] |
 
 ### Key Systemd Services
 
@@ -245,24 +245,24 @@
 
 ### PM2 Services
 
-| Name | Status | Memory | CPU | Restarts |
-|------|--------|--------|-----|----------|
-| stream-probe | online | 61 MB | 0.5% | 39 |
+| Name | Port | Status | Memory | CPU | Restarts |
+|------|------|--------|--------|-----|----------|
+| stream-probe | - | unknown | 0 MB | 0% | 0 |
 
 ### Listening Ports
 
-| Port | Process | Address |
-|------|---------|----------|
-| 22 | sshd | all interfaces |
-| 53 | systemd-resolve | 127.0.0.54 |
-| 53 | systemd-resolve | 127.0.0.53%lo |
-| 3000 | grafana | all interfaces |
-| 3100 | loki | all interfaces |
-| 9080 | promtail | all interfaces |
-| 9095 | loki | all interfaces |
-| 9100 | unknown | all interfaces |
-| 33361 | chrome | 127.0.0.1 |
-| 33603 | promtail | all interfaces |
+| Port | Process | PM2 App | Address |
+|------|---------|---------|----------|
+| 22 | sshd | - | all interfaces |
+| 53 | systemd-resolve | - | 127.0.0.54 |
+| 53 | systemd-resolve | - | 127.0.0.53%lo |
+| 3000 | grafana | - | all interfaces |
+| 3100 | loki | - | all interfaces |
+| 9080 | promtail | - | all interfaces |
+| 9095 | loki | - | all interfaces |
+| 9100 | unknown | - | all interfaces |
+| 33361 | chrome | - | 127.0.0.1 |
+| 33603 | promtail | - | all interfaces |
 
 ### Key Systemd Services
 
