@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-08 19:10 UTC*
+*Auto-generated on 2026-02-08 19:12 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -18,9 +18,9 @@
 | Hostname | `is-vmv3-medium` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.01, 0.02, 0.00 |
+| Load Average | 0.00, 0.00, 0.00 |
 
-**Memory:** 1.1 GB / 15.6 GB (7.4% used)
+**Memory:** 1.2 GB / 15.6 GB (7.5% used)
 
 ### Disk Usage
 
@@ -32,10 +32,10 @@
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| niteride-backend | - | unknown | 0 MB | 0% | 0 |
-| guide-service | - | unknown | 0 MB | 0% | 0 |
-| identity-service | - | unknown | 0 MB | 0% | 0 |
-| chat-service | - | unknown | 0 MB | 0% | 0 |
+| niteride-backend | 3000 | online | 82 MB | 0% | 1 |
+| guide-service | 3105 | online | 80 MB | 0% | 1 |
+| identity-service | 3001 | online | 94 MB | 0% | 3 |
+| chat-service | 4000 | online | 90 MB | 2.9% | 0 |
 
 ### Listening Ports
 
@@ -68,6 +68,53 @@
 
 **Version:** 1.24.0 (Ubuntu)
 
+**Proxy Routes:**
+- `https://194.247.182.249`
+- `http://127.0.0.1:3000`
+- `http://82.22.53.68:1236/`
+- `http://82.22.53.68:1236/socket.io/`
+- `http://localhost:9050/`
+- `http://194.247.182.249:3002`
+- `http://127.0.0.1:4000`
+- `http://127.0.0.1:3105/$1`
+- `http://127.0.0.1:3001`
+- `http://localhost:3000/socket.io/`
+- *...and 4 more*
+
+### Service Connections
+
+| From | To | Port | Type |
+|------|-----|------|------|
+| niteride-backend | postgres | 5432 | data |
+| guide-service | postgres | 5432 | data |
+| identity-service | postgres | 5432 | data |
+| chat-service | postgres | 5432 | data |
+| niteride-backend | postgres | 5432 | data |
+| guide-service | postgres | 5432 | data |
+| identity-service | postgres | 5432 | data |
+| chat-service | postgres | 5432 | data |
+| nginx | https://194.247.182.249 | 80 | proxy |
+| nginx | http://127.0.0.1:3000 | 3000 | proxy |
+| nginx | http://82.22.53.68:1236/ | 1236 | proxy |
+| nginx | http://82.22.53.68:1236/socket.io/ | 1236 | proxy |
+| nginx | http://localhost:9050/ | 9050 | proxy |
+| nginx | http://194.247.182.249:3002 | 3002 | proxy |
+| nginx | http://127.0.0.1:4000 | 4000 | proxy |
+| nginx | http://127.0.0.1:3105/$1 | 3105 | proxy |
+| nginx | http://127.0.0.1:3001 | 3001 | proxy |
+| nginx | http://localhost:3000/socket.io/ | 3000 | proxy |
+| nginx | http://194.247.182.159:3000 | 3000 | proxy |
+| nginx | http://127.0.0.1:3105 | 3105 | proxy |
+| nginx | http://82.22.53.68:8536 | 8536 | proxy |
+| nginx | http://127.0.0.1:4000/socket.io/ | 4000 | proxy |
+
+### External Services
+
+| Service | Type | Detected In |
+|---------|------|-------------|
+| Supabase | auth/database | .env |
+| Stripe | payments | .env |
+
 ---
 
 ## Stream Server
@@ -75,87 +122,7 @@
 **IP:** `194.247.182.249`  
 **Purpose:** HLS streaming, Redis state, Admin backend (Library, Scheduling, Commercials)
 
-### System
-
-| Property | Value |
-|----------|-------|
-| Hostname | `is-vmv3-medium` |
-| OS | Ubuntu 24.04.3 LTS |
-| Kernel | 6.8.0-90-generic |
-| Load Average | 1.39, 0.99, 0.92 |
-
-**Memory:** 2.4 GB / 15.6 GB (15.2% used)
-
-### Disk Usage
-
-| Mount | Size | Used | Available | % |
-|-------|------|------|-----------|---|
-| `/` | 156.4 GB | 40.2 GB | 109.7 GB | 27% |
-
-### PM2 Services
-
-| Name | Port | Status | Memory | CPU | Restarts |
-|------|------|--------|--------|-----|----------|
-| playlist-generator-ch1 | - | unknown | 0 MB | 0% | 0 |
-| stream-guard | - | unknown | 0 MB | 0% | 0 |
-| cdn-prewarmer | - | unknown | 0 MB | 0% | 0 |
-| content-segmenter | - | unknown | 0 MB | 0% | 0 |
-| streaming-core | - | unknown | 0 MB | 0% | 0 |
-| admin-service | - | unknown | 0 MB | 0% | 0 |
-| storage-service | - | unknown | 0 MB | 0% | 0 |
-| stream-monitor | - | unknown | 0 MB | 0% | 0 |
-| rtmp-receiver | - | unknown | 0 MB | 0% | 0 |
-| live-controller | - | unknown | 0 MB | 0% | 0 |
-
-### Docker Containers
-
-| Name | Image | Ports | Status |
-|------|-------|-------|--------|
-| niteride-redis | `redis:alpine` | - | Up 38 hours |
-| niteridefm-postgres | `postgres:15-alpine` | - | Up 8 days (healthy) |
-| niteridefm-pgadmin | `dpage/pgadmin4:latest` | - | Up 4 weeks |
-
-### Listening Ports
-
-| Port | Process | PM2 App | Address |
-|------|---------|---------|----------|
-| 22 | sshd | - | all interfaces |
-| 22 | sshd | - | [::] |
-| 53 | systemd-resolve | - | 127.0.0.53%lo |
-| 53 | systemd-resolve | - | 127.0.0.54 |
-| 80 | nginx | - | all interfaces |
-| 443 | nginx | - | all interfaces |
-| 1935 | nginx | - | all interfaces |
-| 1936 | unknown | - | all interfaces |
-| 3002 | unknown | - | all interfaces |
-| 3005 | unknown | - | all interfaces |
-| 5050 | docker-proxy | - | 127.0.0.1 |
-| 5432 | docker-proxy | - | all interfaces |
-| 6379 | docker-proxy | - | all interfaces |
-| 8443 | nginx | - | all interfaces |
-| 8444 | tusd | - | 127.0.0.1 |
-| 9003 | unknown | - | all interfaces |
-| 9004 | unknown | - | all interfaces |
-| 9050 | unknown | - | all interfaces |
-| 9065 | unknown | - | all interfaces |
-| 9070 | unknown | - | all interfaces |
-| 9080 | promtail | - | all interfaces |
-| 9100 | unknown | - | all interfaces |
-| 33101 | promtail | - | all interfaces |
-| 44519 | chrome | - | 127.0.0.1 |
-
-### Key Systemd Services
-
-| Service | Status |
-|---------|--------|
-| docker.service | active/running |
-| nginx.service | active/running |
-
-### Nginx
-
-**Version:** 1.24.0 (Ubuntu)
-
----
+*No discovery data available*
 
 ## Grid Server
 
@@ -169,9 +136,9 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.00, 0.02, 0.00 |
+| Load Average | 0.03, 0.08, 0.03 |
 
-**Memory:** 1.1 GB / 3.8 GB (27.8% used)
+**Memory:** 1.1 GB / 3.8 GB (27.6% used)
 
 ### Disk Usage
 
@@ -183,11 +150,11 @@
 
 | Name | Image | Ports | Status |
 |------|-------|-------|--------|
-| docker-proxy-1 | `nginx:1-alpine` | - | Up 4 weeks |
-| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | - | Up 4 weeks (healthy) |
-| docker-lemmy-1 | `docker-lemmy` | - | Up 4 weeks |
-| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | - | Up 4 weeks (healthy) |
-| docker-pictrs-1 | `asonix/pictrs:0.5.16` | - | Up 4 weeks |
+| docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 4 weeks |
+| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 4 weeks (healthy) |
+| docker-lemmy-1 | `docker-lemmy` | 10002:10002, 10002:10002 | Up 4 weeks |
+| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | 5433:5432, 5433:5432 | Up 4 weeks (healthy) |
+| docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 4 weeks |
 
 ### Listening Ports
 
@@ -219,6 +186,15 @@
 
 **Version:** 1.24.0 (Ubuntu)
 
+**Proxy Routes:**
+- `http://127.0.0.1:8536`
+
+### Service Connections
+
+| From | To | Port | Type |
+|------|-----|------|------|
+| nginx | http://127.0.0.1:8536 | 8536 | proxy |
+
 ---
 
 ## Monitoring Server
@@ -233,9 +209,9 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.04, 0.04, 0.00 |
+| Load Average | 0.00, 0.02, 0.00 |
 
-**Memory:** 3.0 GB / 5.8 GB (51.7% used)
+**Memory:** 3.0 GB / 5.8 GB (51.5% used)
 
 ### Disk Usage
 
@@ -247,7 +223,7 @@
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| stream-probe | - | unknown | 0 MB | 0% | 0 |
+| stream-probe | 9100 | online | 62 MB | 3.3% | 39 |
 
 ### Listening Ports
 
@@ -261,7 +237,7 @@
 | 9080 | promtail | - | all interfaces |
 | 9095 | loki | - | all interfaces |
 | 9100 | unknown | - | all interfaces |
-| 33361 | chrome | - | 127.0.0.1 |
+| 33361 | chrome | stream-probe | 127.0.0.1 |
 | 33603 | promtail | - | all interfaces |
 
 ### Key Systemd Services

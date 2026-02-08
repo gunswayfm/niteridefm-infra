@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-02-08T20:55:38.623062",
+  "timestamp": "2026-02-08T21:12:39.622401",
   "system": {
     "hostname": "11471.example.is",
     "kernel": "6.8.0-90-generic",
     "os": "Ubuntu 24.04.3 LTS",
     "arch": "x86_64",
-    "uptime": "20:55:38 up 49 days, 10:33,  1 user,  load average: 0.00, 0.02, 0.00",
-    "load_average": "0.00, 0.02, 0.00"
+    "uptime": "21:12:39 up 49 days, 10:50,  1 user,  load average: 0.03, 0.08, 0.03",
+    "load_average": "0.03, 0.08, 0.03"
   },
   "memory": {
     "total_bytes": 4094287872,
-    "used_bytes": 1140183040,
-    "free_bytes": 428974080,
-    "available_bytes": 2954104832
+    "used_bytes": 1129213952,
+    "free_bytes": 436244480,
+    "available_bytes": 2965073920
   },
   "disk": [
     {
       "source": "/dev/mapper/vg11471-root",
       "fstype": "ext4",
       "size_bytes": 56744968192,
-      "used_bytes": 29173161984,
-      "available_bytes": 24656138240,
+      "used_bytes": 29173948416,
+      "available_bytes": 24655351808,
       "percent_used": 55,
       "mount_point": "/"
     },
@@ -37,8 +37,8 @@
       "source": "overlay",
       "fstype": "overlay",
       "size_bytes": 56744968192,
-      "used_bytes": 29173161984,
-      "available_bytes": 24656138240,
+      "used_bytes": 29173948416,
+      "available_bytes": 24655351808,
       "percent_used": 55,
       "mount_point": "/var/lib/docker/rootfs/overlayfs/7b629fd151f01897962526db85a6d8ca6085599297c37f9e1c488191366fd4af"
     },
@@ -46,8 +46,8 @@
       "source": "overlay",
       "fstype": "overlay",
       "size_bytes": 56744968192,
-      "used_bytes": 29173161984,
-      "available_bytes": 24656138240,
+      "used_bytes": 29173948416,
+      "available_bytes": 24655351808,
       "percent_used": 55,
       "mount_point": "/var/lib/docker/rootfs/overlayfs/97b53d8605ea77a24cc0dec46ce8263ef07cb85966b2bac912cbdc3e6b10e5c6"
     },
@@ -55,8 +55,8 @@
       "source": "overlay",
       "fstype": "overlay",
       "size_bytes": 56744968192,
-      "used_bytes": 29173161984,
-      "available_bytes": 24656138240,
+      "used_bytes": 29173948416,
+      "available_bytes": 24655351808,
       "percent_used": 55,
       "mount_point": "/var/lib/docker/rootfs/overlayfs/ab2c975a304ea255e337c9131796a42acd3b11a8bfb50bb0c291932709463e53"
     },
@@ -64,8 +64,8 @@
       "source": "overlay",
       "fstype": "overlay",
       "size_bytes": 56744968192,
-      "used_bytes": 29173161984,
-      "available_bytes": 24656138240,
+      "used_bytes": 29173948416,
+      "available_bytes": 24655351808,
       "percent_used": 55,
       "mount_point": "/var/lib/docker/rootfs/overlayfs/dda35baed85dc377c89928359998d35a57e75d44e7d0cdff3210bcb18a79fd02"
     },
@@ -73,8 +73,8 @@
       "source": "overlay",
       "fstype": "overlay",
       "size_bytes": 56744968192,
-      "used_bytes": 29173161984,
-      "available_bytes": 24656138240,
+      "used_bytes": 29173948416,
+      "available_bytes": 24655351808,
       "percent_used": 55,
       "mount_point": "/var/lib/docker/rootfs/overlayfs/1f216595c1ab7a47d4b0892bf196aabd5681b2ad22bacc4cc6d336b3bf6348eb"
     }
@@ -172,35 +172,75 @@
       "name": "docker-proxy-1",
       "image": "nginx:1-alpine",
       "status": "Up 4 weeks",
-      "ports": "0.0.0.0:1236->1236/tcp, [::]:1236->1236/tcp, 80/tcp, 0.0.0.0:8536->8536/tcp, [::]:8536->8536/tcp"
+      "ports_raw": "0.0.0.0:1236->1236/tcp, [::]:1236->1236/tcp, 80/tcp, 0.0.0.0:8536->8536/tcp, [::]:8536->8536/tcp",
+      "port_mappings": [
+        {
+          "host": 1236,
+          "container": 1236
+        },
+        {
+          "host": 1236,
+          "container": 1236
+        },
+        {
+          "host": 8536,
+          "container": 8536
+        },
+        {
+          "host": 8536,
+          "container": 8536
+        }
+      ]
     },
     {
       "id": "ab2c975a304e",
       "name": "docker-lemmy-ui-1",
       "image": "dessalines/lemmy-ui:0.19.14",
       "status": "Up 4 weeks (healthy)",
-      "ports": "1234/tcp"
+      "ports_raw": "1234/tcp",
+      "port_mappings": []
     },
     {
       "id": "1f216595c1ab",
       "name": "docker-lemmy-1",
       "image": "docker-lemmy",
       "status": "Up 4 weeks",
-      "ports": "8536/tcp, 0.0.0.0:10002->10002/tcp, [::]:10002->10002/tcp"
+      "ports_raw": "8536/tcp, 0.0.0.0:10002->10002/tcp, [::]:10002->10002/tcp",
+      "port_mappings": [
+        {
+          "host": 10002,
+          "container": 10002
+        },
+        {
+          "host": 10002,
+          "container": 10002
+        }
+      ]
     },
     {
       "id": "97b53d8605ea",
       "name": "docker-postgres-1",
       "image": "pgautoupgrade/pgautoupgrade:16-alpine",
       "status": "Up 4 weeks (healthy)",
-      "ports": "0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp"
+      "ports_raw": "0.0.0.0:5433->5432/tcp, [::]:5433->5432/tcp",
+      "port_mappings": [
+        {
+          "host": 5433,
+          "container": 5432
+        },
+        {
+          "host": 5433,
+          "container": 5432
+        }
+      ]
     },
     {
       "id": "7b629fd151f0",
       "name": "docker-pictrs-1",
       "image": "asonix/pictrs:0.5.16",
       "status": "Up 4 weeks",
-      "ports": "6669/tcp, 8080/tcp"
+      "ports_raw": "6669/tcp, 8080/tcp",
+      "port_mappings": []
     }
   ],
   "docker_compose": [
@@ -323,7 +363,36 @@
   "nginx": {
     "installed": true,
     "version": "1.24.0 (Ubuntu)",
-    "config_preview": "# configuration file /etc/nginx/nginx.conf:\nuser www-data;\nworker_processes auto;\npid /run/nginx.pid;\nerror_log /var/log/nginx/error.log;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n\tworker_connections 768;\n\t# multi_accept on;\n}\n\nhttp {\n\n\t##\n\t# Basic Settings\n\t##\n\n\tsendfile on;\n\ttcp_nopush on;\n\ttypes_hash_max_size 2048;\n\t# server_tokens off;\n\n\t# server_names_hash_bucket_size 64;\n\t# server_name_in_redirect off;\n\n\tinclude /etc/nginx/mime.types;\n\tdefault_type application/octet-stream;\n\n\t##\n\t# SSL Settings\n\t##\n\n\tssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE\n\tssl_prefer_server_ciphers on;\n\n\t##\n\t# Logging Settings\n\t##\n\n\taccess_log /var/log/nginx/access.log;\n\n\t##\n\t# Gzip Settings\n\t##\n\n\tgzip on;\n\n\t# gzip_vary on;\n\t# gzip_proxied any;\n\t# gzip_comp_level 6;\n\t# gzip_buffers 16 8k;\n\t# gzip_http_version 1.1;\n\t# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;\n\n\t##\n\t# Virtual Host Configs\n\t##\n\n\tinclude /etc/nginx/conf.d/*.conf;\n\tinclude /etc/nginx/sites-enabled/*;\n}\n\n\n#mail {\n#\t# See sample authentication script at:\n#\t# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript\n#\n#\t# auth_http localhost/auth.php;\n#\t# pop3_capabilities \"TOP\" \"USER\";\n#\t# imap_capabilities \"IMAP4rev1\" \"UIDPLUS\";\n#\n#\tserver {\n#\t\tlisten     localhost:110;\n#\t\tprotocol   pop3;\n#\t\tproxy      on;\n#\t}\n#\n#\tserver {\n#\t\tlisten     localhost:143;\n#\t\tprotocol   imap;\n#\t\tproxy      on;\n#\t}\n#}\n\n# configuration file /etc/nginx/mime.types:\n\ntypes {\n    text/html                                        html htm shtml;\n    text/css                                         css;\n    text/xml                                         xml;\n    image/gif                                        gif;\n    image/jpeg                                       jpeg jpg;\n    application/javascript                           js;\n    application/atom+xml                             atom;\n    application/rss+xml                              rss;\n\n    text/mathml                                      mml;\n    text/plain                                       txt;\n    text/vnd.sun.j2me.app-descriptor                 jad;\n    text/vnd.wap.wml                                 wml;\n    text/x-component                                 htc;\n\n    image/avif                                       avif;\n    image/png                                        png;\n    image/svg+xml                                    svg svgz;\n    image/tiff                                       tif tiff;\n    image/vnd.wap.wbmp                               wbmp;\n    image/webp                                       webp;\n    image/x-icon                                     ico;\n    image/x-jng                                      jng;\n    image/x-ms-bmp                                   bmp;\n\n    font/woff                                        woff;\n    font/woff2                                       woff2;\n\n    application/java-archive                         jar war ear;\n    application/json                                 json;\n    application/mac-binhex40                         hqx;\n    application/msword                               doc;\n    application/pdf                                  pdf;\n    application/postscript                           ps eps ai;\n    application/rtf                                  rtf;\n    application/vnd.apple.mpegurl                    m3u8;\n    application/vnd.google-earth.kml+xml             kml;\n    application/vnd.google-earth.kmz                 kmz;\n    application/vnd.ms-excel                         xls;\n    application/vnd.ms-fontobject                    eot;\n    application/vnd.ms-powerpoint                    ppt;\n    application/vnd.oasis.opendocument.graphics      odg;\n    application/vnd.oasis.opendocument.presentation  odp;\n    application/vnd.oasis.opendocument.spreadsheet   ods;\n    application/vnd.oasis.opendocument.text          odt;\n    application/vnd.openxmlformats-officedocument.presentationml.presentation\n                                                     pptx;\n    application/vnd.openxmlformats-officedocument.spreadsheetml.sheet\n                                                     xlsx;\n    application/vnd.openxmlformats-officedocument.wordprocessingml.document\n                                                     docx;\n    application/vnd.wap.wmlc                         wmlc;\n    application/wasm                                 wasm;\n    application/x-7z-compressed                      7z;\n    application/x-cocoa                              cco;\n    application/x-java-archive-diff                  jardiff;\n    application/x-java-jnlp-file                     jnlp;\n    application/x-makeself                           run;\n    application/x-perl                               pl pm;\n    application/x-pilot                              prc pdb;\n    application/x-rar-compressed                     rar;\n    application/x-redhat-package-"
+    "server_blocks": [
+      {
+        "listen": [
+          "443 ssl; # managed by Certbot"
+        ],
+        "server_name": [
+          "grid.niteride.fm"
+        ],
+        "locations": [
+          {
+            "path": "/",
+            "proxy_pass": "http://127.0.0.1:8536",
+            "type": "proxy"
+          }
+        ]
+      },
+      {
+        "listen": [
+          "80"
+        ],
+        "server_name": [
+          "grid.niteride.fm"
+        ],
+        "locations": []
+      }
+    ],
+    "proxy_destinations": [
+      "http://127.0.0.1:8536"
+    ],
+    "config_preview": "# configuration file /etc/nginx/nginx.conf:\nuser www-data;\nworker_processes auto;\npid /run/nginx.pid;\nerror_log /var/log/nginx/error.log;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n\tworker_connections 768;\n\t# multi_accept on;\n}\n\nhttp {\n\n\t##\n\t# Basic Settings\n\t##\n\n\tsendfile on;\n\ttcp_nopush on;\n\ttypes_hash_max_size 2048;\n\t# server_tokens off;\n\n\t# server_names_hash_bucket_size 64;\n\t# server_name_in_redirect off;\n\n\tinclude /etc/nginx/mime.types;\n\tdefault_type application/octet-stream;\n\n\t##\n\t# SSL Settings\n\t##\n\n\tssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE\n\tssl_prefer_server_ciphers on;\n\n\t##\n\t# Logging Settings\n\t##\n\n\taccess_log /var/log/nginx/access.log;\n\n\t##\n\t# Gzip Settings\n\t##\n\n\tgzip on;\n\n\t# gzip_vary on;\n\t# gzip_proxied any;\n\t# gzip_comp_level 6;\n\t# gzip_buffers 16 8k;\n\t# gzip_http_version 1.1;\n\t# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;\n\n\t##\n\t# Virtual Host Configs\n\t##\n\n\tinclude /etc/nginx/conf.d/*.conf;\n\tinclude /etc/nginx/sites-enabled/*;\n}\n\n\n#mail {\n#\t# See sample authentication script at:\n#\t# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript\n#\n#\t# auth_http localhost/auth.php;\n#\t# pop3_capabilities \"TOP\" \"USER\";\n#\t# imap_capabilities \"IMAP4rev1\" \"UIDPLUS\";\n#\n#\tserver {\n#\t\tlisten     localhost:110;\n#\t\tprotocol   pop3;\n#\t\tproxy      on;\n#\t}\n#\n#\tserver {\n#\t\tlisten     localhost:143;\n#\t\tprotocol   imap;\n#\t\tproxy      on;\n#\t}\n#}\n\n# configuration file /etc/nginx/mime.types:\n\ntypes {\n    text/html                                        html htm shtml;\n    text/css                                         css;\n    text/xml                                         xml;\n    image/gif                                        gif;\n    image/jpeg                                       jpeg jpg;\n    application/javascript                           js;\n    application/atom+xml                             atom;\n    application/rss+xml                              rss;\n\n    text/mathml                                      mml;\n    text/plain                                       txt;\n    text/vnd.sun.j2me.app-descriptor                 jad;\n    text/vnd.wap.wml                                 wml;\n    text/x-component                                 htc;\n\n    image/avif                                       avif;\n    image/png                                        png;\n    image/svg+xml                                    svg svgz;\n    image/tiff                                       tif tiff;\n    image/vnd.wap.wbmp                               wbmp;\n    image/webp                                       webp;\n    image/x-icon                                     ico;\n    image/x-jng                                      jng;\n    image/x-ms-bmp                                   bmp;\n\n    font/woff                                        woff;\n    font/woff2                                       woff2;\n\n    application/java-archive"
   },
   "cron": {
     "user_crontab": "",
@@ -335,5 +404,14 @@
   "env": {
     "env_file": null,
     "variables": {}
-  }
+  },
+  "connections": [
+    {
+      "from": "nginx",
+      "to": "http://127.0.0.1:8536",
+      "port": 8536,
+      "type": "proxy"
+    }
+  ],
+  "external_services": []
 }

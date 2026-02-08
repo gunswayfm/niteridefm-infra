@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-02-08T19:55:50.632107",
+  "timestamp": "2026-02-08T20:12:49.164969",
   "system": {
     "hostname": "is-vmmini",
     "kernel": "6.8.0-39-generic",
     "os": "Ubuntu 24.04.1 LTS",
     "arch": "x86_64",
-    "uptime": "19:55:50 up 87 days, 11:16,  2 users,  load average: 0.04, 0.04, 0.00",
-    "load_average": "0.04, 0.04, 0.00"
+    "uptime": "20:12:49 up 87 days, 11:33,  2 users,  load average: 0.00, 0.02, 0.00",
+    "load_average": "0.00, 0.02, 0.00"
   },
   "memory": {
     "total_bytes": 6189207552,
-    "used_bytes": 3200163840,
-    "free_bytes": 200237056,
-    "available_bytes": 2989043712
+    "used_bytes": 3187417088,
+    "free_bytes": 201584640,
+    "available_bytes": 3001790464
   },
   "disk": [
     {
       "source": "/dev/mapper/hk-root",
       "fstype": "ext4",
       "size_bytes": 125652185088,
-      "used_bytes": 14501298176,
-      "available_bytes": 105896128512,
+      "used_bytes": 14501621760,
+      "available_bytes": 105895804928,
       "percent_used": 13,
       "mount_point": "/"
     },
@@ -51,7 +51,8 @@
       "port": 33361,
       "address": "127.0.0.1",
       "process": "chrome",
-      "pid": 479473
+      "pid": 479473,
+      "pm2_app": "stream-probe"
     },
     {
       "port": 3100,
@@ -98,222 +99,13 @@
   ],
   "pm2": [
     {
-      "pid": 479454,
       "name": "stream-probe",
-      "pm2_env": {
-        "stream-probe": "{\"SUPABASE_JWT_SECRET\":\"mcJuhdzY7R/V+PcjsI6DX3dYG+1bcz/YOCatfRRDObmZUbTiOjABicIgBNwAEGJJpT4LefjO1R+e+n8BICqYcg==\",\"PROBE_SERVICE_KEY\":\"ca5650cbe77664c531724e647f0232574778e0f7169529c439ecd65feb93be23\"}",
-        "PM2_PROGRAMMATIC": "true",
-        "SUPABASE_JWT_SECRET": "mcJuhdzY7R/V+PcjsI6DX3dYG+1bcz/YOCatfRRDObmZUbTiOjABicIgBNwAEGJJpT4LefjO1R+e+n8BICqYcg==",
-        "kill_retry_time": 100,
-        "windowsHide": true,
-        "username": "root",
-        "treekill": true,
-        "automation": true,
-        "pmx": true,
-        "instance_var": "NODE_APP_INSTANCE",
-        "watch": false,
-        "autorestart": true,
-        "autostart": true,
-        "vizion": true,
-        "merge_logs": true,
-        "env": {
-          "PROBE_SERVICE_KEY": "ca5650cbe77664c531724e647f0232574778e0f7169529c439ecd65feb93be23",
-          "SHELL": "/bin/bash",
-          "PWD": "/root",
-          "LOGNAME": "root",
-          "XDG_SESSION_TYPE": "tty",
-          "HOME": "/root",
-          "LANG": "C.UTF-8",
-          "SSH_CONNECTION": "50.46.61.60 57381 194.247.182.159 22",
-          "XDG_SESSION_CLASS": "user",
-          "USER": "root",
-          "SHLVL": "1",
-          "XDG_SESSION_ID": "763",
-          "XDG_RUNTIME_DIR": "/run/user/0",
-          "SSH_CLIENT": "50.46.61.60 57381 22",
-          "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
-          "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/0/bus",
-          "OLDPWD": "/root",
-          "_": "/usr/bin/pm2",
-          "PM2_USAGE": "CLI",
-          "PM2_INTERACTOR_PROCESSING": "true",
-          "PM2_HOME": "/root/.pm2",
-          "stream-probe": "{\"SUPABASE_JWT_SECRET\":\"mcJuhdzY7R/V+PcjsI6DX3dYG+1bcz/YOCatfRRDObmZUbTiOjABicIgBNwAEGJJpT4LefjO1R+e+n8BICqYcg==\",\"PROBE_SERVICE_KEY\":\"ca5650cbe77664c531724e647f0232574778e0f7169529c439ecd65feb93be23\"}",
-          "unique_id": "2e13f99c-098b-4b55-806f-5d684ee4b3c8",
-          "PM2_PROGRAMMATIC": "true",
-          "SUPABASE_JWT_SECRET": "mcJuhdzY7R/V+PcjsI6DX3dYG+1bcz/YOCatfRRDObmZUbTiOjABicIgBNwAEGJJpT4LefjO1R+e+n8BICqYcg=="
-        },
-        "namespace": "default",
-        "filter_env": [],
-        "name": "stream-probe",
-        "node_args": [],
-        "pm_exec_path": "/opt/niteride/services/stream-probe/index.js",
-        "pm_cwd": "/opt/niteride/services/stream-probe",
-        "exec_interpreter": "node",
-        "exec_mode": "fork_mode",
-        "instances": 1,
-        "pm_out_log_path": "/root/.pm2/logs/stream-probe-out.log",
-        "pm_err_log_path": "/root/.pm2/logs/stream-probe-error.log",
-        "pm_pid_path": "/root/.pm2/pids/stream-probe-0.pid",
-        "km_link": false,
-        "vizion_running": false,
-        "NODE_APP_INSTANCE": 0,
-        "SHELL": "/bin/bash",
-        "PWD": "/root",
-        "LOGNAME": "root",
-        "XDG_SESSION_TYPE": "tty",
-        "HOME": "/root",
-        "LANG": "C.UTF-8",
-        "SSH_CONNECTION": "50.46.61.60 57381 194.247.182.159 22",
-        "XDG_SESSION_CLASS": "user",
-        "USER": "root",
-        "SHLVL": "1",
-        "XDG_SESSION_ID": "763",
-        "XDG_RUNTIME_DIR": "/run/user/0",
-        "SSH_CLIENT": "50.46.61.60 57381 22",
-        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
-        "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/0/bus",
-        "OLDPWD": "/root",
-        "_": "/usr/bin/pm2",
-        "PM2_USAGE": "CLI",
-        "PM2_INTERACTOR_PROCESSING": "true",
-        "PM2_HOME": "/root/.pm2",
-        "unique_id": "2e13f99c-098b-4b55-806f-5d684ee4b3c8",
-        "status": "online",
-        "pm_uptime": 1765411680785,
-        "axm_actions": [
-          {
-            "action_name": "km:heapdump",
-            "action_type": "internal",
-            "arity": 2
-          },
-          {
-            "action_name": "km:cpu:profiling:start",
-            "action_type": "internal",
-            "arity": 2
-          },
-          {
-            "action_name": "km:cpu:profiling:stop",
-            "action_type": "internal",
-            "arity": 1
-          },
-          {
-            "action_name": "km:heap:sampling:start",
-            "action_type": "internal",
-            "arity": 2
-          },
-          {
-            "action_name": "km:heap:sampling:stop",
-            "action_type": "internal",
-            "arity": 1
-          }
-        ],
-        "axm_monitor": {
-          "HTTP": {
-            "value": 0,
-            "type": "internal/http/builtin/reqs",
-            "unit": "req/min",
-            "historic": true
-          },
-          "HTTP P95 Latency": {
-            "value": 6,
-            "type": "internal/http/builtin/latency/p95",
-            "unit": "ms",
-            "historic": true
-          },
-          "HTTP Mean Latency": {
-            "value": 6,
-            "type": "internal/http/builtin/latency/p50",
-            "unit": "ms",
-            "historic": true
-          },
-          "Used Heap Size": {
-            "value": "22.29",
-            "type": "internal/v8/heap/used",
-            "unit": "MiB",
-            "historic": true
-          },
-          "Heap Usage": {
-            "value": 80.27,
-            "type": "internal/v8/heap/usage",
-            "unit": "%",
-            "historic": true
-          },
-          "Heap Size": {
-            "value": "27.76",
-            "type": "internal/v8/heap/total",
-            "unit": "MiB",
-            "historic": true
-          },
-          "Event Loop Latency p95": {
-            "value": "0.98",
-            "type": "internal/libuv/latency/p95",
-            "unit": "ms",
-            "historic": true
-          },
-          "Event Loop Latency": {
-            "value": "0.17",
-            "type": "internal/libuv/latency/p50",
-            "unit": "ms",
-            "historic": true
-          },
-          "Active handles": {
-            "value": 8,
-            "type": "internal/libuv/handles",
-            "historic": true
-          },
-          "Active requests": {
-            "value": 0,
-            "type": "internal/libuv/requests",
-            "historic": true
-          }
-        },
-        "axm_options": {
-          "error": true,
-          "heapdump": true,
-          "feature.profiler.heapsnapshot": false,
-          "feature.profiler.heapsampling": true,
-          "feature.profiler.cpu_js": true,
-          "latency": true,
-          "catchExceptions": true,
-          "profiling": true,
-          "metrics": {
-            "http": true,
-            "runtime": true,
-            "eventLoop": true,
-            "network": false,
-            "v8": true
-          },
-          "standalone": false,
-          "module_conf": {
-            "PROBE_SERVICE_KEY": "ca5650cbe77664c531724e647f0232574778e0f7169529c439ecd65feb93be23",
-            "SUPABASE_JWT_SECRET": "mcJuhdzY7R/V+PcjsI6DX3dYG+1bcz/YOCatfRRDObmZUbTiOjABicIgBNwAEGJJpT4LefjO1R+e+n8BICqYcg=="
-          },
-          "apm": {
-            "version": "6.1.0",
-            "type": "node"
-          },
-          "module_name": "stream-probe",
-          "module_version": "6.0.14",
-          "SUPABASE_JWT_SECRET": "mcJuhdzY7R/V+PcjsI6DX3dYG+1bcz/YOCatfRRDObmZUbTiOjABicIgBNwAEGJJpT4LefjO1R+e+n8BICqYcg==",
-          "PROBE_SERVICE_KEY": "ca5650cbe77664c531724e647f0232574778e0f7169529c439ecd65feb93be23"
-        },
-        "axm_dynamic": {},
-        "created_at": 1765411680625,
-        "pm_id": 0,
-        "restart_time": 39,
-        "unstable_restarts": 0,
-        "version": "1.0.0",
-        "node_version": "20.19.6",
-        "prev_restart_delay": 0,
-        "exit_code": 130,
-        "PROBE_SERVICE_KEY": "ca5650cbe77664c531724e647f0232574778e0f7169529c439ecd65feb93be23"
-      },
-      "pm_id": 0,
-      "monit": {
-        "memory": 64479232,
-        "cpu": 0.5
-      }
+      "pid": 479454,
+      "status": "online",
+      "memory": 64540672,
+      "cpu": 3.3,
+      "restarts": 39,
+      "port": 9100
     }
   ],
   "docker_containers": [],
@@ -443,6 +235,8 @@
   "nginx": {
     "installed": true,
     "version": "bin",
+    "server_blocks": [],
+    "proxy_destinations": [],
     "config_preview": ""
   },
   "cron": {
@@ -454,5 +248,7 @@
   "env": {
     "env_file": null,
     "variables": {}
-  }
+  },
+  "connections": [],
+  "external_services": []
 }
