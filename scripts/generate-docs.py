@@ -75,47 +75,55 @@ def generate_server_section(name: str, display_name: str, ip: str, purpose: str)
                 md += f"| `{disk.get('mount_point')}` | {format_bytes(disk.get('size_bytes', 0))} | {format_bytes(disk.get('used_bytes', 0))} | {format_bytes(disk.get('available_bytes', 0))} | {disk.get('percent_used', 0)}% |\n"
         md += "\n"
 
-    # PM2 Services
+    # PM2 Services (with port info)
     pm2 = data.get("pm2", [])
     if pm2 and isinstance(pm2, list) and len(pm2) > 0:
         md += "### PM2 Services\n\n"
-        md += "| Name | Status | Memory | CPU | Restarts |\n"
-        md += "|------|--------|--------|-----|----------|\n"
+        md += "| Name | Port | Status | Memory | CPU | Restarts |\n"
+        md += "|------|------|--------|--------|-----|----------|\n"
         for svc in pm2:
             if isinstance(svc, dict):
                 name_val = svc.get("name", "unknown")
-                status = svc.get("pm2_env", {}).get("status", "unknown") if isinstance(svc.get("pm2_env"), dict) else "unknown"
-                memory_mb = svc.get("monit", {}).get("memory", 0) / 1024 / 1024 if isinstance(svc.get("monit"), dict) else 0
-                cpu = svc.get("monit", {}).get("cpu", 0) if isinstance(svc.get("monit"), dict) else 0
-                restarts = svc.get("pm2_env", {}).get("restart_time", 0) if isinstance(svc.get("pm2_env"), dict) else 0
-                md += f"| {name_val} | {status} | {memory_mb:.0f} MB | {cpu}% | {restarts} |\n"
+                port = svc.get("port", "-")
+                status = svc.get("status", "unknown")
+                memory_mb = svc.get("memory", 0) / 1024 / 1024 if svc.get("memory") else 0
+                cpu = svc.get("cpu", 0)
+                restarts = svc.get("restarts", 0)
+                md += f"| {name_val} | {port} | {status} | {memory_mb:.0f} MB | {cpu}% | {restarts} |\n"
         md += "\n"
 
     # Docker Containers
     containers = data.get("docker_containers", [])
     if containers and isinstance(containers, list) and len(containers) > 0:
         md += "### Docker Containers\n\n"
-        md += "| Name | Image | Status |\n"
-        md += "|------|-------|--------|\n"
+        md += "| Name | Image | Ports | Status |\n"
+        md += "|------|-------|-------|--------|\n"
         for c in containers:
             if isinstance(c, dict):
-                md += f"| {c.get('name', 'unknown')} | `{c.get('image', 'unknown')}` | {c.get('status', 'unknown')} |\n"
+                # Format port mappings
+                port_mappings = c.get("port_mappings", [])
+                if port_mappings:
+                    ports_str = ", ".join([f"{p.get('host')}:{p.get('container')}" for p in port_mappings])
+                else:
+                    ports_str = c.get("ports_raw", "-") or "-"
+                md += f"| {c.get('name', 'unknown')} | `{c.get('image', 'unknown')}` | {ports_str} | {c.get('status', 'unknown')} |\n"
         md += "\n"
 
     # Listening Ports
     ports = data.get("ports", [])
     if ports and isinstance(ports, list):
         md += "### Listening Ports\n\n"
-        md += "| Port | Process | Address |\n"
-        md += "|------|---------|----------|\n"
+        md += "| Port | Process | PM2 App | Address |\n"
+        md += "|------|---------|---------|----------|\n"
         for p in sorted(ports, key=lambda x: x.get("port", 0)):
             if isinstance(p, dict):
                 port = p.get("port", "?")
                 proc = p.get("process", "unknown")
+                pm2_app = p.get("pm2_app", "-")
                 addr = p.get("address", "*")
                 if addr in ["*", "0.0.0.0", "::"]:
                     addr = "all interfaces"
-                md += f"| {port} | {proc} | {addr} |\n"
+                md += f"| {port} | {proc} | {pm2_app} | {addr} |\n"
         md += "\n"
 
     # Systemd Services (top 10)
@@ -138,6 +146,38 @@ def generate_server_section(name: str, display_name: str, ip: str, purpose: str)
     if nginx.get("installed"):
         md += f"### Nginx\n\n"
         md += f"**Version:** {nginx.get('version', 'unknown')}\n\n"
+
+        # Nginx routes (proxy_pass)
+        proxy_dests = nginx.get("proxy_destinations", [])
+        if proxy_dests:
+            md += "**Proxy Routes:**\n"
+            for dest in proxy_dests[:10]:
+                md += f"- `{dest}`\n"
+            if len(proxy_dests) > 10:
+                md += f"- *...and {len(proxy_dests) - 10} more*\n"
+            md += "\n"
+
+    # Connections (service relationships)
+    connections = data.get("connections", [])
+    if connections and isinstance(connections, list) and len(connections) > 0:
+        md += "### Service Connections\n\n"
+        md += "| From | To | Port | Type |\n"
+        md += "|------|-----|------|------|\n"
+        for conn in connections:
+            if isinstance(conn, dict):
+                md += f"| {conn.get('from', '?')} | {conn.get('to', '?')} | {conn.get('port', '?')} | {conn.get('type', '?')} |\n"
+        md += "\n"
+
+    # External Services
+    external = data.get("external_services", [])
+    if external and isinstance(external, list) and len(external) > 0:
+        md += "### External Services\n\n"
+        md += "| Service | Type | Detected In |\n"
+        md += "|---------|------|-------------|\n"
+        for svc in external:
+            if isinstance(svc, dict):
+                md += f"| {svc.get('name', '?')} | {svc.get('type', '?')} | {svc.get('detected_in', '?')} |\n"
+        md += "\n"
 
     md += "---\n\n"
     return md
