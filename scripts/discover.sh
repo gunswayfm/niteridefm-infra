@@ -20,41 +20,52 @@ get_server_ip() {
     esac
 }
 
+# Expand tilde in path
+expand_path() {
+    local path="$1"
+    # Replace ~ with $HOME
+    echo "${path/#\~/$HOME}"
+}
+
 # Get SSH key path by server name
 get_ssh_key() {
     local server=$1
+    local path=""
 
     # Check for GitHub Actions environment variables first
     case "$server" in
         web)
             if [ -n "$WEB_SERVER_SSH_KEY_PATH" ]; then
-                echo "$WEB_SERVER_SSH_KEY_PATH"
-                return
+                path="$WEB_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/repos/niteridefm/myKeys/niteride_web_node"
             fi
-            echo "$HOME/repos/niteridefm/myKeys/niteride_web_node"
             ;;
         stream)
             if [ -n "$STREAM_SERVER_SSH_KEY_PATH" ]; then
-                echo "$STREAM_SERVER_SSH_KEY_PATH"
-                return
+                path="$STREAM_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/repos/niteridefm/myKeys/hostkey_iceland"
             fi
-            echo "$HOME/repos/niteridefm/myKeys/hostkey_iceland"
             ;;
         grid)
             if [ -n "$GRID_SERVER_SSH_KEY_PATH" ]; then
-                echo "$GRID_SERVER_SSH_KEY_PATH"
-                return
+                path="$GRID_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/repos/niteridefm/myKeys/niteride_grid_node"
             fi
-            echo "$HOME/repos/niteridefm/myKeys/niteride_grid_node"
             ;;
         monitoring)
             if [ -n "$MONITORING_SERVER_SSH_KEY_PATH" ]; then
-                echo "$MONITORING_SERVER_SSH_KEY_PATH"
-                return
+                path="$MONITORING_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/Documents/myKeys/hostkey_iceland_loki"
             fi
-            echo "$HOME/Documents/myKeys/hostkey_iceland_loki"
             ;;
     esac
+
+    # Expand tilde if present
+    expand_path "$path"
 }
 
 # Create directories
