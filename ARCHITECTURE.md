@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-08 19:25 UTC*
+*Auto-generated on 2026-02-09 06:35 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -17,33 +17,33 @@
 |----------|-------|
 | Hostname | `is-vmv3-medium` |
 | OS | Ubuntu 24.04.1 LTS |
-| Kernel | 6.8.0-90-generic |
-| Load Average | 0.06, 0.05, 0.00 |
+| Kernel | 6.8.0-94-generic |
+| Load Average | 1.00, 1.01, 1.07 |
 
-**Memory:** 1.2 GB / 15.6 GB (7.7% used)
+**Memory:** 931.2 MB / 15.6 GB (5.8% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 156.4 GB | 14.3 GB | 135.6 GB | 10% |
+| `/` | 156.4 GB | 14.5 GB | 135.4 GB | 10% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| niteride-backend | 3000 | online | 83 MB | 0% | 1 |
-| guide-service | 3105 | online | 80 MB | 0% | 1 |
-| identity-service | 3001 | online | 95 MB | 5.4% | 3 |
-| chat-service | 4000 | online | 91 MB | 2.7% | 0 |
+| niteride-backend | 3000 | online | 82 MB | 0% | 0 |
+| guide-service | 3105 | online | 72 MB | 0% | 0 |
+| identity-service | 3001 | online | 93 MB | 0% | 0 |
+| chat-service | 4000 | online | 96 MB | 0% | 0 |
 
 ### Listening Ports
 
 | Port | Process | PM2 App | Address |
 |------|---------|---------|----------|
 | 22 | sshd | - | all interfaces |
-| 53 | systemd-resolve | - | 127.0.0.54 |
 | 53 | systemd-resolve | - | 127.0.0.53%lo |
+| 53 | systemd-resolve | - | 127.0.0.54 |
 | 80 | nginx | - | all interfaces |
 | 80 | nginx | - | [::] |
 | 443 | nginx | - | all interfaces |
@@ -69,16 +69,16 @@
 **Version:** 1.24.0 (Ubuntu)
 
 **Proxy Routes:**
+- `http://127.0.0.1:3105`
 - `http://localhost:9050/`
-- `http://82.22.53.68:1236/`
-- `http://127.0.0.1:4000`
-- `http://194.247.182.159:3000`
-- `http://localhost:3000/socket.io/`
-- `http://82.22.53.68:1236/socket.io/`
-- `http://127.0.0.1:3001`
 - `https://194.247.182.249`
+- `http://194.247.182.249:3002`
+- `http://82.22.53.68:8536`
 - `http://127.0.0.1:3000`
 - `http://127.0.0.1:3105/$1`
+- `http://82.22.53.68:1236/socket.io/`
+- `http://127.0.0.1:4000`
+- `http://82.22.53.68:1236/`
 - *...and 4 more*
 
 ### Service Connections
@@ -93,20 +93,20 @@
 | guide-service | postgres | 5432 | data |
 | identity-service | postgres | 5432 | data |
 | chat-service | postgres | 5432 | data |
+| nginx | http://127.0.0.1:3105 | 3105 | proxy |
 | nginx | http://localhost:9050/ | 9050 | proxy |
-| nginx | http://82.22.53.68:1236/ | 1236 | proxy |
-| nginx | http://127.0.0.1:4000 | 4000 | proxy |
-| nginx | http://194.247.182.159:3000 | 3000 | proxy |
-| nginx | http://localhost:3000/socket.io/ | 3000 | proxy |
-| nginx | http://82.22.53.68:1236/socket.io/ | 1236 | proxy |
-| nginx | http://127.0.0.1:3001 | 3001 | proxy |
 | nginx | https://194.247.182.249 | 80 | proxy |
+| nginx | http://194.247.182.249:3002 | 3002 | proxy |
+| nginx | http://82.22.53.68:8536 | 8536 | proxy |
 | nginx | http://127.0.0.1:3000 | 3000 | proxy |
 | nginx | http://127.0.0.1:3105/$1 | 3105 | proxy |
-| nginx | http://194.247.182.249:3002 | 3002 | proxy |
+| nginx | http://82.22.53.68:1236/socket.io/ | 1236 | proxy |
+| nginx | http://127.0.0.1:4000 | 4000 | proxy |
+| nginx | http://82.22.53.68:1236/ | 1236 | proxy |
 | nginx | http://127.0.0.1:4000/socket.io/ | 4000 | proxy |
-| nginx | http://82.22.53.68:8536 | 8536 | proxy |
-| nginx | http://127.0.0.1:3105 | 3105 | proxy |
+| nginx | http://194.247.182.159:3000 | 3000 | proxy |
+| nginx | http://127.0.0.1:3001 | 3001 | proxy |
+| nginx | http://localhost:3000/socket.io/ | 3000 | proxy |
 
 ### External Services
 
@@ -129,37 +129,37 @@
 | Hostname | `is-vmv3-medium` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.70, 0.81, 0.94 |
+| Load Average | 1.05, 0.90, 0.83 |
 
-**Memory:** 2.4 GB / 15.6 GB (15.4% used)
+**Memory:** 1.9 GB / 15.6 GB (12.2% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 156.4 GB | 45.1 GB | 104.8 GB | 31% |
+| `/` | 156.4 GB | 32.3 GB | 117.6 GB | 22% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| playlist-generator-ch1 | 9050 | online | 77 MB | 2.1% | 4 |
-| stream-guard | - | online | 79 MB | 0% | 3 |
-| cdn-prewarmer | - | online | 87 MB | 2.1% | 3 |
-| content-segmenter | - | online | 82 MB | 0% | 3 |
-| streaming-core | - | online | 109 MB | 0% | 8 |
-| admin-service | 3002 | online | 113 MB | 0% | 7 |
-| storage-service | - | online | 131 MB | 0% | 6 |
-| stream-monitor | - | online | 77 MB | 0% | 4 |
-| rtmp-receiver | - | online | 80 MB | 0% | 2 |
-| live-controller | - | online | 68 MB | 2.1% | 2 |
+| playlist-generator-ch1 | 9050 | online | 78 MB | 3% | 6 |
+| stream-guard | - | online | 76 MB | 0% | 5 |
+| cdn-prewarmer | - | online | 79 MB | 0% | 5 |
+| content-segmenter | - | online | 71 MB | 3% | 5 |
+| streaming-core | - | online | 97 MB | 0% | 12 |
+| admin-service | 3002 | online | 94 MB | 0% | 11 |
+| storage-service | - | online | 77 MB | 0% | 10 |
+| stream-monitor | - | online | 74 MB | 0% | 6 |
+| rtmp-receiver | - | online | 75 MB | 0% | 4 |
+| live-controller | - | online | 65 MB | 0% | 4 |
 
 ### Docker Containers
 
 | Name | Image | Ports | Status |
 |------|-------|-------|--------|
-| niteride-redis | `redis:alpine` | 6379:6379 | Up 38 hours |
-| niteridefm-postgres | `postgres:15-alpine` | 5432:5432 | Up 8 days (healthy) |
+| niteride-redis | `redis:alpine` | 6379:6379 | Up 2 days |
+| niteridefm-postgres | `postgres:15-alpine` | 5432:5432 | Up 9 days (healthy) |
 | niteridefm-pgadmin | `dpage/pgadmin4:latest` | 5050:80 | Up 4 weeks |
 
 ### Listening Ports
@@ -189,7 +189,7 @@
 | 9080 | promtail | - | all interfaces |
 | 9100 | unknown | - | all interfaces |
 | 33101 | promtail | - | all interfaces |
-| 44519 | chrome | stream-monitor | 127.0.0.1 |
+| 35517 | chrome | stream-monitor | 127.0.0.1 |
 
 ### Key Systemd Services
 
@@ -203,12 +203,12 @@
 **Version:** 1.24.0 (Ubuntu)
 
 **Proxy Routes:**
-- `http://localhost:3000/socket.io/`
-- `http://localhost:3002`
+- `http://194.247.182.159:3000/`
+- `http://localhost:9050/`
 - `http://localhost:9070`
 - `http://127.0.0.1:8444`
-- `http://localhost:9050/`
-- `http://194.247.182.159:3000/`
+- `http://localhost:3002`
+- `http://localhost:3000/socket.io/`
 - `http://localhost:3000`
 
 ### Service Connections
@@ -220,12 +220,12 @@
 | stream-monitor | redis | 6379 | data |
 | admin-service | postgres | 5432 | data |
 | storage-service | postgres | 5432 | data |
-| nginx | http://localhost:3000/socket.io/ | 3000 | proxy |
-| nginx | http://localhost:3002 | 3002 | proxy |
+| nginx | http://194.247.182.159:3000/ | 3000 | proxy |
+| nginx | http://localhost:9050/ | 9050 | proxy |
 | nginx | http://localhost:9070 | 9070 | proxy |
 | nginx | http://127.0.0.1:8444 | 8444 | proxy |
-| nginx | http://localhost:9050/ | 9050 | proxy |
-| nginx | http://194.247.182.159:3000/ | 3000 | proxy |
+| nginx | http://localhost:3002 | 3002 | proxy |
+| nginx | http://localhost:3000/socket.io/ | 3000 | proxy |
 | nginx | http://localhost:3000 | 3000 | proxy |
 
 ### External Services
@@ -248,15 +248,15 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.00, 0.01, 0.00 |
+| Load Average | 0.06, 0.03, 0.00 |
 
-**Memory:** 1.0 GB / 3.8 GB (27.3% used)
+**Memory:** 1.1 GB / 3.8 GB (27.7% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 52.8 GB | 27.2 GB | 23.0 GB | 55% |
+| `/` | 52.8 GB | 27.2 GB | 22.9 GB | 55% |
 
 ### Docker Containers
 
@@ -321,21 +321,21 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.21, 0.09, 0.02 |
+| Load Average | 0.00, 0.01, 0.00 |
 
-**Memory:** 3.0 GB / 5.8 GB (51.4% used)
+**Memory:** 3.0 GB / 5.8 GB (51.8% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 117.0 GB | 13.4 GB | 98.7 GB | 12% |
+| `/` | 117.0 GB | 13.5 GB | 98.6 GB | 13% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| stream-probe | 9100 | online | 61 MB | 3.2% | 39 |
+| stream-probe | 9100 | online | 62 MB | 0% | 39 |
 
 ### Listening Ports
 
