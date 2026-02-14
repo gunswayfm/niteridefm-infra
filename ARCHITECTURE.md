@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-13 06:31 UTC*
+*Auto-generated on 2026-02-14 06:22 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -32,9 +32,9 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.03, 0.02, 0.00 |
+| Load Average | 0.00, 0.03, 0.00 |
 
-**Memory:** 1.1 GB / 3.8 GB (27.6% used)
+**Memory:** 1.0 GB / 3.8 GB (27.3% used)
 
 ### Disk Usage
 
@@ -46,11 +46,11 @@
 
 | Name | Image | Ports | Status |
 |------|-------|-------|--------|
-| docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 4 weeks |
-| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 4 weeks (healthy) |
-| docker-lemmy-1 | `docker-lemmy` | 10002:10002, 10002:10002 | Up 4 weeks |
-| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | 5433:5432, 5433:5432 | Up 4 weeks (healthy) |
-| docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 4 weeks |
+| docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 5 weeks |
+| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 5 weeks (healthy) |
+| docker-lemmy-1 | `docker-lemmy` | 10002:10002, 10002:10002 | Up 5 weeks |
+| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | 5433:5432, 5433:5432 | Up 5 weeks (healthy) |
+| docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 5 weeks |
 
 ### Listening Ports
 
@@ -105,9 +105,9 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.02, 0.05, 0.00 |
+| Load Average | 0.02, 0.02, 0.00 |
 
-**Memory:** 3.2 GB / 5.8 GB (54.8% used)
+**Memory:** 3.2 GB / 5.8 GB (55.6% used)
 
 ### Disk Usage
 
@@ -119,7 +119,7 @@
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| stream-probe | 9100 | online | 60 MB | 0% | 39 |
+| stream-probe | 9100 | online | 61 MB | 3% | 39 |
 
 ### Listening Ports
 
