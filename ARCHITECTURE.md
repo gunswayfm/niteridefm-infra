@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-14 06:22 UTC*
+*Auto-generated on 2026-02-15 06:26 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -32,25 +32,25 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.00, 0.03, 0.00 |
+| Load Average | 0.02, 0.53, 0.91 |
 
-**Memory:** 1.0 GB / 3.8 GB (27.3% used)
+**Memory:** 773.4 MB / 3.8 GB (19.8% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 52.8 GB | 27.2 GB | 22.9 GB | 55% |
+| `/` | 52.8 GB | 28.8 GB | 21.3 GB | 58% |
 
 ### Docker Containers
 
 | Name | Image | Ports | Status |
 |------|-------|-------|--------|
-| docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 5 weeks |
-| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 5 weeks (healthy) |
-| docker-lemmy-1 | `docker-lemmy` | 10002:10002, 10002:10002 | Up 5 weeks |
-| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | 5433:5432, 5433:5432 | Up 5 weeks (healthy) |
-| docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 5 weeks |
+| docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 4 minutes |
+| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 4 minutes (healthy) |
+| docker-lemmy-1 | `docker-lemmy` | 10002:10002, 10002:10002 | Up 4 minutes |
+| docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 4 minutes |
+| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | 5433:5432, 5433:5432 | Up 12 minutes (healthy) |
 
 ### Listening Ports
 
@@ -105,21 +105,21 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.02, 0.02, 0.00 |
+| Load Average | 0.00, 0.00, 0.00 |
 
-**Memory:** 3.2 GB / 5.8 GB (55.6% used)
+**Memory:** 3.2 GB / 5.8 GB (56.0% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 117.0 GB | 13.6 GB | 98.5 GB | 13% |
+| `/` | 117.0 GB | 13.7 GB | 98.5 GB | 13% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| stream-probe | 9100 | online | 61 MB | 3% | 39 |
+| stream-probe | 9100 | online | 60 MB | 0% | 39 |
 
 ### Listening Ports
 
