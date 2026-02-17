@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-16 06:34 UTC*
+*Auto-generated on 2026-02-17 06:30 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -32,25 +32,25 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.05, 0.03, 0.00 |
+| Load Average | 0.00, 0.04, 0.01 |
 
-**Memory:** 931.1 MB / 3.8 GB (23.8% used)
+**Memory:** 904.2 MB / 3.8 GB (23.2% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 52.8 GB | 28.8 GB | 21.4 GB | 58% |
+| `/` | 52.8 GB | 28.8 GB | 21.3 GB | 58% |
 
 ### Docker Containers
 
 | Name | Image | Ports | Status |
 |------|-------|-------|--------|
-| docker-lemmy-1 | `ghcr.io/gunswayfm/niteridefm_grid:latest` | 10002:10002, 10002:10002 | Up 10 hours |
-| docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 24 hours |
-| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 24 hours (healthy) |
-| docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 24 hours |
-| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | 5433:5432, 5433:5432 | Up 24 hours (healthy) |
+| docker-lemmy-1 | `ghcr.io/gunswayfm/niteridefm_grid:latest` | 10002:10002, 10002:10002 | Up 34 hours |
+| docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 2 days |
+| docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 2 days (healthy) |
+| docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 2 days |
+| docker-postgres-1 | `pgautoupgrade/pgautoupgrade:16-alpine` | 5433:5432, 5433:5432 | Up 2 days (healthy) |
 
 ### Listening Ports
 
@@ -105,15 +105,15 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.14, 0.07, 0.01 |
+| Load Average | 0.00, 0.01, 0.00 |
 
-**Memory:** 3.3 GB / 5.8 GB (57.3% used)
+**Memory:** 3.3 GB / 5.8 GB (57.7% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 117.0 GB | 13.6 GB | 98.5 GB | 13% |
+| `/` | 117.0 GB | 13.7 GB | 98.5 GB | 13% |
 
 ### PM2 Services
 
