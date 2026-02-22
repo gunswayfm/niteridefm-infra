@@ -16,6 +16,9 @@ get_server_ip() {
         stream) echo "194.247.182.249" ;;
         grid) echo "82.22.53.68" ;;
         monitoring) echo "194.247.182.159" ;;
+        fe-ppe) echo "82.22.53.147" ;;
+        be-ppe) echo "82.22.53.161" ;;
+        fe-ch2) echo "82.22.53.167" ;;
         *) echo "" ;;
     esac
 }
@@ -60,6 +63,27 @@ get_ssh_key() {
                 path="$MONITORING_SERVER_SSH_KEY_PATH"
             else
                 path="$HOME/Documents/myKeys/hostkey_iceland_loki"
+            fi
+            ;;
+        fe-ppe)
+            if [ -n "$FE_PPE_SERVER_SSH_KEY_PATH" ]; then
+                path="$FE_PPE_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/repos/niteridefm/myKeys/niteride-fe-ppe"
+            fi
+            ;;
+        be-ppe)
+            if [ -n "$BE_PPE_SERVER_SSH_KEY_PATH" ]; then
+                path="$BE_PPE_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/repos/niteridefm/myKeys/niteride-be-ppe"
+            fi
+            ;;
+        fe-ch2)
+            if [ -n "$FE_CH2_SERVER_SSH_KEY_PATH" ]; then
+                path="$FE_CH2_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/repos/niteridefm/myKeys/niteride-fm-ch2"
             fi
             ;;
     esac
@@ -123,7 +147,7 @@ main() {
     echo ""
 
     if [ "$target" = "all" ]; then
-        for server in web stream grid monitoring; do
+        for server in web stream grid monitoring fe-ppe be-ppe fe-ch2; do
             discover_server "$server" || echo "  Failed to discover $server"
             echo ""
         done

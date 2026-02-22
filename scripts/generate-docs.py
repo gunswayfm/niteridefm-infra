@@ -202,6 +202,12 @@ def generate_architecture_md():
          "Lemmy fork with Supabase auth, PostgreSQL 16, Pictrs image hosting"),
         ("monitoring", "Monitoring Server", "194.247.182.159",
          "Grafana dashboards, Loki log aggregation"),
+        ("fe-ppe", "FE PPE Server", "82.22.53.147",
+         "Pre-production frontend environment (staging branch)"),
+        ("be-ppe", "BE PPE Server", "82.22.53.161",
+         "Pre-production backend environment (staging branch)"),
+        ("fe-ch2", "FE CH2 Server", "82.22.53.167",
+         "Channel 2 frontend environment"),
     ]
 
     for name, display, ip, purpose in servers:

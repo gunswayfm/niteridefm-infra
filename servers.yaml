@@ -38,3 +38,28 @@ servers:
     services:
       grafana: "http://localhost:3000"
       loki: "http://localhost:3100"
+
+  fe-ppe:
+    name: "FE PPE Server"
+    host: "82.22.53.147"
+    user: "root"
+    ssh_key_secret: "FE_PPE_SERVER_SSH_KEY"
+    purpose: "Pre-production frontend environment (staging branch)"
+    repo: "https://github.com/gunswayfm/niteridefm-fe"
+    branch: "staging"
+
+  be-ppe:
+    name: "BE PPE Server"
+    host: "82.22.53.161"
+    user: "root"
+    ssh_key_secret: "BE_PPE_SERVER_SSH_KEY"
+    purpose: "Pre-production backend environment (staging branch)"
+    repo: "https://github.com/gunswayfm/niteridefm-be"
+    branch: "staging"
+
+  fe-ch2:
+    name: "FE CH2 Server"
+    host: "82.22.53.167"
+    user: "root"
+    ssh_key_secret: "FE_CH2_SERVER_SSH_KEY"
+    purpose: "Channel 2 frontend environment"

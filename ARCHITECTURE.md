@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-02-21 06:21 UTC*
+*Auto-generated on 2026-02-22 01:03 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -149,6 +149,27 @@
 **Version:** bin
 
 ---
+
+## FE PPE Server
+
+**IP:** `82.22.53.147`  
+**Purpose:** Pre-production frontend environment (staging branch)
+
+*No discovery data available*
+
+## BE PPE Server
+
+**IP:** `82.22.53.161`  
+**Purpose:** Pre-production backend environment (staging branch)
+
+*No discovery data available*
+
+## FE CH2 Server
+
+**IP:** `82.22.53.167`  
+**Purpose:** Channel 2 frontend environment
+
+*No discovery data available*
 
 ## Data Sources
 

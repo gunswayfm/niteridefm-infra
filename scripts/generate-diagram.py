@@ -135,6 +135,17 @@ def generate_architecture_diagram():
 
             grafana >> loki_logs
 
+        # PPE Environment Cluster
+        with Cluster("PPE Environment\n(Pre-Production)"):
+            fe_ppe = Server("FE PPE\n82.22.53.147\nstaging branch")
+            be_ppe = Server("BE PPE\n82.22.53.161\nstaging branch")
+
+            fe_ppe >> Edge(label="API") >> be_ppe
+
+        # Channel 2 Cluster
+        with Cluster("Channel 2"):
+            fe_ch2 = Server("FE CH2\n82.22.53.167")
+
         # Cross-cluster connections
         node_services >> Edge(label="API") >> hls_server
         node_services >> Edge(label="Auth") >> lemmy_api
@@ -159,6 +170,9 @@ def generate_network_diagram():
         "stream": ("Stream Server", "194.247.182.249"),
         "grid": ("Grid Server", "82.22.53.68"),
         "monitoring": ("Monitoring", "194.247.182.159"),
+        "fe-ppe": ("FE PPE", "82.22.53.147"),
+        "be-ppe": ("BE PPE", "82.22.53.161"),
+        "fe-ch2": ("FE CH2", "82.22.53.167"),
     }
 
     with Diagram(
@@ -188,6 +202,9 @@ def generate_network_diagram():
         server_nodes["web"] >> Edge(label="auth") >> server_nodes["grid"]
         server_nodes["stream"] >> Edge(style="dashed") >> server_nodes["monitoring"]
         server_nodes["grid"] >> Edge(style="dashed") >> server_nodes["monitoring"]
+
+        # PPE mirrors production
+        server_nodes["fe-ppe"] >> Edge(label="API") >> server_nodes["be-ppe"]
 
     print(f"Generated: {DIAGRAMS_DIR / 'network.png'}")
 

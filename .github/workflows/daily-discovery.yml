@@ -50,11 +50,26 @@ jobs:
           echo "${{ secrets.MONITORING_SERVER_SSH_KEY }}" > ~/.ssh/monitoring_key
           chmod 600 ~/.ssh/monitoring_key
 
+          # FE PPE Server key
+          echo "${{ secrets.FE_PPE_SERVER_SSH_KEY }}" > ~/.ssh/fe_ppe_key
+          chmod 600 ~/.ssh/fe_ppe_key
+
+          # BE PPE Server key
+          echo "${{ secrets.BE_PPE_SERVER_SSH_KEY }}" > ~/.ssh/be_ppe_key
+          chmod 600 ~/.ssh/be_ppe_key
+
+          # FE CH2 Server key
+          echo "${{ secrets.FE_CH2_SERVER_SSH_KEY }}" > ~/.ssh/fe_ch2_key
+          chmod 600 ~/.ssh/fe_ch2_key
+
           # Add known hosts to avoid prompts
           ssh-keyscan -H 194.247.183.37 >> ~/.ssh/known_hosts 2>/dev/null || true
           ssh-keyscan -H 194.247.182.249 >> ~/.ssh/known_hosts 2>/dev/null || true
           ssh-keyscan -H 82.22.53.68 >> ~/.ssh/known_hosts 2>/dev/null || true
           ssh-keyscan -H 194.247.182.159 >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H 82.22.53.147 >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H 82.22.53.161 >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H 82.22.53.167 >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Run discovery
         env:
@@ -62,6 +77,9 @@ jobs:
           STREAM_SERVER_SSH_KEY_PATH: ~/.ssh/stream_key
           GRID_SERVER_SSH_KEY_PATH: ~/.ssh/grid_key
           MONITORING_SERVER_SSH_KEY_PATH: ~/.ssh/monitoring_key
+          FE_PPE_SERVER_SSH_KEY_PATH: ~/.ssh/fe_ppe_key
+          BE_PPE_SERVER_SSH_KEY_PATH: ~/.ssh/be_ppe_key
+          FE_CH2_SERVER_SSH_KEY_PATH: ~/.ssh/fe_ch2_key
         run: |
           chmod +x scripts/discover.sh
           chmod +x scripts/discover-server.sh
