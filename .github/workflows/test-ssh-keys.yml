@@ -1,0 +1,43 @@
+name: Test SSH Keys
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup SSH keys
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          echo "${{ secrets.FE_PPE_SERVER_SSH_KEY }}" > ~/.ssh/fe_ppe_key
+          chmod 600 ~/.ssh/fe_ppe_key
+
+          echo "${{ secrets.BE_PPE_SERVER_SSH_KEY }}" > ~/.ssh/be_ppe_key
+          chmod 600 ~/.ssh/be_ppe_key
+
+          echo "${{ secrets.FE_CH2_SERVER_SSH_KEY }}" > ~/.ssh/fe_ch2_key
+          chmod 600 ~/.ssh/fe_ch2_key
+
+      - name: Test FE PPE
+        run: |
+          echo "=== FE PPE (82.22.53.147) ==="
+          echo "Key file size: $(wc -c < ~/.ssh/fe_ppe_key) bytes"
+          echo "Key header: $(head -1 ~/.ssh/fe_ppe_key)"
+          ssh -i ~/.ssh/fe_ppe_key -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o LogLevel=DEBUG root@82.22.53.147 'hostname' 2>&1 || echo "FAILED"
+
+      - name: Test BE PPE
+        run: |
+          echo "=== BE PPE (82.22.53.161) ==="
+          echo "Key file size: $(wc -c < ~/.ssh/be_ppe_key) bytes"
+          echo "Key header: $(head -1 ~/.ssh/be_ppe_key)"
+          ssh -i ~/.ssh/be_ppe_key -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o LogLevel=DEBUG root@82.22.53.161 'hostname' 2>&1 || echo "FAILED"
+
+      - name: Test FE CH2
+        run: |
+          echo "=== FE CH2 (82.22.53.167) ==="
+          echo "Key file size: $(wc -c < ~/.ssh/fe_ch2_key) bytes"
+          echo "Key header: $(head -1 ~/.ssh/fe_ch2_key)"
+          ssh -i ~/.ssh/fe_ch2_key -o StrictHostKeyChecking=no -o ConnectTimeout=15 -o LogLevel=DEBUG root@82.22.53.167 'hostname' 2>&1 || echo "FAILED"
