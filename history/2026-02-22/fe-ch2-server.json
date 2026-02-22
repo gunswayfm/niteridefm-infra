@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-02-22T03:09:43.943622",
+  "timestamp": "2026-02-22T07:24:07.852481",
   "system": {
     "hostname": "niteride-fm-ch2",
     "kernel": "6.8.0-39-generic",
     "os": "Ubuntu 24.04.1 LTS",
     "arch": "x86_64",
-    "uptime": "03:09:43 up 5 days,  7:41,  3 users,  load average: 0.01, 0.21, 0.36",
-    "load_average": "0.01, 0.21, 0.36"
+    "uptime": "07:24:07 up 5 days, 11:55,  3 users,  load average: 0.46, 0.53, 0.45",
+    "load_average": "0.46, 0.53, 0.45"
   },
   "memory": {
     "total_bytes": 16723750912,
-    "used_bytes": 1293238272,
-    "free_bytes": 213671936,
-    "available_bytes": 15430512640
+    "used_bytes": 1299582976,
+    "free_bytes": 259604480,
+    "available_bytes": 15424167936
   },
   "disk": [
     {
       "source": "/dev/mapper/hk-root",
       "fstype": "ext4",
       "size_bytes": 167933390848,
-      "used_bytes": 47727149056,
-      "available_bytes": 113233539072,
+      "used_bytes": 47752425472,
+      "available_bytes": 113208262656,
       "percent_used": 30,
       "mount_point": "/"
     },
@@ -119,8 +119,8 @@
       "name": "playlist-generator-ch2",
       "pid": 301320,
       "status": "online",
-      "memory": 83251200,
-      "cpu": 0,
+      "memory": 83681280,
+      "cpu": 4.3,
       "restarts": 6,
       "port": 9050
     },
@@ -128,7 +128,7 @@
       "name": "streaming-core-ch2",
       "pid": 300338,
       "status": "online",
-      "memory": 110551040,
+      "memory": 111181824,
       "cpu": 0,
       "restarts": 8
     },
@@ -136,7 +136,7 @@
       "name": "stream-guard-ch2",
       "pid": 165759,
       "status": "online",
-      "memory": 81960960,
+      "memory": 82673664,
       "cpu": 0,
       "restarts": 2
     },
@@ -144,15 +144,15 @@
       "name": "stream-monitor-ch2",
       "pid": 141838,
       "status": "online",
-      "memory": 81477632,
-      "cpu": 0,
+      "memory": 81510400,
+      "cpu": 4.3,
       "restarts": 0
     },
     {
       "name": "cdn-prewarmer-ch2",
       "pid": 141851,
       "status": "online",
-      "memory": 77541376,
+      "memory": 78888960,
       "cpu": 0,
       "restarts": 0
     },
@@ -160,7 +160,7 @@
       "name": "content-segmenter-ch2",
       "pid": 141852,
       "status": "online",
-      "memory": 82636800,
+      "memory": 83050496,
       "cpu": 0,
       "restarts": 0
     },
@@ -168,15 +168,15 @@
       "name": "storage-service-ch2",
       "pid": 320620,
       "status": "online",
-      "memory": 138153984,
-      "cpu": 0,
+      "memory": 156422144,
+      "cpu": 13,
       "restarts": 2
     },
     {
       "name": "rtmp-receiver-ch2",
       "pid": 141879,
       "status": "online",
-      "memory": 89079808,
+      "memory": 87973888,
       "cpu": 0,
       "restarts": 0
     },
@@ -184,7 +184,7 @@
       "name": "live-controller-ch2",
       "pid": 141895,
       "status": "online",
-      "memory": 76046336,
+      "memory": 76738560,
       "cpu": 0,
       "restarts": 0
     }

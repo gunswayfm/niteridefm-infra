@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-02-22T03:09:37.500337",
+  "timestamp": "2026-02-22T07:24:02.230183",
   "system": {
     "hostname": "niteride-fe-ppe",
     "kernel": "6.8.0-39-generic",
     "os": "Ubuntu 24.04.1 LTS",
     "arch": "x86_64",
-    "uptime": "03:09:37 up 10 days, 20:06,  2 users,  load average: 0.01, 0.01, 0.00",
-    "load_average": "0.01, 0.01, 0.00"
+    "uptime": "07:24:02 up 11 days, 20 min,  2 users,  load average: 0.00, 0.00, 0.00",
+    "load_average": "0.00, 0.00, 0.00"
   },
   "memory": {
     "total_bytes": 6189211648,
-    "used_bytes": 879333376,
-    "free_bytes": 1931104256,
-    "available_bytes": 5309878272
+    "used_bytes": 886521856,
+    "free_bytes": 1895329792,
+    "available_bytes": 5302689792
   },
   "disk": [
     {
       "source": "/dev/mapper/hk-root",
       "fstype": "ext4",
       "size_bytes": 125652185088,
-      "used_bytes": 7084331008,
-      "available_bytes": 113313095680,
+      "used_bytes": 7085072384,
+      "available_bytes": 113312354304,
       "percent_used": 6,
       "mount_point": "/"
     },
@@ -119,7 +119,7 @@
       "name": "niteride-backend",
       "pid": 681713,
       "status": "online",
-      "memory": 88559616,
+      "memory": 93384704,
       "cpu": 0,
       "restarts": 3,
       "port": 3000
@@ -128,7 +128,7 @@
       "name": "guide-service",
       "pid": 681714,
       "status": "online",
-      "memory": 72822784,
+      "memory": 76337152,
       "cpu": 0,
       "restarts": 3,
       "port": 3105
@@ -137,7 +137,7 @@
       "name": "identity-service",
       "pid": 681727,
       "status": "online",
-      "memory": 94199808,
+      "memory": 98058240,
       "cpu": 0,
       "restarts": 15,
       "port": 3001
@@ -146,7 +146,7 @@
       "name": "chat-service",
       "pid": 681728,
       "status": "online",
-      "memory": 86663168,
+      "memory": 92286976,
       "cpu": 0,
       "restarts": 3,
       "port": 4000
@@ -480,18 +480,18 @@
     ],
     "proxy_destinations": [
       "https://api-ppe.niteride.fm/ch2/",
-      "https://api-ppe.niteride.fm/ch2-segments/",
-      "https://api-ppe.niteride.fm/hls/",
-      "http://82.22.53.161:3002",
-      "https://api-ppe.niteride.fm/hls/segments/",
-      "http://127.0.0.1:3001",
-      "https://api-ppe.niteride.fm/uploads/",
-      "http://127.0.0.1:3105/$1",
-      "https://api-ppe.niteride.fm",
       "http://127.0.0.1:4000/socket.io/",
+      "http://127.0.0.1:3001",
+      "https://api-ppe.niteride.fm/ch2-segments/",
+      "https://api-ppe.niteride.fm/hls/segments/",
+      "https://api-ppe.niteride.fm",
+      "http://82.22.53.161:3002",
+      "https://api-ppe.niteride.fm/uploads/",
       "http://127.0.0.1:3000",
+      "https://api-ppe.niteride.fm/ch1/",
       "http://127.0.0.1:4000",
-      "https://api-ppe.niteride.fm/ch1/"
+      "https://api-ppe.niteride.fm/hls/",
+      "http://127.0.0.1:3105/$1"
     ],
     "config_preview": "# configuration file /etc/nginx/nginx.conf:\nuser www-data;\nworker_processes auto;\npid /run/nginx.pid;\nerror_log /var/log/nginx/error.log;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n\tworker_connections 768;\n\t# multi_accept on;\n}\n\nhttp {\n\n\t##\n\t# Basic Settings\n\t##\n\n\tsendfile on;\n\ttcp_nopush on;\n\ttypes_hash_max_size 2048;\n\t# server_tokens off;\n\n\t# server_names_hash_bucket_size 64;\n\t# server_name_in_redirect off;\n\n\tinclude /etc/nginx/mime.types;\n\tdefault_type application/octet-stream;\n\n\t##\n\t# SSL Settings\n\t##\n\n\tssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE\n\tssl_prefer_server_ciphers on;\n\n\t##\n\t# Logging Settings\n\t##\n\n\taccess_log /var/log/nginx/access.log;\n\n\t##\n\t# Gzip Settings\n\t##\n\n\tgzip on;\n\n\t# gzip_vary on;\n\t# gzip_proxied any;\n\t# gzip_comp_level 6;\n\t# gzip_buffers 16 8k;\n\t# gzip_http_version 1.1;\n\t# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;\n\n\t##\n\t# Virtual Host Configs\n\t##\n\n\tinclude /etc/nginx/conf.d/*.conf;\n\tinclude /etc/nginx/sites-enabled/*;\n}\n\n\n#mail {\n#\t# See sample authentication script at:\n#\t# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript\n#\n#\t# auth_http localhost/auth.php;\n#\t# pop3_capabilities \"TOP\" \"USER\";\n#\t# imap_capabilities \"IMAP4rev1\" \"UIDPLUS\";\n#\n#\tserver {\n#\t\tlisten     localhost:110;\n#\t\tprotocol   pop3;\n#\t\tproxy      on;\n#\t}\n#\n#\tserver {\n#\t\tlisten     localhost:143;\n#\t\tprotocol   imap;\n#\t\tproxy      on;\n#\t}\n#}\n\n# configuration file /etc/nginx/mime.types:\n\ntypes {\n    text/html                                        html htm shtml;\n    text/css                                         css;\n    text/xml                                         xml;\n    image/gif                                        gif;\n    image/jpeg                                       jpeg jpg;\n    application/javascript                           js;\n    application/atom+xml                             atom;\n    application/rss+xml                              rss;\n\n    text/mathml                                      mml;\n    text/plain                                       txt;\n    text/vnd.sun.j2me.app-descriptor                 jad;\n    text/vnd.wap.wml                                 wml;\n    text/x-component                                 htc;\n\n    image/avif                                       avif;\n    image/png                                        png;\n    image/svg+xml                                    svg svgz;\n    image/tiff                                       tif tiff;\n    image/vnd.wap.wbmp                               wbmp;\n    image/webp                                       webp;\n    image/x-icon                                     ico;\n    image/x-jng                                      jng;\n    image/x-ms-bmp                                   bmp;\n\n    font/woff                                        woff;\n    font/woff2                                       woff2;\n\n    application/java-archive"
   },
@@ -605,13 +605,31 @@
     },
     {
       "from": "nginx",
+      "to": "http://127.0.0.1:4000/socket.io/",
+      "port": 4000,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://127.0.0.1:3001",
+      "port": 3001,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
       "to": "https://api-ppe.niteride.fm/ch2-segments/",
       "port": 80,
       "type": "proxy"
     },
     {
       "from": "nginx",
-      "to": "https://api-ppe.niteride.fm/hls/",
+      "to": "https://api-ppe.niteride.fm/hls/segments/",
+      "port": 80,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "https://api-ppe.niteride.fm",
       "port": 80,
       "type": "proxy"
     },
@@ -623,38 +641,8 @@
     },
     {
       "from": "nginx",
-      "to": "https://api-ppe.niteride.fm/hls/segments/",
-      "port": 80,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "http://127.0.0.1:3001",
-      "port": 3001,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
       "to": "https://api-ppe.niteride.fm/uploads/",
       "port": 80,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "http://127.0.0.1:3105/$1",
-      "port": 3105,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "https://api-ppe.niteride.fm",
-      "port": 80,
-      "type": "proxy"
-    },
-    {
-      "from": "nginx",
-      "to": "http://127.0.0.1:4000/socket.io/",
-      "port": 4000,
       "type": "proxy"
     },
     {
@@ -665,14 +653,26 @@
     },
     {
       "from": "nginx",
+      "to": "https://api-ppe.niteride.fm/ch1/",
+      "port": 80,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
       "to": "http://127.0.0.1:4000",
       "port": 4000,
       "type": "proxy"
     },
     {
       "from": "nginx",
-      "to": "https://api-ppe.niteride.fm/ch1/",
+      "to": "https://api-ppe.niteride.fm/hls/",
       "port": 80,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://127.0.0.1:3105/$1",
+      "port": 3105,
       "type": "proxy"
     }
   ],
