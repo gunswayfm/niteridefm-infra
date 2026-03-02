@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-03-01 06:23 UTC*
+*Auto-generated on 2026-03-02 06:29 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -32,9 +32,9 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-90-generic |
-| Load Average | 0.19, 0.09, 0.05 |
+| Load Average | 0.00, 0.00, 0.00 |
 
-**Memory:** 930.2 MB / 3.8 GB (23.8% used)
+**Memory:** 979.4 MB / 3.8 GB (25.1% used)
 
 ### Disk Usage
 
@@ -46,7 +46,7 @@
 
 | Name | Image | Ports | Status |
 |------|-------|-------|--------|
-| docker-lemmy-1 | `ghcr.io/gunswayfm/niteridefm_grid:latest` | 10002:10002, 10002:10002 | Up 13 days |
+| docker-lemmy-1 | `ghcr.io/gunswayfm/niteridefm_grid:latest` | 10002:10002, 10002:10002 | Up 2 weeks |
 | docker-proxy-1 | `nginx:1-alpine` | 1236:1236, 1236:1236, 8536:8536, 8536:8536 | Up 2 weeks |
 | docker-lemmy-ui-1 | `dessalines/lemmy-ui:0.19.14` | 1234/tcp | Up 2 weeks (healthy) |
 | docker-pictrs-1 | `asonix/pictrs:0.5.16` | 6669/tcp, 8080/tcp | Up 2 weeks |
@@ -105,21 +105,21 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.08, 0.02, 0.01 |
+| Load Average | 0.00, 0.01, 0.00 |
 
-**Memory:** 3.8 GB / 5.8 GB (66.6% used)
+**Memory:** 3.9 GB / 5.8 GB (67.6% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 117.0 GB | 13.9 GB | 98.2 GB | 13% |
+| `/` | 117.0 GB | 13.7 GB | 98.5 GB | 13% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| stream-probe | 9100 | online | 60 MB | 2.9% | 39 |
+| stream-probe | 9100 | online | 60 MB | 0% | 39 |
 
 ### Listening Ports
 
@@ -169,33 +169,33 @@
 | Hostname | `niteride-be-ppe` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.07, 0.06, 0.02 |
+| Load Average | 0.21, 0.16, 0.22 |
 
-**Memory:** 1.4 GB / 5.8 GB (23.7% used)
+**Memory:** 1.4 GB / 5.8 GB (24.0% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 117.0 GB | 46.1 GB | 66.0 GB | 42% |
+| `/` | 117.0 GB | 46.3 GB | 65.9 GB | 42% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| playlist-generator-ch1 | 9050 | online | 78 MB | 2.7% | 17 |
+| playlist-generator-ch1 | 9050 | online | 79 MB | 2.9% | 17 |
 | stream-guard | - | online | 79 MB | 0% | 0 |
-| stream-monitor | - | online | 75 MB | 0% | 0 |
+| stream-monitor | - | online | 76 MB | 0% | 0 |
 | cdn-prewarmer | - | online | 112 MB | 0% | 1 |
-| content-segmenter | - | online | 80 MB | 0% | 0 |
+| content-segmenter | - | online | 79 MB | 0% | 0 |
 | streaming-core | - | stopped | 0 MB | 0% | 21 |
-| admin-service | 3002 | online | 97 MB | 0% | 29 |
-| storage-service | - | online | 118 MB | 0% | 1 |
-| rtmp-receiver | - | online | 82 MB | 0% | 0 |
+| admin-service | 3002 | online | 102 MB | 0% | 29 |
+| storage-service | - | online | 117 MB | 0% | 1 |
+| rtmp-receiver | - | online | 88 MB | 0% | 0 |
 | live-controller | - | online | 72 MB | 0% | 0 |
-| playlist-generator-ch2 | 9050 | online | 73 MB | 0% | 4 |
-| streaming-core-ch2 | - | online | 102 MB | 0% | 5 |
-| streaming-core-ch1 | - | online | 105 MB | 2.7% | 0 |
+| playlist-generator-ch2 | 9050 | online | 72 MB | 0% | 4 |
+| streaming-core-ch2 | - | online | 106 MB | 0% | 5 |
+| streaming-core-ch1 | - | online | 105 MB | 0% | 0 |
 
 ### Listening Ports
 
@@ -275,7 +275,7 @@
 | Hostname | `niteride-fm-ch2` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.55, 0.58, 0.55 |
+| Load Average | 0.74, 0.79, 0.58 |
 
 **Memory:** 1.2 GB / 15.6 GB (7.7% used)
 
@@ -283,21 +283,21 @@
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 156.4 GB | 51.2 GB | 98.7 GB | 35% |
+| `/` | 156.4 GB | 51.5 GB | 98.4 GB | 35% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| playlist-generator-ch2 | 9050 | online | 80 MB | 0% | 8 |
-| streaming-core-ch2 | - | online | 97 MB | 4% | 10 |
-| stream-guard-ch2 | - | online | 80 MB | 0% | 4 |
-| stream-monitor-ch2 | - | online | 79 MB | 4% | 2 |
-| cdn-prewarmer-ch2 | - | online | 76 MB | 0% | 2 |
-| content-segmenter-ch2 | - | online | 81 MB | 0% | 2 |
-| storage-service-ch2 | - | online | 152 MB | 28% | 4 |
-| rtmp-receiver-ch2 | - | online | 87 MB | 0% | 2 |
-| live-controller-ch2 | - | online | 71 MB | 0% | 2 |
+| playlist-generator-ch2 | 9050 | online | 79 MB | 0% | 9 |
+| streaming-core-ch2 | - | online | 94 MB | 0% | 11 |
+| stream-guard-ch2 | - | online | 79 MB | 0% | 5 |
+| stream-monitor-ch2 | - | online | 78 MB | 0% | 3 |
+| cdn-prewarmer-ch2 | - | online | 73 MB | 0% | 3 |
+| content-segmenter-ch2 | - | online | 76 MB | 0% | 3 |
+| storage-service-ch2 | - | online | 146 MB | 95.7% | 5 |
+| rtmp-receiver-ch2 | - | online | 106 MB | 0% | 5 |
+| live-controller-ch2 | - | online | 75 MB | 0% | 3 |
 
 ### Listening Ports
 
