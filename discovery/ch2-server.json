@@ -1,0 +1,371 @@
+{
+  "timestamp": "2026-04-10T02:44:53.747088",
+  "system": {
+    "hostname": "niteride-fm-ch2",
+    "kernel": "6.8.0-39-generic",
+    "os": "Ubuntu 24.04.4 LTS",
+    "arch": "x86_64",
+    "uptime": "02:44:53 up 52 days,  6:16,  2 users,  load average: 0.04, 0.03, 0.01",
+    "load_average": "0.04, 0.03, 0.01"
+  },
+  "memory": {
+    "total_bytes": 16723750912,
+    "used_bytes": 1539223552,
+    "free_bytes": 241774592,
+    "available_bytes": 15184527360
+  },
+  "disk": [
+    {
+      "source": "/dev/mapper/hk-root",
+      "fstype": "ext4",
+      "size_bytes": 167933390848,
+      "used_bytes": 39309914112,
+      "available_bytes": 121650774016,
+      "percent_used": 25,
+      "mount_point": "/"
+    },
+    {
+      "source": "/dev/sda1",
+      "fstype": "ext4",
+      "size_bytes": 1036431360,
+      "used_bytes": 253304832,
+      "available_bytes": 712716288,
+      "percent_used": 27,
+      "mount_point": "/boot"
+    }
+  ],
+  "ports": [
+    {
+      "port": 6379,
+      "address": "0.0.0.0",
+      "process": "redis-server",
+      "pid": 2531289
+    },
+    {
+      "port": 53,
+      "address": "127.0.0.53%lo",
+      "process": "systemd-resolve",
+      "pid": 2531267
+    },
+    {
+      "port": 6060,
+      "address": "127.0.0.1",
+      "process": "crowdsec",
+      "pid": 2554004
+    },
+    {
+      "port": 80,
+      "address": "0.0.0.0",
+      "process": "nginx",
+      "pid": 2560690
+    },
+    {
+      "port": 22,
+      "address": "0.0.0.0",
+      "process": "sshd",
+      "pid": 2531241
+    },
+    {
+      "port": 53,
+      "address": "127.0.0.54",
+      "process": "systemd-resolve",
+      "pid": 2531267
+    },
+    {
+      "port": 22,
+      "address": "[::]",
+      "process": "sshd",
+      "pid": 2531241
+    },
+    {
+      "port": 9100,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 9050,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 9080,
+      "address": "*",
+      "process": "promtail",
+      "pid": 2531314
+    },
+    {
+      "port": 9060,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 9061,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 9070,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 9004,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 9003,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    },
+    {
+      "port": 34785,
+      "address": "*",
+      "process": "promtail",
+      "pid": 2531314
+    },
+    {
+      "port": 1936,
+      "address": "*",
+      "process": "unknown",
+      "pid": 0
+    }
+  ],
+  "pm2": [],
+  "docker_containers": [],
+  "docker_compose": [],
+  "systemd": [
+    {
+      "unit": "chrony.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "containerd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "crowdsec-firewall-bouncer.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "crowdsec.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "dbus.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "docker.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "getty@tty1.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "multipathd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "networkd-dispatcher.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "nginx.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "pm2-niteride.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "polkit.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "promtail.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "redis-server.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "ssh.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-journald.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-logind.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-networkd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-resolved.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-udevd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "unattended-upgrades.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "upower.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "user@0.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    }
+  ],
+  "nginx": {
+    "installed": true,
+    "version": "1.24.0 (Ubuntu)",
+    "server_blocks": [
+      {
+        "listen": [
+          "80 default_server"
+        ],
+        "server_name": [
+          "cdn.niteride.fm",
+          "_"
+        ],
+        "locations": [
+          {
+            "path": "/.well-known/acme-challenge/",
+            "proxy_pass": null,
+            "type": "static"
+          },
+          {
+            "path": "/stream/",
+            "proxy_pass": "http://localhost:9050/",
+            "type": "proxy"
+          }
+        ]
+      }
+    ],
+    "proxy_destinations": [
+      "http://localhost:9050/"
+    ],
+    "config_preview": "# configuration file /etc/nginx/nginx.conf:\nuser www-data;\nworker_processes auto;\npid /run/nginx.pid;\nerror_log /var/log/nginx/error.log;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n\tworker_connections 768;\n\t# multi_accept on;\n}\n\nhttp {\n\n\t##\n\t# Basic Settings\n\t##\n\n\tsendfile on;\n\ttcp_nopush on;\n\ttypes_hash_max_size 2048;\n\tserver_tokens off;\n\n\t# server_names_hash_bucket_size 64;\n\t# server_name_in_redirect off;\n\n\tinclude /etc/nginx/mime.types;\n\tdefault_type application/octet-stream;\n\n\t##\n\t# SSL Settings\n\t##\n\n\tssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE\n\tssl_prefer_server_ciphers on;\n\n\t##\n\t# Logging Settings\n\t##\n\n\taccess_log /var/log/nginx/access.log;\n\n\t##\n\t# Gzip Settings\n\t##\n\n\tgzip on;\n\n\t# gzip_vary on;\n\t# gzip_proxied any;\n\t# gzip_comp_level 6;\n\t# gzip_buffers 16 8k;\n\t# gzip_http_version 1.1;\n\t# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;\n\n\t##\n\t# Virtual Host Configs\n\t##\n\n\tinclude /etc/nginx/conf.d/*.conf;\n\tinclude /etc/nginx/sites-enabled/*;\n}\n\n\n#mail {\n#\t# See sample authentication script at:\n#\t# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript\n#\n#\t# auth_http localhost/auth.php;\n#\t# pop3_capabilities \"TOP\" \"USER\";\n#\t# imap_capabilities \"IMAP4rev1\" \"UIDPLUS\";\n#\n#\tserver {\n#\t\tlisten     localhost:110;\n#\t\tprotocol   pop3;\n#\t\tproxy      on;\n#\t}\n#\n#\tserver {\n#\t\tlisten     localhost:143;\n#\t\tprotocol   imap;\n#\t\tproxy      on;\n#\t}\n#}\n\n# configuration file /etc/nginx/mime.types:\n\ntypes {\n    text/html                                        html htm shtml;\n    text/css                                         css;\n    text/xml                                         xml;\n    image/gif                                        gif;\n    image/jpeg                                       jpeg jpg;\n    application/javascript                           js;\n    application/atom+xml                             atom;\n    application/rss+xml                              rss;\n\n    text/mathml                                      mml;\n    text/plain                                       txt;\n    text/vnd.sun.j2me.app-descriptor                 jad;\n    text/vnd.wap.wml                                 wml;\n    text/x-component                                 htc;\n\n    image/avif                                       avif;\n    image/png                                        png;\n    image/svg+xml                                    svg svgz;\n    image/tiff                                       tif tiff;\n    image/vnd.wap.wbmp                               wbmp;\n    image/webp                                       webp;\n    image/x-icon                                     ico;\n    image/x-jng                                      jng;\n    image/x-ms-bmp                                   bmp;\n\n    font/woff                                        woff;\n    font/woff2                                       woff2;\n\n    application/java-archive  "
+  },
+  "cron": {
+    "user_crontab": "",
+    "system_cron_files": [
+      "e2scrub_all"
+    ]
+  },
+  "env": {
+    "env_file": "/opt/niteride/.env",
+    "variables": {
+      "CHANNEL_ID": "2",
+      "SEGMENT_BASE_URL": "/ch2-segments",
+      "REDIS_URL": "redis://:xSuNj12O4KWUoEQPMi52UMxrs2RRXvf0@localhost:6379",
+      "DATABASE_URL": "postgresql://postgres:jKvrYA7SdUHBjrEySdWktZqqdoT6HJLI@139.60.162.20:5432/niteridefm_dev",
+      "S3_BUCKET": "bf712aba8-videolibrary",
+      "S3_ENDPOINT": "https://s3-nl.hostkey.com",
+      "S3_ACCESS_KEY": "[REDACTED]",
+      "S3_SECRET_KEY": "[REDACTED]",
+      "ADMIN_SERVICE_URL": "http://139.60.162.20:3002",
+      "LEMMY_API_URL": "https://grid.niteride.fm/api/v3",
+      "LEMMY_CREDENTIAL_KEY": "[REDACTED]",
+      "IDENTITY_SERVICE_URL": "http://194.247.183.37:3001",
+      "SERVICE_KEY": "[REDACTED]",
+      "SCHEDULE_GENERATION_ENABLED": "false",
+      "PREFETCH_AGENT_ENABLED": "true",
+      "PREFETCH_AGENT_OLD_DISABLED": "true",
+      "PLAYLIST_REGISTRY_GATED": "true",
+      "CLM_BASE_URL": "http://139.60.162.20:3002",
+      "CLM_API_KEY": "[REDACTED]",
+      "CLM_ENABLED": "true",
+      "CLM_OLD_PIPELINE_DISABLED": "true",
+      "CONTENT_SEGMENTER_ENABLED": "false",
+      "SUPABASE_JWT_SECRET": "[REDACTED]",
+      "SEGMENT_SIGNING_SECRET": "[REDACTED]",
+      "DATABASE_READ_URL": "postgresql://postgres:jKvrYA7SdUHBjrEySdWktZqqdoT6HJLI@194.247.182.249:5432/niteridefm_dev"
+    }
+  },
+  "connections": [
+    {
+      "from": "nginx",
+      "to": "http://localhost:9050/",
+      "port": 9050,
+      "type": "proxy"
+    }
+  ],
+  "external_services": [
+    {
+      "name": "Supabase",
+      "type": "auth/database",
+      "detected_in": ".env"
+    },
+    {
+      "name": "Object Storage",
+      "type": "storage",
+      "detected_in": ".env"
+    }
+  ]
+}

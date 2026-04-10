@@ -1,0 +1,525 @@
+{
+  "timestamp": "2026-04-10T02:44:55.282050",
+  "system": {
+    "hostname": "is-vmv3-medium",
+    "kernel": "6.8.0-107-generic",
+    "os": "Ubuntu 24.04.3 LTS",
+    "arch": "x86_64",
+    "uptime": "02:44:55 up 1 day, 20:52,  2 users,  load average: 0.04, 0.02, 0.00",
+    "load_average": "0.04, 0.02, 0.00"
+  },
+  "memory": {
+    "total_bytes": 16723058688,
+    "used_bytes": 1236852736,
+    "free_bytes": 13468508160,
+    "available_bytes": 15486205952
+  },
+  "disk": [
+    {
+      "source": "/dev/mapper/hk-root",
+      "fstype": "ext4",
+      "size_bytes": 167933390848,
+      "used_bytes": 56297918464,
+      "available_bytes": 104662769664,
+      "percent_used": 35,
+      "mount_point": "/"
+    },
+    {
+      "source": "/dev/sda1",
+      "fstype": "ext4",
+      "size_bytes": 1036431360,
+      "used_bytes": 253509632,
+      "available_bytes": 712511488,
+      "percent_used": 27,
+      "mount_point": "/boot"
+    },
+    {
+      "source": "overlay",
+      "fstype": "overlay",
+      "size_bytes": 167933390848,
+      "used_bytes": 56297918464,
+      "available_bytes": 104662769664,
+      "percent_used": 35,
+      "mount_point": "/var/lib/docker/overlay2/3c9d82959c4525d4311c66037356bf7e46ea3a3bc27d4f005f9d12ea1f1e7a6d/merged"
+    }
+  ],
+  "ports": [
+    {
+      "port": 5050,
+      "address": "127.0.0.1",
+      "process": "docker-proxy",
+      "pid": 1589
+    },
+    {
+      "port": 80,
+      "address": "0.0.0.0",
+      "process": "nginx",
+      "pid": 202986
+    },
+    {
+      "port": 22,
+      "address": "0.0.0.0",
+      "process": "sshd",
+      "pid": 2129
+    },
+    {
+      "port": 6379,
+      "address": "127.0.0.1",
+      "process": "redis-server",
+      "pid": 885
+    },
+    {
+      "port": 8443,
+      "address": "0.0.0.0",
+      "process": "nginx",
+      "pid": 202986
+    },
+    {
+      "port": 443,
+      "address": "0.0.0.0",
+      "process": "nginx",
+      "pid": 202986
+    },
+    {
+      "port": 1935,
+      "address": "0.0.0.0",
+      "process": "nginx",
+      "pid": 202986
+    },
+    {
+      "port": 8444,
+      "address": "127.0.0.1",
+      "process": "tusd",
+      "pid": 887
+    },
+    {
+      "port": 53,
+      "address": "127.0.0.54",
+      "process": "systemd-resolve",
+      "pid": 718
+    },
+    {
+      "port": 5432,
+      "address": "0.0.0.0",
+      "process": "postgres",
+      "pid": 198455
+    },
+    {
+      "port": 53,
+      "address": "127.0.0.53%lo",
+      "process": "systemd-resolve",
+      "pid": 718
+    },
+    {
+      "port": 6379,
+      "address": "[::1]",
+      "process": "redis-server",
+      "pid": 885
+    },
+    {
+      "port": 22,
+      "address": "[::]",
+      "process": "sshd",
+      "pid": 2129
+    },
+    {
+      "port": 9080,
+      "address": "*",
+      "process": "promtail",
+      "pid": 883
+    },
+    {
+      "port": 39375,
+      "address": "*",
+      "process": "promtail",
+      "pid": 883
+    },
+    {
+      "port": 5432,
+      "address": "[::]",
+      "process": "postgres",
+      "pid": 198455
+    }
+  ],
+  "pm2": [],
+  "docker_containers": [
+    {
+      "id": "a10aca580979",
+      "name": "niteridefm-pgadmin",
+      "image": "dpage/pgadmin4:latest",
+      "status": "Up 45 hours",
+      "ports_raw": "443/tcp, 127.0.0.1:5050->80/tcp",
+      "port_mappings": [
+        {
+          "host": 5050,
+          "container": 80
+        }
+      ]
+    }
+  ],
+  "docker_compose": [
+    {
+      "Name": "niteride",
+      "Status": "running(1)",
+      "ConfigFiles": "/opt/niteride/docker-compose.yml"
+    }
+  ],
+  "systemd": [
+    {
+      "unit": "containerd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "cron.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "dbus.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "docker.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "fail2ban.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "getty@tty1.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "multipathd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "nginx.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "polkit.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "postgresql@16-main.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "promtail.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "redis-server.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "ssh.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-journald.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-logind.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-networkd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-resolved.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-timesyncd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "systemd-udevd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "tusd.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "unattended-upgrades.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    },
+    {
+      "unit": "user@0.service",
+      "load": "loaded",
+      "active": "active",
+      "sub": "running"
+    }
+  ],
+  "nginx": {
+    "installed": true,
+    "version": "1.24.0 (Ubuntu)",
+    "server_blocks": [
+      {
+        "listen": [
+          "1935"
+        ],
+        "server_name": [],
+        "locations": []
+      },
+      {
+        "listen": [
+          "80 default_server"
+        ],
+        "server_name": [
+          "cdn.niteride.fm",
+          "_"
+        ],
+        "locations": [
+          {
+            "path": "/.well-known/acme-challenge/",
+            "proxy_pass": null,
+            "type": "static"
+          },
+          {
+            "path": "/stream/ch1/",
+            "proxy_pass": "http://82.22.53.218:9050/ch1/",
+            "type": "proxy"
+          }
+        ]
+      },
+      {
+        "listen": [
+          "443 ssl http2"
+        ],
+        "server_name": [
+          "niteride.fm"
+        ],
+        "locations": [
+          {
+            "path": "/admin",
+            "proxy_pass": "http://localhost:3002",
+            "type": "proxy"
+          },
+          {
+            "path": "~ ^/api/v1/(admin|library|schedule|commercials|primetime|programs|obs-servers|settings|system|diagnostics|stingers|stinger-pairs|shows|channels)",
+            "proxy_pass": "http://localhost:3002",
+            "type": "proxy"
+          },
+          {
+            "path": "~ ^/api/v1/storage(/.*)?$",
+            "proxy_pass": "http://localhost:9070",
+            "type": "proxy"
+          },
+          {
+            "path": "/api/v1",
+            "proxy_pass": "http://localhost:3000",
+            "type": "proxy"
+          },
+          {
+            "path": "/socket.io/",
+            "proxy_pass": "http://localhost:3000/socket.io/",
+            "type": "proxy"
+          },
+          {
+            "path": "/grafana/",
+            "proxy_pass": "http://194.247.182.159:3000/",
+            "type": "proxy"
+          },
+          {
+            "path": "= /index.html",
+            "proxy_pass": null,
+            "type": "static"
+          },
+          {
+            "path": "~ \"\\.[a-f0-9]\\{8,\\}\\.(js|css)$\"",
+            "proxy_pass": null,
+            "type": "static"
+          },
+          {
+            "path": "~* \\.(png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$",
+            "proxy_pass": null,
+            "type": "static"
+          }
+        ]
+      },
+      {
+        "listen": [
+          "80"
+        ],
+        "server_name": [
+          "niteride.fm",
+          "www.niteride.fm"
+        ],
+        "locations": []
+      },
+      {
+        "listen": [
+          "443 ssl http2"
+        ],
+        "server_name": [
+          "www.niteride.fm"
+        ],
+        "locations": []
+      },
+      {
+        "listen": [
+          "8443 ssl"
+        ],
+        "server_name": [
+          "upload.niteride.fm"
+        ],
+        "locations": [
+          {
+            "path": "/uploads/",
+            "proxy_pass": "http://127.0.0.1:8444",
+            "type": "proxy"
+          }
+        ]
+      }
+    ],
+    "proxy_destinations": [
+      "http://localhost:9070",
+      "http://localhost:3000/socket.io/",
+      "http://localhost:3002",
+      "http://82.22.53.218:9050/ch1/",
+      "http://localhost:3000",
+      "http://127.0.0.1:8444",
+      "http://194.247.182.159:3000/"
+    ],
+    "config_preview": "# configuration file /etc/nginx/nginx.conf:\nuser www-data;\nworker_processes auto;\npid /run/nginx.pid;\nworker_rlimit_nofile 65535;\nerror_log /var/log/nginx/error.log;\ninclude /etc/nginx/modules-enabled/*.conf;\n\nevents {\n\tworker_connections 10240;\n\t# multi_accept on;\n}\n\ninclude /etc/nginx/rtmp.conf;\n\nhttp {\n\n\t##\n\t# Basic Settings\n\t##\n\n\tsendfile on;\n\ttcp_nopush on;\n\ttypes_hash_max_size 2048;\n\t# server_tokens off;\n\n\t# server_names_hash_bucket_size 64;\n\t# server_name_in_redirect off;\n\n    # Timeouts - Increased for CDN stability\n    keepalive_timeout 300;\n    client_body_timeout 300;\n    client_header_timeout 300;\n    send_timeout 300;\n\n\tinclude /etc/nginx/mime.types;\n\tdefault_type application/octet-stream;\n\n\t##\n\t# SSL Settings\n\t##\n\n\tssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; # Dropping SSLv3, ref: POODLE\n\tssl_prefer_server_ciphers on;\n\n\t##\n\t# Logging Settings\n\t##\n\n\taccess_log /var/log/nginx/access.log;\n\n\t##\n\t# Gzip Settings\n\t##\n\n\tgzip on;\n\n\t# gzip_vary on;\n\t# gzip_proxied any;\n\t# gzip_comp_level 6;\n\t# gzip_buffers 16 8k;\n\t# gzip_http_version 1.1;\n\tgzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript application/vnd.apple.mpegurl;\n\n\t##\n\t# Virtual Host Configs\n\t##\n\n\tinclude /etc/nginx/conf.d/*.conf;\n\tinclude /etc/nginx/sites-enabled/*;\n}\n\n\n#mail {\n#\t# See sample authentication script at:\n#\t# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript\n#\n#\t# auth_http localhost/auth.php;\n#\t# pop3_capabilities \"TOP\" \"USER\";\n#\t# imap_capabilities \"IMAP4rev1\" \"UIDPLUS\";\n#\n#\tserver {\n#\t\tlisten     localhost:110;\n#\t\tprotocol   pop3;\n#\t\tproxy      on;\n#\t}\n#\n#\tserver {\n#\t\tlisten     localhost:143;\n#\t\tprotocol   imap;\n#\t\tproxy      on;\n#\t}\n#}\n\n# configuration file /etc/nginx/modules-enabled/50-mod-rtmp.conf:\nload_module modules/ngx_rtmp_module.so;\n\n# configuration file /etc/nginx/rtmp.conf:\nrtmp_auto_push on;\n\nrtmp {\n    server {\n        listen 1935;\n        chunk_size 4096;\n\n        # Channel 1 - Local processing\n        # OBS connects to: rtmp://rtmp.niteride.fm/ch1\n        application ch1 {\n            live on;\n            record off;\n\n            allow publish all;\n            allow play all;\n\n            # Push to local rtmp-receiver for auth validation and transcoding\n            push rtmp://localhost:1936/live;\n        }\n\n        # Channel 2 - Forward to CH2 server (82.22.53.167)\n        # OBS connects to: rtmp://rtmp.niteride.fm/ch2\n        application ch2 {\n            live on;\n            record off;\n\n            allow publish all;\n            allow play all;\n\n            # Push directly to CH2 rtmp-receiver (NodeMediaServer on port 1936)\n            # CH2 has no nginx-rtmp module, so we push straight to rtmp-receiver\n            push rtmp://82.22.53.167:1936/live;\n        }\n\n        # Backward compatibility - route /live to CH1\n        application live {\n            live on;\n            record off;\n\n            allow publish all;\n            allow play all;\n\n            pus"
+  },
+  "cron": {
+    "user_crontab": "0 2 * * * /opt/niteride/database/backup.sh >> /var/log/niteride-backup.log 2>&1",
+    "system_cron_files": [
+      "certbot",
+      "e2scrub_all",
+      "sysstat"
+    ]
+  },
+  "env": {
+    "env_file": "/opt/niteride/.env",
+    "variables": {
+      "NODE_ENV": "production",
+      "DATABASE_URL": "postgresql://postgres:xK8nP2vQm7R4wL9sT6yF3jH5bN1cV0zA@localhost:5432/niteridefm_dev",
+      "REDIS_URL": "redis://:xK8nP2vQm7R4wL9sT6yF3jH5bN1cV0zA@127.0.0.1:6379",
+      "ADMIN_PORT": "3002",
+      "LEMMY_API_URL": "https://grid.niteride.fm/api/v3",
+      "LEMMY_CREDENTIAL_KEY": "[REDACTED]",
+      "SERVICE_KEY": "[REDACTED]",
+      "IDENTITY_SERVICE_URL": "http://194.247.183.37:3001",
+      "CONTENT_SEGMENTER_URL": "http://localhost:9060",
+      "CH2_REDIS_URL": "redis://:s8g%2FKtNhwqhQQFuGxVT6w6x2vEItRcSICVj5kPTxUTI%3D@82.22.53.167:6379",
+      "S3_BUCKET": "bf712aba8-videolibrary",
+      "S3_ENDPOINT": "https://s3-nl.hostkey.com",
+      "S3_ACCESS_KEY": "[REDACTED]",
+      "S3_SECRET_KEY": "[REDACTED]",
+      "CH1_REDIS_URL": "redis://:niteride_redis_ch1@82.22.53.218:6379",
+      "CLM_ENABLED": "false",
+      "CLM_OLD_PIPELINE_DISABLED": "true",
+      "CLM_API_KEY": "[REDACTED]",
+      "CLM_MAX_CONCURRENT_DRIVES": "1",
+      "CLM_SEGMENTER_TIMEOUT": "2700000",
+      "CONTENT_SEGMENTER_ENABLED": "false",
+      "SUPABASE_JWT_SECRET": "[REDACTED]"
+    }
+  },
+  "connections": [
+    {
+      "from": "nginx",
+      "to": "http://localhost:9070",
+      "port": 9070,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://localhost:3000/socket.io/",
+      "port": 3000,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://localhost:3002",
+      "port": 3002,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://82.22.53.218:9050/ch1/",
+      "port": 9050,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://localhost:3000",
+      "port": 3000,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://127.0.0.1:8444",
+      "port": 8444,
+      "type": "proxy"
+    },
+    {
+      "from": "nginx",
+      "to": "http://194.247.182.159:3000/",
+      "port": 3000,
+      "type": "proxy"
+    }
+  ],
+  "external_services": [
+    {
+      "name": "Supabase",
+      "type": "auth/database",
+      "detected_in": ".env"
+    },
+    {
+      "name": "Object Storage",
+      "type": "storage",
+      "detected_in": ".env"
+    }
+  ]
+}
