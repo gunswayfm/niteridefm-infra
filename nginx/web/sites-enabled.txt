@@ -1,0 +1,18 @@
+# /etc/nginx/sites-enabled/ manifest — web server (194.247.183.37)
+# Captured: 2026-04-23
+# All entries are symlinks to files in /etc/nginx/sites-available/.
+# Format: <filename_in_sites_enabled> -> <symlink_target>
+
+api.niteride.fm.conf  -> /etc/nginx/sites-available/api.niteride.fm.conf
+cdn.niteride.fm.conf  -> /etc/nginx/sites-available/cdn.niteride.fm.conf
+cors-map.conf         -> /etc/nginx/sites-available/cors-map.conf
+grid.niteride.fm.conf -> /etc/nginx/sites-available/grid.niteride.fm.conf
+niteride.fm.conf      -> /etc/nginx/sites-available/niteride.fm.conf
+tusd-proxy.conf       -> /etc/nginx/sites-available/tusd-proxy.conf
+
+# Not enabled (files present in sites-available/ but no symlink):
+#   default                    — stock nginx, not linked
+#   logging.conf               — lives in sites-available by mistake; real copy is in conf.d/logging.conf
+#   niteride.fm                — older config, superseded by niteride.fm.conf
+#   niteride.fm.conf.bak       — local backup
+#   v2.niteride.fm             — stale, not in use

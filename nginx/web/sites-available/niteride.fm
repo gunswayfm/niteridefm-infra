@@ -1,0 +1,168 @@
+  # niteride.fm - Main landing page + login + profile builder
+  server {
+      listen 443 ssl http2;
+      server_name niteride.fm;
+
+      # SSL configuration
+      ssl_certificate /etc/letsencrypt/live/niteride.fm/fullchain.pem;
+      ssl_certificate_key /etc/letsencrypt/live/niteride.fm/privkey.pem;
+      ssl_protocols TLSv1.2 TLSv1.3;
+      ssl_ciphers HIGH:!aNULL:!MD5;
+
+      # Security headers
+      add_header X-Frame-Options "SAMEORIGIN" always;
+      add_header X-Content-Type-Options "nosniff" always;
+      add_header X-XSS-Protection "1; mode=block" always;
+      add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+
+      # CSP for OAuth, Grid API, and external integrations (BetterTTV)
+      # Note: 'unsafe-inline' and 'unsafe-eval' required for Vite dev mode and React runtime
+      # For production hardening, consider migrating to nonce-based CSP
+      add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.niteride.fm https://cdn.niteride.fm https://*.supabase.co https://api.betterttv.net wss://niteride.fm https://grid.niteride.fm; media-src 'self' https://cdn.niteride.fm blob:; worker-src 'self' blob:;" always;
+
+      # Logging
+      access_log /var/log/nginx/niteride-access.log;
+      error_log /var/log/nginx/niteride-error.log warn;
+
+      # API proxy - routes /api/v1 requests to backend
+      location /api/v1 {
+          proxy_pass http://localhost:3000;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection 'upgrade';
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          proxy_cache_bypass $http_upgrade;
+          
+          # Explicitly pass through CORS headers from backend
+          # This prevents nginx from stripping them when add_header is used at server level
+          proxy_pass_header Access-Control-Allow-Origin;
+          proxy_pass_header Access-Control-Allow-Credentials;
+          proxy_pass_header Access-Control-Allow-Methods;
+          proxy_pass_header Access-Control-Allow-Headers;
+          proxy_pass_header Access-Control-Max-Age;
+      }
+
+      # Socket.IO WebSocket proxy for chat
+      location /socket.io/ {
+          proxy_pass http://localhost:3000/socket.io/;
+          proxy_http_version 1.1;
+
+          # WebSocket upgrade headers
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+
+          # Standard proxy headers
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+
+          # Disable buffering for WebSocket
+          proxy_buffering off;
+
+          # Timeouts (Socket.IO default ping is 25s, timeout 20s)
+          proxy_connect_timeout 60s;
+          proxy_send_timeout 60s;
+          proxy_read_timeout 60s;
+      }
+
+      # Grid API Proxy (Proxies to Lemmy instance in Iceland)
+      location /grid-api/ {
+          proxy_pass http://82.22.53.68:1236/;
+          proxy_http_version 1.1;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+          
+          # Pass through CORS headers if needed (though Lemmy handles them)
+          proxy_pass_header Access-Control-Allow-Origin;
+          proxy_pass_header Access-Control-Allow-Credentials;
+      }
+
+      # Grid Socket.IO Proxy (For Grid notifications and live updates)
+      location /grid/socket.io/ {
+          proxy_pass http://82.22.53.68:1236/socket.io/;
+          proxy_http_version 1.1;
+
+          # WebSocket upgrade headers
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection "upgrade";
+
+          # Standard proxy headers
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+
+          # Disable buffering for WebSocket
+          proxy_buffering off;
+
+          # Timeouts
+          proxy_connect_timeout 60s;
+          proxy_send_timeout 300s;
+          proxy_read_timeout 300s;
+      }
+
+      # Grafana Proxy (to Monitoring VPS)
+      location /grafana/ {
+          proxy_pass http://194.247.182.159:3000;
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto $scheme;
+      }
+
+      # Frontend - React SPA (serves /, /login, /auth/callback, /profile, /admin/*)
+      location / {
+          root /var/www/niteridefm-frontend;
+          try_files $uri $uri/ /index.html;
+
+          # No cache for HTML (Explicit Security Headers Required here due to add_header override)
+          location = /index.html {
+              add_header Cache-Control "no-store, no-cache, must-revalidate";
+              add_header X-Frame-Options "SAMEORIGIN" always;
+              add_header X-Content-Type-Options "nosniff" always;
+              add_header X-XSS-Protection "1; mode=block" always;
+              add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+              add_header Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.niteride.fm https://cdn.niteride.fm https://*.supabase.co https://api.betterttv.net wss://niteride.fm https://grid.niteride.fm; media-src 'self' https://cdn.niteride.fm blob:; worker-src 'self' blob:;" always;
+          }
+
+          # Cache static assets with content hashes (Vite generates these automatically for JS/CSS)
+          # Vite output: index-[hash].js, style-[hash].css
+          location ~ "\.[a-f0-9]{8,}\.(js|css)$" {
+              expires 1y;
+              add_header Cache-Control "public, immutable";
+          }
+
+          # Cache other static assets for shorter period (images, fonts may not be hashed)
+          location ~* \.(png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+              expires 7d;
+              add_header Cache-Control "public";
+          }
+      }
+  }
+
+  # HTTP to HTTPS redirect
+  server {
+      listen 80;
+      server_name niteride.fm www.niteride.fm;
+      return 301 https://niteride.fm$request_uri;
+  }
+
+  # www to non-www redirect (HTTPS)
+  server {
+      listen 443 ssl http2;
+      server_name www.niteride.fm;
+
+      # SSL configuration
+      ssl_certificate /etc/letsencrypt/live/niteride.fm/fullchain.pem;
+      ssl_certificate_key /etc/letsencrypt/live/niteride.fm/privkey.pem;
+      ssl_protocols TLSv1.2 TLSv1.3;
+      ssl_ciphers HIGH:!aNULL:!MD5;
+
+      return 301 https://niteride.fm$request_uri;
+  }
