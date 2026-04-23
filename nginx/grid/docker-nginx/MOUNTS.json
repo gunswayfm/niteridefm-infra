@@ -1,0 +1,1 @@
+[{"Type":"bind","Source":"/opt/niteridefm-grid/docker/nginx.conf","Destination":"/etc/nginx/nginx.conf","Mode":"ro,Z","RW":false,"Propagation":"rprivate"}]
