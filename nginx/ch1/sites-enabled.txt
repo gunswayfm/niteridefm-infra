@@ -1,0 +1,14 @@
+# /etc/nginx/sites-enabled/ manifest — CH1 (82.22.53.218)
+# Captured: 2026-04-23
+
+# IMPORTANT: sites-enabled/ contains a REGULAR FILE (not a symlink).
+# The enabled file DIFFERS from the corresponding sites-available/ file.
+# The copy in sites-enabled/ is the LIVE CONFIG. Treat it as canonical for restore.
+# Drift vs sites-available/ch1-hls.conf: enabled file is ~3900 bytes larger;
+# adds explicit CORS header mgmt + proxy_hide_header directives for no-cache + security-headers include.
+
+ch1-hls.conf  (regular file, NOT symlink) — see sites-enabled/ch1-hls.conf
+
+# Not enabled:
+#   default                       — stock nginx
+#   ch1-hls.conf.bak-20260408     — local backup
