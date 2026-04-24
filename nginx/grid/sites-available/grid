@@ -1,6 +1,19 @@
 server {
     server_name grid.niteride.fm;
 
+    # Federation prefix 404s.
+    # Lemmy fork has ActivityPub compiled but runtime-disabled
+    # (federation.enabled=false in lemmy.hjson). External federation endpoints
+    # must still 404 at the edge to reduce attack surface. See
+    # engineering/platforms/grid-fork-deltas.md "Compiled-but-disabled
+    # ActivityPub" and invariants.md.
+    location ~ ^/(inbox|outbox|nodeinfo|\.well-known/nodeinfo) {
+        return 404;
+    }
+    location ~ ^/api/v3/(activity|federation) {
+        return 404;
+    }
+
     location / {
         proxy_pass http://127.0.0.1:8536;
         proxy_set_header Host $host;
