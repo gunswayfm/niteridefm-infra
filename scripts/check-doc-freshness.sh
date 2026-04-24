@@ -12,8 +12,6 @@
 # - Line-range suffixes (:123 or :123-456) stripped before existence check
 # - Template placeholders (<repo>, <channel>, etc.) ignored
 
-set -e
-
 ENG_DIR="${1:-$HOME/products/niteride/engineering}"
 
 if [ ! -d "$ENG_DIR" ]; then
@@ -21,13 +19,14 @@ if [ ! -d "$ENG_DIR" ]; then
   exit 2
 fi
 
-python3 << PYTHON_SCRIPT
+export ENG_DIR
+python3 << 'PYTHON_SCRIPT'
 import os
 import re
 import sys
 from pathlib import Path
 
-ENG_DIR = Path("$ENG_DIR").expanduser()
+ENG_DIR = Path(os.environ['ENG_DIR']).expanduser()
 HOME = str(Path.home())
 
 # Filesystem-path roots we can check locally
@@ -37,9 +36,11 @@ LOCAL_ROOTS = (HOME + '/code/', HOME + '/products/', HOME + '/obsidian-wiki/',
 INFRA_ROOTS = ('/etc/', '/opt/', '/var/', '/srv/', '/usr/local/', '/usr/bin/', '/home/')
 
 # Strip trailing :line or :line-range suffix (keep the path portion)
-LINE_SUFFIX_RE = re.compile(r':(\d+(-\d+)?)\$')
+LINE_SUFFIX_RE = re.compile(r':(\d+(-\d+)?)$')
 # Backtick-wrapped candidate
-PATH_RE = re.compile(r'\`+([^\`\s]+)\`+')
+PATH_RE = re.compile(r'`+([^`\s]+)`+')
+# Trailing punctuation that can leak in from prose: `path.ts`. or `path.ts`, etc.
+TRAILING_PUNCT = '.,;:)!?]'
 
 rows = []
 stale_count = 0
@@ -47,9 +48,15 @@ infra_count = 0
 ok_count = 0
 skipped = {'url': 0, 'placeholder': 0, 'not-absolute': 0, 'route-or-mount': 0, 'regex': 0}
 
-REGEX_LIKE = re.compile(r'[\\\^\\\$\\\*\\\+\\\?\\\|\\\(\\\)\\\[\\\]\\\{\\\}]')
+REGEX_LIKE = re.compile(r'[\\^$*+?|()\[\]{}]')
 
 def classify(raw):
+    # Strip trailing prose punctuation that leaked inside the backticks
+    while raw and raw[-1] in TRAILING_PUNCT:
+        raw = raw[:-1]
+    if not raw:
+        return None
+
     # Step 1: cheap filters
     if '://' in raw:
         skipped['url'] += 1
