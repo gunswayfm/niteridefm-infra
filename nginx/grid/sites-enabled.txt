@@ -1,0 +1,12 @@
+# /etc/nginx/sites-enabled/ manifest — Grid (82.22.53.68)
+# Captured: 2026-04-23
+
+grid -> /etc/nginx/sites-available/grid
+
+# Not enabled:
+#   default  — stock nginx, not linked
+
+# NOTE: Host nginx only proxies :443 grid.niteride.fm -> http://127.0.0.1:8536
+# (the docker-proxy-1 container). The real reverse proxy work (Lemmy UI, Lemmy
+# backend, Pictrs) happens INSIDE docker-proxy-1, whose nginx.conf is captured
+# under docker-nginx/nginx.conf (mounted from /opt/niteridefm-grid/docker/nginx.conf).

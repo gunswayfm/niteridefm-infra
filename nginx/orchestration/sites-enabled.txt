@@ -1,0 +1,17 @@
+# /etc/nginx/sites-enabled/ manifest — orchestration server (139.60.162.20)
+# Captured: 2026-04-23
+# All entries are symlinks to files in /etc/nginx/sites-available/.
+# Format: <filename_in_sites_enabled> -> <symlink_target>
+
+cdn.niteride.fm.conf -> /etc/nginx/sites-available/cdn.niteride.fm.conf
+cors-map.conf        -> /etc/nginx/sites-available/cors-map.conf
+niteride.fm          -> /etc/nginx/sites-available/niteride.fm
+tusd.conf            -> /etc/nginx/sites-available/tusd.conf
+
+# Not enabled (files present in sites-available/ but no symlink):
+#   default                    — stock nginx, not linked
+
+# NOTE: `niteride.fm` is an ACTIVE admin-service vhost listening on 443 for
+# server_name niteride.fm (with admin.niteride.fm TLS cert). This vhost is
+# NOT mentioned in engineering/platforms/nginx-cdn-origin.md — it is a drift
+# surprise flagged in nginx-capture-report.md (2026-04-23 Q6A).

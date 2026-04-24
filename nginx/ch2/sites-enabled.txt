@@ -1,0 +1,19 @@
+# /etc/nginx/sites-enabled/ manifest — CH2 (82.22.53.167)
+# Captured: 2026-04-23
+
+# IMPORTANT: sites-enabled/ contains a REGULAR FILE (not a symlink).
+# The enabled file DIFFERS SUBSTANTIALLY from sites-available/cdn.niteride.fm.conf.
+# The copy in sites-enabled/ is the LIVE CONFIG. Treat it as canonical for restore.
+# Drift vs sites-available/cdn.niteride.fm.conf: enabled file is ~2256 bytes smaller;
+# structurally different (indentation, CORS location blocks).
+
+cdn.niteride.fm.conf  (regular file, NOT symlink) — see sites-enabled/cdn.niteride.fm.conf
+
+# Not enabled:
+#   default                                            — stock nginx
+#   cdn.niteride.fm.conf.bak-20260302-042655           — local backup
+#   cdn.niteride.fm.conf.bak-20260322-cache-fix        — local backup
+#   cdn.niteride.fm.conf.bak-20260408                  — local backup
+#   tusd.conf                                          — not linked; tusd runs on orchestration
+#   cors-map.conf                                      — lives in sites-available/ AND conf.d/;
+#                                                         the conf.d/ copy is what nginx loads
