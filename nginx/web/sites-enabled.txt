@@ -15,4 +15,5 @@ tusd-proxy.conf       -> /etc/nginx/sites-available/tusd-proxy.conf
 #   logging.conf               — lives in sites-available by mistake; real copy is in conf.d/logging.conf
 #   niteride.fm                — older config, superseded by niteride.fm.conf
 #   niteride.fm.conf.bak       — local backup
-#   v2.niteride.fm             — stale, not in use
+# Removed 2026-04-29 (cleanup of dead V2 frontend):
+#   v2.niteride.fm             — deleted from sites-available + cert + DNS NXDOMAIN; no callers
