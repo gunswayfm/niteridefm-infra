@@ -57,9 +57,22 @@ servers:
     repo: "https://github.com/gunswayfm/niteridefm-be"
     branch: "staging"
 
-  fe-ch2:
-    name: "FE CH2 Server"
+  ch1:
+    name: "Channel 1 Server"
+    host: "82.22.53.218"
+    user: "root"
+    ssh_key_secret: "CH1_SERVER_SSH_KEY"
+    purpose: "streaming-core CH1 — 9 services (root daemon: 7, niteride daemon: 2). Bootstrap: bootstrap/bootstrap-channel-server.sh 1"
+    repo: "https://github.com/gunswayfm/niteridefm-streaming-core"
+    env_file: "/opt/niteride/.env"
+    nginx_site: "ch1-hls.conf"
+
+  ch2:
+    name: "Channel 2 Server"
     host: "82.22.53.167"
     user: "root"
-    ssh_key_secret: "FE_CH2_SERVER_SSH_KEY"
-    purpose: "Channel 2 frontend environment"
+    ssh_key_secret: "CH2_SERVER_SSH_KEY"
+    purpose: "streaming-core CH2 — 9 services (root daemon: 7, niteride daemon: 2). Currently runs legacy cdn.niteride.fm.conf nginx; normalization to ch2-hls.conf pending separate PR. Bootstrap: bootstrap/bootstrap-channel-server.sh 2"
+    repo: "https://github.com/gunswayfm/niteridefm-streaming-core"
+    env_file: "/opt/niteride/.env"
+    nginx_site: "cdn.niteride.fm.conf"  # LEGACY — see backlog for normalization
