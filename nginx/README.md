@@ -77,6 +77,7 @@ No other server requires post-paste secret substitution at this snapshot.
 
 ## Related
 
+- [`bootstrap/README.md`](../bootstrap/README.md) — channel-server bootstrap script (provisions a new channel host from bare Ubuntu 24.04). For new channel onboarding (CH3+) or DR cold-rebuild of CH1/CH2.
 - [`~/products/niteride/projects/server-bootstrap-dr/CLAUDE.md`](~/products/niteride/projects/server-bootstrap-dr/CLAUDE.md) — full DR automation; this directory is the nginx slice.
 - [`~/products/niteride/engineering/platforms/nginx-gateway.md`](~/products/niteride/engineering/platforms/nginx-gateway.md) — web server architecture doc.
 - [`~/products/niteride/engineering/platforms/nginx-cdn-origin.md`](~/products/niteride/engineering/platforms/nginx-cdn-origin.md) — orchestration CDN origin doc.

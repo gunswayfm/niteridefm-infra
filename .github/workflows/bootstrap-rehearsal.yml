@@ -1,0 +1,107 @@
+name: Bootstrap Rehearsal
+
+# Validates that bootstrap-channel-server.sh runs cleanly on a fresh Ubuntu 24.04 runner.
+# Catches regressions in the script before they bite a real DR event.
+#
+# Triggers:
+#   - PR touching bootstrap/* (mandatory gate)
+#   - Manual via workflow_dispatch (operator can re-run any time)
+
+on:
+  pull_request:
+    paths:
+      - 'bootstrap/**'
+      - '.github/workflows/bootstrap-rehearsal.yml'
+  workflow_dispatch:
+
+jobs:
+  dry-run:
+    name: Dry-run on Ubuntu 24.04
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify Ubuntu 24.04
+        run: |
+          . /etc/os-release
+          test "$VERSION_ID" = "24.04" || { echo "Expected 24.04, got $VERSION_ID"; exit 1; }
+
+      - name: ShellCheck bootstrap scripts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y shellcheck
+          shellcheck -S warning bootstrap/bootstrap-channel-server.sh
+          shellcheck -S warning bootstrap/capture-channel-state.sh
+
+      - name: Bootstrap dry-run with synthetic .env
+        run: |
+          # Stub .env that satisfies the CHANNEL_ID consistency check
+          cat > /tmp/ch99.env <<'EOF'
+          CHANNEL_ID=99
+          NODE_ENV=production
+          REDIS_URL=redis://localhost:6379
+          DATABASE_URL=postgres://stub
+          S3_BUCKET=stub
+          SUPABASE_JWT_SECRET=stub
+          SEGMENT_SIGNING_SECRET=stub
+          EOF
+          sudo bash bootstrap/bootstrap-channel-server.sh 99 --env-file /tmp/ch99.env --dry-run
+
+      - name: Verify nginx template renders cleanly
+        run: |
+          sed 's/__CHANNEL_ID__/99/g' bootstrap/ch-hls.conf.template > /tmp/ch99-hls.conf
+          # Sanity: no unsubstituted placeholders left
+          ! grep -q '__CHANNEL_ID__' /tmp/ch99-hls.conf
+          # Channel-suffixed segment location is present
+          grep -q '/ch99-segments/' /tmp/ch99-hls.conf
+
+  full-install:
+    name: Full install on Ubuntu 24.04
+    # MUST run on hosted (ephemeral) runners only — script mutates apt, systemd, /opt/niteride.
+    # Self-hosted runners would accumulate state across runs.
+    runs-on: ubuntu-24.04
+    # Only run on workflow_dispatch — full apt install + nginx restart is expensive
+    if: github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify ffmpeg pin is currently available in apt
+        run: |
+          # Pre-check before bootstrap so we fail with a clear message if the noble apt
+          # mirror has shifted the package version (security update / ESM).
+          sudo apt-get update -qq
+          AVAILABLE=$(apt-cache madison ffmpeg | head -1 | awk '{print $3}')
+          PINNED='7:6.1.1-3ubuntu5'
+          if [[ "$AVAILABLE" != "$PINNED" ]]; then
+            echo "::error::apt offers ffmpeg=${AVAILABLE} but bootstrap pins ${PINNED}"
+            echo "::error::Update the FFMPEG_VERSION_PIN in bootstrap-channel-server.sh + invariants.md fleet-pin rule before re-running"
+            exit 1
+          fi
+
+      - name: Synthetic .env (runner-owned)
+        run: |
+          cat > /tmp/ch99.env <<'EOF'
+          CHANNEL_ID=99
+          NODE_ENV=production
+          REDIS_URL=redis://localhost:6379
+          DATABASE_URL=postgres://stub
+          SUPABASE_JWT_SECRET=stub
+          SEGMENT_SIGNING_SECRET=stub
+          EOF
+
+      - name: Run bootstrap (real install)
+        run: |
+          sudo bash bootstrap/bootstrap-channel-server.sh 99 --env-file /tmp/ch99.env
+
+      - name: Capture state and assert golden
+        run: |
+          sudo bash bootstrap/capture-channel-state.sh > /tmp/post-bootstrap-state.yaml
+          cat /tmp/post-bootstrap-state.yaml
+
+          # Assertions: niteride user/group, ownership, systemd, versions
+          grep -q 'exists: true' /tmp/post-bootstrap-state.yaml
+          grep -q 'uid_gid: "999:989"' /tmp/post-bootstrap-state.yaml
+          grep -q '/opt/niteride/data:.*niteride:niteride' /tmp/post-bootstrap-state.yaml
+          grep -q '/var/www/hls/segments:.*niteride:niteride' /tmp/post-bootstrap-state.yaml
+          grep -q 'enabled: enabled' /tmp/post-bootstrap-state.yaml
+          grep -q 'ch99-hls.conf' /tmp/post-bootstrap-state.yaml

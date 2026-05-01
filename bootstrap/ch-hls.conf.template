@@ -1,0 +1,186 @@
+server {
+    listen 80 default_server;
+    server_name _;
+
+    # Security Headers
+    include /etc/nginx/snippets/security-headers.conf;
+
+    # Gzip
+    gzip on;
+    gzip_types text/plain application/vnd.apple.mpegurl;
+    gzip_proxied any;
+
+    # =====================================================================
+    # DYNAMIC PLAYLISTS (Node.js Playlist Generator - Port 9050)
+    # =====================================================================
+    location /stream/ {
+        proxy_pass http://localhost:9050/;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Authorization $http_authorization;
+        proxy_pass_header Authorization;
+
+        proxy_cache off;
+        proxy_buffering off;
+
+        # FORCE NO-CACHE: Hide upstream headers to prevent conflicts
+        proxy_hide_header Cache-Control;
+        proxy_hide_header Expires;
+        proxy_hide_header Pragma;
+
+        add_header Cache-Control "no-cache, no-store, must-revalidate" always;
+        add_header Pragma "no-cache" always;
+        add_header Expires "0" always;
+
+        # Hide CORS headers from backend to prevent duplicates
+        proxy_hide_header Access-Control-Allow-Origin;
+        proxy_hide_header Access-Control-Allow-Methods;
+        proxy_hide_header Access-Control-Allow-Headers;
+        proxy_hide_header Access-Control-Expose-Headers;
+
+        # CORS (Dynamic Origin for Credentials Support)
+        add_header Access-Control-Allow-Origin $cors_origin always;
+        add_header Access-Control-Allow-Methods "GET, HEAD, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Range, Authorization" always;
+        add_header Access-Control-Allow-Credentials "true" always;
+        add_header Access-Control-Expose-Headers "Content-Length, Content-Range, X-Stream-Mode" always;
+        include /etc/nginx/snippets/security-headers.conf;
+
+        # Handle preflight requests
+        if ($request_method = OPTIONS) {
+            add_header Access-Control-Allow-Origin $cors_origin always;
+            add_header Access-Control-Allow-Methods "GET, HEAD, OPTIONS" always;
+            add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Range, Authorization" always;
+            add_header Access-Control-Allow-Credentials "true" always;
+            add_header Access-Control-Max-Age 3600 always;
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+
+        # Low timeouts (playlist generation should be <5ms)
+        proxy_connect_timeout 5s;
+        proxy_send_timeout 5s;
+        proxy_read_timeout 5s;
+    }
+
+    # =====================================================================
+    # CH__CHANNEL_ID__ SEGMENT URL PREFIX (maps /ch__CHANNEL_ID__-segments/ to /var/www/hls/segments/)
+    # SEGMENT_BASE_URL=/ch__CHANNEL_ID__-segments in .env — CDN routing convention
+    # =====================================================================
+    location /ch__CHANNEL_ID__-segments/ {
+        alias /var/www/hls/segments/;
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+
+        types {
+            video/mp2t ts;
+        }
+
+        add_header Cache-Control "public, max-age=30, s-maxage=60" always;
+        add_header Accept-Ranges bytes always;
+        add_header X-Content-Type-Options nosniff always;
+
+        # CORS
+        add_header Access-Control-Allow-Origin * always;
+        add_header Access-Control-Allow-Methods "GET, HEAD, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Range" always;
+        add_header Access-Control-Expose-Headers "Content-Length, Content-Range, Accept-Ranges" always;
+
+        if ($request_method = OPTIONS) {
+            add_header Access-Control-Allow-Origin "*" always;
+            add_header Access-Control-Allow-Methods "GET, HEAD, OPTIONS" always;
+            add_header Access-Control-Allow-Headers "Origin, X-Requested-With, Content-Type, Accept, Range" always;
+            add_header Access-Control-Max-Age 3600 always;
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+
+        location ~ \.(ts)$ {
+            try_files $uri =404;
+        }
+
+        location ~ /\. {
+            deny all;
+            access_log off;
+            log_not_found off;
+        }
+
+        open_file_cache max=10000 inactive=5m;
+        open_file_cache_valid 2m;
+        open_file_cache_min_uses 1;
+        open_file_cache_errors on;
+    }
+
+    # =====================================================================
+    # STATIC VIDEO SEGMENTS (VOD - Direct nginx serving)
+    # =====================================================================
+    location /segments/ {
+        alias /var/www/hls/segments/;
+
+        sendfile on;
+        tcp_nopush on;
+        tcp_nodelay on;
+
+        types {
+            video/mp2t ts;
+        }
+
+        add_header Cache-Control "public, max-age=30, s-maxage=60" always;
+        add_header Accept-Ranges bytes always;
+
+        # CORS
+        add_header Access-Control-Allow-Origin "*" always;
+        add_header Access-Control-Allow-Methods "GET, HEAD, OPTIONS" always;
+        add_header Access-Control-Allow-Headers "Range" always;
+        add_header Access-Control-Expose-Headers "Content-Length, Content-Range, Accept-Ranges" always;
+        include /etc/nginx/snippets/security-headers.conf;
+
+        if ($request_method = OPTIONS) {
+            add_header Access-Control-Allow-Origin "*" always;
+            add_header Access-Control-Allow-Methods "GET, HEAD, OPTIONS" always;
+            add_header Access-Control-Allow-Headers "Range" always;
+            add_header Access-Control-Max-Age 3600 always;
+            add_header Content-Length 0;
+            add_header Content-Type text/plain;
+            return 204;
+        }
+
+        location ~ \.(ts)$ {
+            try_files $uri =404;
+        }
+
+        location ~ /\. {
+            deny all;
+            access_log off;
+            log_not_found off;
+        }
+
+        open_file_cache max=10000 inactive=5m;
+        open_file_cache_valid 2m;
+        open_file_cache_min_uses 1;
+        open_file_cache_errors on;
+    }
+
+    # Health check
+    location /health {
+        return 200 "ok\n";
+        add_header Content-Type text/plain;
+        include /etc/nginx/snippets/security-headers.conf;
+    }
+
+    # Storage service upload (port 3006)
+    location /storage/ {
+        proxy_pass http://localhost:3006/;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
