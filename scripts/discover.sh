@@ -10,6 +10,9 @@ REPO_DIR="$(dirname "$SCRIPT_DIR")"
 DATE=$(date +%Y-%m-%d)
 
 # Get server IP by name
+# Note: ch2 (82.22.53.167) is the streaming-core CH2 channel server. The legacy
+# `fe-ch2` alias is kept for backward compatibility but `ch2` is the canonical
+# name per servers.yaml (post-2026-04-30 bootstrap PR #3 rename).
 get_server_ip() {
     case "$1" in
         web) echo "194.247.183.37" ;;
@@ -18,7 +21,8 @@ get_server_ip() {
         monitoring) echo "194.247.182.159" ;;
         fe-ppe) echo "82.22.53.147" ;;
         be-ppe) echo "82.22.53.161" ;;
-        fe-ch2) echo "82.22.53.167" ;;
+        ch1) echo "82.22.53.218" ;;
+        ch2|fe-ch2) echo "82.22.53.167" ;;
         *) echo "" ;;
     esac
 }
@@ -79,8 +83,19 @@ get_ssh_key() {
                 path="$HOME/repos/niteridefm/myKeys/niteride-be-ppe"
             fi
             ;;
-        fe-ch2)
-            if [ -n "$FE_CH2_SERVER_SSH_KEY_PATH" ]; then
+        ch1)
+            if [ -n "$CH1_SERVER_SSH_KEY_PATH" ]; then
+                path="$CH1_SERVER_SSH_KEY_PATH"
+            else
+                path="$HOME/repos/niteridefm/myKeys/niteride-fm-ch1"
+            fi
+            ;;
+        ch2|fe-ch2)
+            # FE_CH2_SERVER_SSH_KEY_PATH retained for backward compat (legacy secret name).
+            # CH2_SERVER_SSH_KEY_PATH preferred; falls back to legacy if not set.
+            if [ -n "$CH2_SERVER_SSH_KEY_PATH" ]; then
+                path="$CH2_SERVER_SSH_KEY_PATH"
+            elif [ -n "$FE_CH2_SERVER_SSH_KEY_PATH" ]; then
                 path="$FE_CH2_SERVER_SSH_KEY_PATH"
             else
                 path="$HOME/repos/niteridefm/myKeys/niteride-fm-ch2"
@@ -147,7 +162,11 @@ main() {
     echo ""
 
     if [ "$target" = "all" ]; then
-        for server in web stream grid monitoring fe-ppe be-ppe fe-ch2; do
+        # Channel servers (ch1/ch2) replaced the legacy `fe-ch2` entry — see
+        # servers.yaml. Per-server failures are non-fatal (caught by `|| echo`)
+        # so a missing GH secret on ch1 just skips that server with a warning;
+        # the rest still discover normally.
+        for server in web stream grid monitoring fe-ppe be-ppe ch1 ch2; do
             discover_server "$server" || echo "  Failed to discover $server"
             echo ""
         done

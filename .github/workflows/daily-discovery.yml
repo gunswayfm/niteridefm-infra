@@ -58,9 +58,16 @@ jobs:
           echo "${{ secrets.BE_PPE_SERVER_SSH_KEY }}" > ~/.ssh/be_ppe_key
           chmod 600 ~/.ssh/be_ppe_key
 
-          # FE CH2 Server key
-          echo "${{ secrets.FE_CH2_SERVER_SSH_KEY }}" > ~/.ssh/fe_ch2_key
-          chmod 600 ~/.ssh/fe_ch2_key
+          # CH1 Channel Server key (streaming-core CH1)
+          # NOTE: requires GH secret `CH1_SERVER_SSH_KEY` to be set. If unset,
+          # the file is empty and ch1 discovery gracefully skips per discover.sh's
+          # per-server fail-soft (`SSH key not found` warning, workflow stays green).
+          echo "${{ secrets.CH1_SERVER_SSH_KEY }}" > ~/.ssh/ch1_key
+          chmod 600 ~/.ssh/ch1_key
+
+          # CH2 Channel Server key (streaming-core CH2; legacy GH secret name `FE_CH2_SERVER_SSH_KEY`)
+          echo "${{ secrets.FE_CH2_SERVER_SSH_KEY }}" > ~/.ssh/ch2_key
+          chmod 600 ~/.ssh/ch2_key
 
           # Add known hosts to avoid prompts
           ssh-keyscan -H 194.247.183.37 >> ~/.ssh/known_hosts 2>/dev/null || true
@@ -69,6 +76,7 @@ jobs:
           ssh-keyscan -H 194.247.182.159 >> ~/.ssh/known_hosts 2>/dev/null || true
           ssh-keyscan -H 82.22.53.147 >> ~/.ssh/known_hosts 2>/dev/null || true
           ssh-keyscan -H 82.22.53.161 >> ~/.ssh/known_hosts 2>/dev/null || true
+          ssh-keyscan -H 82.22.53.218 >> ~/.ssh/known_hosts 2>/dev/null || true
           ssh-keyscan -H 82.22.53.167 >> ~/.ssh/known_hosts 2>/dev/null || true
 
       - name: Run discovery
@@ -79,7 +87,8 @@ jobs:
           MONITORING_SERVER_SSH_KEY_PATH: ~/.ssh/monitoring_key
           FE_PPE_SERVER_SSH_KEY_PATH: ~/.ssh/fe_ppe_key
           BE_PPE_SERVER_SSH_KEY_PATH: ~/.ssh/be_ppe_key
-          FE_CH2_SERVER_SSH_KEY_PATH: ~/.ssh/fe_ch2_key
+          CH1_SERVER_SSH_KEY_PATH: ~/.ssh/ch1_key
+          CH2_SERVER_SSH_KEY_PATH: ~/.ssh/ch2_key
         run: |
           chmod +x scripts/discover.sh
           chmod +x scripts/discover-server.sh
