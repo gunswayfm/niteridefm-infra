@@ -1,0 +1,81 @@
+name: gcore-whitelist-daily
+
+# Daily reconciliation of the GCore CDN whitelist against
+# https://api.gcore.com/cdn/public-ip-list. Opens a PR (NEVER auto-merge)
+# whenever the upstream list diverges from what's checked into main.
+#
+# See engineering/platforms/gcore-cdn.md and the P0 entry in
+# ~/products/niteride/engineering/backlog.md.
+
+on:
+  schedule:
+    # 06:00 UTC daily. Avoids GCore peak hours, lands before EU/US business day.
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: gcore-whitelist-daily
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run sync script (regenerate + safety-gate)
+        id: sync
+        run: |
+          set -euo pipefail
+          ./scripts/gcore-whitelist-sync.sh
+          if git diff --quiet -- crowdsec/parsers/s02-enrich/niteride-gcore-whitelist.yaml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "[ci] no diff after sync"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "[ci] diff present"
+          fi
+
+      - name: Open PR on diff
+        if: steps.sync.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/gcore-whitelist-daily-sync
+          delete-branch: true
+          base: main
+          title: "chore(gcore-whitelist): daily sync from GCore public IP list"
+          labels: |
+            REVIEW REQUIRED
+            gcore-whitelist
+          body: |
+            Automated daily sync of GCore CDN edge + shield POP IPs.
+
+            **Source**: <https://api.gcore.com/cdn/public-ip-list> (no-auth).
+
+            ## Review checklist
+            - [ ] Diff is plausible — additions look like GCore IPs (AS 199524 ranges), removals don't strip core POPs.
+            - [ ] No mass deletion (>10% drop). Safety gate already catches >10% drop, but eyeball anyway.
+            - [ ] Snapshot timestamp updated.
+
+            **Do not auto-merge.** Review + merge manually. After merge, run
+            `./scripts/sync-crowdsec-whitelist.sh <host>` against each CrowdSec
+            agent (CH1, CH2, orch, web) AND run
+            `./scripts/gcore-allowlist-sync.sh` on orch to refresh the LAPI
+            allowlist.
+
+            See engineering/platforms/gcore-cdn.md for context on why this
+            whitelist matters (2026-05-03 incident).
+          commit-message: |
+            chore(gcore-whitelist): daily sync from GCore public IP list
+
+            Automated daily sync. Review the diff before merging — see PR body.
