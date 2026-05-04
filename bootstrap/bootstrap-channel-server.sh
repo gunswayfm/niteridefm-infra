@@ -227,6 +227,34 @@ phase_dirs() {
     run "install -d -o niteride -g niteride -m 0775 /var/www/hls/segments"
 }
 
+# ---- Phase 4.5: sshd hardening drop-in ----
+# Codifies the 6-directive hardening set CH1 + CH2 carried operator-applied
+# pre-2026-05-04 (audit row #11). Drop-in form so distro sshd_config stays
+# package-managed; dpkg upgrades won't prompt for conffile resolution.
+phase_ssh() {
+    log "Phase 4.5: sshd hardening drop-in"
+
+    local repo_root src dst
+    repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    src="${repo_root}/bootstrap/sshd_config.d/99-niteride-hardening.conf"
+    dst="/etc/ssh/sshd_config.d/99-niteride-hardening.conf"
+
+    [[ -f "${src}" ]] || die "sshd hardening drop-in missing in repo at ${src}" 7
+
+    run "install -d -o root -g root -m 0755 /etc/ssh/sshd_config.d"
+    run "install -o root -g root -m 0644 '${src}' '${dst}'"
+
+    if [[ "${DRY_RUN}" -eq 1 ]]; then
+        log "  [dry-run] skipping sshd -t + reload ssh"
+        return 0
+    fi
+
+    sshd -t || die "sshd config invalid after drop-in install" 7
+    run "systemctl reload ssh"
+
+    log "  ✓ 99-niteride-hardening.conf installed; sshd reloaded"
+}
+
 # ---- Phase 5: dual PM2 systemd daemons ----
 phase_systemd() {
     log "Phase 5: pm2-root.service + pm2-niteride.service"
@@ -359,13 +387,36 @@ phase_crowdsec() {
     run "install -o root -g root -m 0644 '${src}' '${dst}'"
     run "systemctl reload crowdsec || systemctl restart crowdsec"
 
-    [[ "${DRY_RUN}" -eq 1 ]] && { log "  [dry-run] skipping cscli inspect"; return 0; }
+    [[ "${DRY_RUN}" -eq 1 ]] && { log "  [dry-run] skipping cscli ops"; return 0; }
 
     if ! cscli parsers inspect niteride/gcore-cdn-whitelist >/dev/null 2>&1; then
         die "CrowdSec did not register niteride/gcore-cdn-whitelist after reload" 6
     fi
 
     log "  ✓ niteride/gcore-cdn-whitelist registered"
+
+    # Hub collections — codifies what CH1 + CH2 had operator-installed
+    # pre-2026-05-04 (audit row #13). Without these, fresh bootstrap ships
+    # bare CrowdSec — no nginx/sshd/CVE detection scenarios. cscli install
+    # is idempotent; --force reconciles content drift if collections were
+    # touched outside the script.
+    log "  installing hub collections (idempotent)..."
+    run "cscli hub update"
+    run "cscli hub upgrade"
+    local collections=(
+        crowdsecurity/linux
+        crowdsecurity/nginx
+        crowdsecurity/sshd
+        crowdsecurity/base-http-scenarios
+        crowdsecurity/http-cve
+        crowdsecurity/whitelist-good-actors
+    )
+    for c in "${collections[@]}"; do
+        run "cscli collections install '${c}' --force"
+    done
+    run "systemctl reload crowdsec"
+
+    log "  ✓ 6 hub collections installed"
 }
 
 # ---- Phase 8: post-bootstrap validation ----
@@ -416,6 +467,41 @@ phase_validate() {
     cscli parsers inspect niteride/gcore-cdn-whitelist >/dev/null 2>&1 || \
         { warn "CrowdSec parser niteride/gcore-cdn-whitelist not registered"; fail=1; }
 
+    # CrowdSec hub collections (audit row #13)
+    local required_collections=(
+        crowdsecurity/linux
+        crowdsecurity/nginx
+        crowdsecurity/sshd
+        crowdsecurity/base-http-scenarios
+        crowdsecurity/http-cve
+        crowdsecurity/whitelist-good-actors
+    )
+    for c in "${required_collections[@]}"; do
+        cscli collections inspect "${c}" >/dev/null 2>&1 || \
+            { warn "CrowdSec collection ${c} not installed"; fail=1; }
+    done
+
+    # sshd hardening drop-in present + effective (audit row #11)
+    [[ -f /etc/ssh/sshd_config.d/99-niteride-hardening.conf ]] || \
+        { warn "sshd hardening drop-in missing"; fail=1; }
+    # Verify effective config picked up the drop-in
+    local sshd_effective
+    sshd_effective=$(sshd -T 2>/dev/null)
+    grep -q '^passwordauthentication no$' <<<"${sshd_effective}" || \
+        { warn "sshd PasswordAuthentication != no (drop-in not effective?)"; fail=1; }
+    grep -q '^permitrootlogin prohibit-password$' <<<"${sshd_effective}" || \
+        { warn "sshd PermitRootLogin != prohibit-password (drop-in not effective?)"; fail=1; }
+    grep -q '^pubkeyauthentication yes$' <<<"${sshd_effective}" || \
+        { warn "sshd PubkeyAuthentication != yes"; fail=1; }
+    grep -q '^kbdinteractiveauthentication no$' <<<"${sshd_effective}" || \
+        { warn "sshd KbdInteractiveAuthentication != no"; fail=1; }
+    grep -q '^maxauthtries 3$' <<<"${sshd_effective}" || \
+        { warn "sshd MaxAuthTries != 3"; fail=1; }
+    grep -q '^logingracetime 20$' <<<"${sshd_effective}" || \
+        { warn "sshd LoginGraceTime != 20"; fail=1; }
+    grep -q '^maxstartups 50:30:100$' <<<"${sshd_effective}" || \
+        { warn "sshd MaxStartups != 50:30:100"; fail=1; }
+
     [[ "${fail}" -eq 0 ]] || die "post-bootstrap validation FAILED" 4
 
     log "  ✓ all post-bootstrap checks pass"
@@ -454,6 +540,7 @@ log "starting (DRY_RUN=${DRY_RUN}, FORCE_REBUILD=${FORCE_REBUILD})"
 phase_preflight
 phase_apt
 phase_user
+phase_ssh
 phase_dirs
 phase_systemd
 phase_env
