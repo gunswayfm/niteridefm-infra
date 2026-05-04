@@ -1,0 +1,16 @@
+apiVersion: 1
+contactPoints:
+  - orgId: 1
+    name: niteride-discord-alerts
+    receivers:
+      - uid: niteride_discord
+        type: discord
+        settings:
+          url: $DISCORD_WEBHOOK_URL
+          message: |
+            **{{ .Status | toUpper }}**: {{ .CommonLabels.alertname }}
+            {{ range .Alerts }}{{ .Annotations.summary }}
+            Severity: {{ .Labels.severity }}
+            Triggered: {{ .StartsAt.Format "2006-01-02 15:04:05 UTC" }}
+            {{ end }}
+        disableResolveMessage: false
