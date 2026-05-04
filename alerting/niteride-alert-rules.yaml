@@ -1,0 +1,53 @@
+apiVersion: 1
+groups:
+  - orgId: 1
+    name: NiteRide-Alerts
+    folder: NiteRide
+    interval: 1m
+    rules:
+      - uid: scheduler_monitor_alert_pattern
+        title: '[ALERT] log lines in PM2'
+        condition: B
+        data:
+          - refId: A
+            queryType: instant
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: P8E80F9AEF21F6940
+            model:
+              expr: 'sum(count_over_time({job="pm2"} |~ "\\[ALERT\\]" [5m]))'
+              queryType: instant
+              refId: A
+              maxDataPoints: 43200
+              intervalMs: 1000
+          - refId: B
+            queryType: ''
+            relativeTimeRange:
+              from: 0
+              to: 0
+            datasourceUid: __expr__
+            model:
+              type: threshold
+              refId: B
+              expression: A
+              conditions:
+                - type: query
+                  evaluator:
+                    type: gt
+                    params: [0]
+                  operator:
+                    type: and
+                  query:
+                    params: [B]
+                  reducer:
+                    type: last
+        noDataState: OK
+        execErrState: Error
+        for: 0s
+        annotations:
+          summary: '[ALERT] log line(s) detected — check pm2 logs on orch (139.60.162.20)'
+          description: Alert pattern matched in pm2 logs scraped to Loki by Promtail
+        labels:
+          severity: critical
+        isPaused: false
