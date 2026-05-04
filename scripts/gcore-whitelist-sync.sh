@@ -29,7 +29,9 @@ fi
 
 PREV_COUNT=0
 if [ -f "$WHITELIST" ]; then
-    PREV_COUNT=$(grep -cE '^\s+- "[^"]+"' "$WHITELIST" || echo 0)
+    # `grep -c` always emits a count; `|| true` only suppresses the exit-1 noise
+    # when zero matches. Avoid `|| echo 0` which would append a second "0".
+    PREV_COUNT=$(grep -cE '^\s+- "[^"]+"' "$WHITELIST" || true)
 fi
 
 NEW=$(mktemp)
@@ -38,7 +40,7 @@ trap 'rm -f "$NEW"' EXIT
 echo "[sync] regenerating from GCore public-ip-list..."
 python3 "$GENERATOR" > "$NEW"
 
-NEW_COUNT=$(grep -cE '^\s+- "[^"]+"' "$NEW" || echo 0)
+NEW_COUNT=$(grep -cE '^\s+- "[^"]+"' "$NEW" || true)
 echo "[sync] previous=$PREV_COUNT  new=$NEW_COUNT"
 
 # Safety gate 1: hard floor.
