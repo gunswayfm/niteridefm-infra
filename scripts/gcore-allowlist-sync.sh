@@ -109,18 +109,13 @@ REMOVE_COUNT=$(printf "%s\n" "$REMOVE" | grep -c . || true)
 echo "[allowlist] adding $ADD_COUNT, removing $REMOVE_COUNT"
 
 if [ -n "$ADD" ]; then
-    # cscli allowlists add accepts multiple -v flags
-    while IFS= read -r v; do
-        [ -z "$v" ] && continue
-        cscli allowlists add "$ALLOWLIST_NAME" -v "$v" >/dev/null
-    done <<< "$ADD"
+    # cscli allowlists add NAME val1 val2 ... — positional values, no -v flag.
+    # Batch in chunks of 50 to keep argv length sane for large diffs.
+    printf "%s\n" "$ADD" | grep . | xargs -n 50 -r cscli allowlists add "$ALLOWLIST_NAME" >/dev/null
 fi
 
 if [ -n "$REMOVE" ]; then
-    while IFS= read -r v; do
-        [ -z "$v" ] && continue
-        cscli allowlists remove "$ALLOWLIST_NAME" -v "$v" >/dev/null
-    done <<< "$REMOVE"
+    printf "%s\n" "$REMOVE" | grep . | xargs -n 50 -r cscli allowlists remove "$ALLOWLIST_NAME" >/dev/null
 fi
 
 echo "[allowlist] sync complete"
