@@ -194,6 +194,14 @@ phase_apt() {
     if ! command -v pm2 >/dev/null 2>&1 || [[ "$(pm2 --version 2>/dev/null)" != "${PM2_VERSION}" ]]; then
         run "npm install -g pm2@${PM2_VERSION}"
     fi
+
+    # CrowdSec + cs-firewall-bouncer (defends origin from bot scans)
+    if ! command -v cscli >/dev/null 2>&1; then
+        # Bootstrap the CrowdSec apt repo (idempotent) then install.
+        # See https://docs.crowdsec.net/u/getting_started/installation
+        run "curl -fsSL https://install.crowdsec.net | bash"
+        run "apt-get install -y crowdsec crowdsec-firewall-bouncer-iptables"
+    fi
 }
 
 # ---- Phase 3: niteride user/group ----
@@ -332,6 +340,34 @@ phase_nginx() {
     run "systemctl reload nginx"
 }
 
+# ---- Phase 7.5: CrowdSec parsers (GCore CDN whitelist) ----
+# Without the GCore whitelist, bot scans flowing through cdn.niteride.fm get
+# attributed to the GCore shield POP IP — CrowdSec then bans the shield IP and
+# nukes the stream. See engineering/platforms/gcore-cdn.md (2026-05-03 P0).
+phase_crowdsec() {
+    log "Phase 7.5: CrowdSec parsers (GCore CDN whitelist)"
+
+    local repo_root src dst
+    repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+    src="${repo_root}/crowdsec/parsers/s02-enrich/niteride-gcore-whitelist.yaml"
+    dst="/etc/crowdsec/parsers/s02-enrich/niteride-gcore-whitelist.yaml"
+
+    if [[ ! -f "${src}" ]]; then
+        die "CrowdSec whitelist missing in repo at ${src}" 5
+    fi
+
+    run "install -o root -g root -m 0644 '${src}' '${dst}'"
+    run "systemctl reload crowdsec || systemctl restart crowdsec"
+
+    [[ "${DRY_RUN}" -eq 1 ]] && { log "  [dry-run] skipping cscli inspect"; return 0; }
+
+    if ! cscli parsers inspect niteride/gcore-cdn-whitelist >/dev/null 2>&1; then
+        die "CrowdSec did not register niteride/gcore-cdn-whitelist after reload" 6
+    fi
+
+    log "  ✓ niteride/gcore-cdn-whitelist registered"
+}
+
 # ---- Phase 8: post-bootstrap validation ----
 phase_validate() {
     log "Phase 8: post-bootstrap validation"
@@ -376,6 +412,10 @@ phase_validate() {
     [[ "$(stat -c '%U' /root/.pm2)"          == "root"     ]] || { warn "/root/.pm2 not root-owned"; fail=1; }
     [[ "$(stat -c '%U' /home/niteride/.pm2)" == "niteride" ]] || { warn "/home/niteride/.pm2 not niteride-owned"; fail=1; }
 
+    # CrowdSec parser present (defends origin from bot-scan-via-CDN bans)
+    cscli parsers inspect niteride/gcore-cdn-whitelist >/dev/null 2>&1 || \
+        { warn "CrowdSec parser niteride/gcore-cdn-whitelist not registered"; fail=1; }
+
     [[ "${fail}" -eq 0 ]] || die "post-bootstrap validation FAILED" 4
 
     log "  ✓ all post-bootstrap checks pass"
@@ -400,6 +440,12 @@ phase_next() {
 
     4. DNS / GCore origin pool update (if onboarding a new channel CH${CHANNEL_ID})
 
+    5. CrowdSec agent enrollment against orch's LAPI (REQUIRES OPERATOR INPUT):
+         # On orch: cscli machines add ch${CHANNEL_ID}-agent --auto > /tmp/enroll.yaml
+         # SCP /tmp/enroll.yaml to this host as /etc/crowdsec/local_api_credentials.yaml
+         # systemctl restart crowdsec
+       Verify with: cscli lapi status
+
 EOF
 }
 
@@ -412,6 +458,7 @@ phase_dirs
 phase_systemd
 phase_env
 phase_nginx
+phase_crowdsec
 phase_validate
 phase_next
 log "OK"
