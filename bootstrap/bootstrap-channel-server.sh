@@ -402,6 +402,7 @@ phase_crowdsec() {
     # touched outside the script.
     log "  installing hub collections (idempotent)..."
     run "cscli hub update"
+    run "cscli hub upgrade"
     local collections=(
         crowdsecurity/linux
         crowdsecurity/nginx
@@ -490,6 +491,16 @@ phase_validate() {
         { warn "sshd PasswordAuthentication != no (drop-in not effective?)"; fail=1; }
     grep -q '^permitrootlogin prohibit-password$' <<<"${sshd_effective}" || \
         { warn "sshd PermitRootLogin != prohibit-password (drop-in not effective?)"; fail=1; }
+    grep -q '^pubkeyauthentication yes$' <<<"${sshd_effective}" || \
+        { warn "sshd PubkeyAuthentication != yes"; fail=1; }
+    grep -q '^kbdinteractiveauthentication no$' <<<"${sshd_effective}" || \
+        { warn "sshd KbdInteractiveAuthentication != no"; fail=1; }
+    grep -q '^maxauthtries 3$' <<<"${sshd_effective}" || \
+        { warn "sshd MaxAuthTries != 3"; fail=1; }
+    grep -q '^logingracetime 20$' <<<"${sshd_effective}" || \
+        { warn "sshd LoginGraceTime != 20"; fail=1; }
+    grep -q '^maxstartups 50:30:100$' <<<"${sshd_effective}" || \
+        { warn "sshd MaxStartups != 50:30:100"; fail=1; }
 
     [[ "${fail}" -eq 0 ]] || die "post-bootstrap validation FAILED" 4
 
