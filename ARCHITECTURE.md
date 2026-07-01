@@ -1,6 +1,6 @@
 # NiteRide.FM Infrastructure Architecture
 
-*Auto-generated on 2026-06-30 07:33 UTC*
+*Auto-generated on 2026-07-01 07:45 UTC*
 
 ![Architecture Diagram](diagrams/architecture.png)
 
@@ -32,15 +32,15 @@
 | Hostname | `11471.example.is` |
 | OS | Ubuntu 24.04.3 LTS |
 | Kernel | 6.8.0-117-generic |
-| Load Average | 0.01, 0.02, 0.00 |
+| Load Average | 0.00, 0.01, 0.00 |
 
-**Memory:** 1.0 GB / 3.8 GB (26.5% used)
+**Memory:** 1014.2 MB / 3.8 GB (26.0% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 52.8 GB | 30.3 GB | 19.9 GB | 61% |
+| `/` | 52.8 GB | 30.3 GB | 19.8 GB | 61% |
 
 ### Docker Containers
 
@@ -104,9 +104,9 @@
 | Hostname | `is-vmmini` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.02, 0.02, 0.00 |
+| Load Average | 0.01, 0.03, 0.00 |
 
-**Memory:** 966.7 MB / 5.8 GB (16.4% used)
+**Memory:** 961.9 MB / 5.8 GB (16.3% used)
 
 ### Disk Usage
 
@@ -118,7 +118,7 @@
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| stream-probe | 9100 | online | 70 MB | 0% | 39 |
+| stream-probe | 9100 | online | 71 MB | 0% | 39 |
 
 ### Listening Ports
 
@@ -161,21 +161,21 @@
 | Hostname | `niteride-fe-ppe` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.14, 0.07, 0.01 |
+| Load Average | 0.00, 0.00, 0.00 |
 
-**Memory:** 931.1 MB / 5.8 GB (15.8% used)
+**Memory:** 905.8 MB / 5.8 GB (15.3% used)
 
 ### Disk Usage
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 117.0 GB | 10.4 GB | 101.7 GB | 10% |
+| `/` | 117.0 GB | 10.3 GB | 101.8 GB | 10% |
 
 ### PM2 Services
 
 | Name | Port | Status | Memory | CPU | Restarts |
 |------|------|--------|--------|-----|----------|
-| niteride-backend | 3000 | online | 96 MB | 0% | 3 |
+| niteride-backend | 3000 | online | 97 MB | 0% | 3 |
 | guide-service | 3105 | online | 82 MB | 0% | 3 |
 | identity-service | 3001 | online | 97 MB | 0% | 25 |
 | chat-service | 4000 | online | 96 MB | 0% | 3 |
@@ -213,16 +213,16 @@
 **Version:** 1.24.0 (Ubuntu)
 
 **Proxy Routes:**
+- `http://127.0.0.1:3001`
+- `https://api-ppe.niteride.fm/ch1/`
+- `https://api-ppe.niteride.fm/ch2/`
 - `http://82.22.53.161:3002`
-- `http://127.0.0.1:4000/socket.io/`
-- `https://api-ppe.niteride.fm/hls/segments/`
+- `https://api-ppe.niteride.fm/ch2-segments/`
 - `https://api-ppe.niteride.fm/uploads/`
+- `http://127.0.0.1:3000`
 - `http://127.0.0.1:4000`
 - `https://api-ppe.niteride.fm`
-- `http://127.0.0.1:3000`
-- `https://api-ppe.niteride.fm/ch2-segments/`
-- `https://api-ppe.niteride.fm/ch1/`
-- `https://api-ppe.niteride.fm/hls/`
+- `http://127.0.0.1:3105/$1`
 - *...and 3 more*
 
 ### Service Connections
@@ -237,19 +237,19 @@
 | guide-service | postgres | 5432 | data |
 | identity-service | postgres | 5432 | data |
 | chat-service | postgres | 5432 | data |
+| nginx | http://127.0.0.1:3001 | 3001 | proxy |
+| nginx | https://api-ppe.niteride.fm/ch1/ | 80 | proxy |
+| nginx | https://api-ppe.niteride.fm/ch2/ | 80 | proxy |
 | nginx | http://82.22.53.161:3002 | 3002 | proxy |
-| nginx | http://127.0.0.1:4000/socket.io/ | 4000 | proxy |
-| nginx | https://api-ppe.niteride.fm/hls/segments/ | 80 | proxy |
+| nginx | https://api-ppe.niteride.fm/ch2-segments/ | 80 | proxy |
 | nginx | https://api-ppe.niteride.fm/uploads/ | 80 | proxy |
+| nginx | http://127.0.0.1:3000 | 3000 | proxy |
 | nginx | http://127.0.0.1:4000 | 4000 | proxy |
 | nginx | https://api-ppe.niteride.fm | 80 | proxy |
-| nginx | http://127.0.0.1:3000 | 3000 | proxy |
-| nginx | https://api-ppe.niteride.fm/ch2-segments/ | 80 | proxy |
-| nginx | https://api-ppe.niteride.fm/ch1/ | 80 | proxy |
-| nginx | https://api-ppe.niteride.fm/hls/ | 80 | proxy |
 | nginx | http://127.0.0.1:3105/$1 | 3105 | proxy |
-| nginx | http://127.0.0.1:3001 | 3001 | proxy |
-| nginx | https://api-ppe.niteride.fm/ch2/ | 80 | proxy |
+| nginx | https://api-ppe.niteride.fm/hls/ | 80 | proxy |
+| nginx | https://api-ppe.niteride.fm/hls/segments/ | 80 | proxy |
+| nginx | http://127.0.0.1:4000/socket.io/ | 4000 | proxy |
 
 ### External Services
 
@@ -272,7 +272,7 @@
 | Hostname | `niteride-be-ppe` |
 | OS | Ubuntu 24.04.1 LTS |
 | Kernel | 6.8.0-39-generic |
-| Load Average | 0.07, 0.16, 0.09 |
+| Load Average | 0.01, 0.00, 0.00 |
 
 **Memory:** 1.4 GB / 5.8 GB (24.0% used)
 
@@ -280,7 +280,7 @@
 
 | Mount | Size | Used | Available | % |
 |-------|------|------|-----------|---|
-| `/` | 117.0 GB | 59.9 GB | 52.2 GB | 54% |
+| `/` | 117.0 GB | 60.0 GB | 52.1 GB | 54% |
 
 ### PM2 Services
 
@@ -288,17 +288,17 @@
 |------|------|--------|--------|-----|----------|
 | playlist-generator-ch1 | 9050 | online | 77 MB | 0% | 19 |
 | stream-guard | - | online | 76 MB | 0% | 1 |
-| stream-monitor | - | online | 75 MB | 0% | 1 |
+| stream-monitor | - | online | 76 MB | 0% | 1 |
 | cdn-prewarmer | - | online | 84 MB | 0% | 2 |
-| content-segmenter | - | online | 80 MB | 2.8% | 1 |
+| content-segmenter | - | online | 79 MB | 0% | 1 |
 | streaming-core | - | online | 96 MB | 0% | 21 |
-| admin-service | 3002 | online | 101 MB | 0% | 30 |
+| admin-service | 3002 | online | 100 MB | 2.9% | 30 |
 | storage-service | - | online | 85 MB | 0% | 2 |
-| rtmp-receiver | - | online | 82 MB | 0% | 1 |
+| rtmp-receiver | - | online | 81 MB | 0% | 1 |
 | live-controller | - | online | 72 MB | 0% | 1 |
 | playlist-generator-ch2 | 9050 | online | 71 MB | 0% | 6 |
-| streaming-core-ch2 | - | online | 98 MB | 0% | 6 |
-| streaming-core-ch1 | - | online | 98 MB | 0% | 1 |
+| streaming-core-ch2 | - | online | 97 MB | 0% | 6 |
+| streaming-core-ch1 | - | online | 97 MB | 0% | 1 |
 
 ### Listening Ports
 
